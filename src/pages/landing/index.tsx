@@ -1,11 +1,9 @@
 import "./Hero.css";
 import React, { useEffect, useState } from "react";
-// Remove useNavigate import since we'll use window.location directly
-// import { useNavigate } from "react-router-dom";
 
 import SectionWrapper from "@/components-global/section-divider";
 
-import NewspaperAbout from "./components/NewspaperAbout";
+// Remove the unused import:
 import ClubsSection from "./components/clubs-24";
 import EventSection from "./components/events";
 import FooterSection from "./components/footer";

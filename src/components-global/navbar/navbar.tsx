@@ -31,7 +31,8 @@ const links = [
 function Navigation() {
   const [toggleMobileNav, setToggleMobileNav] = useState(false);
   const mobileNavContainerRef = useRef<HTMLDivElement>(null);
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  // Fix: Use currentPath in the component by removing the unused setState
+  const currentPath = window.location.pathname;
 
   // Handle navigation with page refresh
   const handleNavigation = (href: string, e: React.MouseEvent) => {

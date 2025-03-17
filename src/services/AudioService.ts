@@ -3,7 +3,6 @@
  */
 class AudioService {
   private audio: HTMLAudioElement | null = null;
-  private audioSrc: string = '';
   private isInitialized: boolean = false;
   private attemptInterval: NodeJS.Timeout | null = null;
   
@@ -23,8 +22,6 @@ class AudioService {
       localStorage.removeItem('audioInitialized');
     }
 
-    this.audioSrc = audioSrc;
-    
     // Create audio with both inline and API methods for maximum compatibility
     this.audio = new Audio(audioSrc);
     
