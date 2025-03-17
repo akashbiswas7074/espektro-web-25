@@ -1,0 +1,38 @@
+@mixin flex-container($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+.artist__main__container {
+
+    .artist__text__container {
+        width: 100%;
+        @include flex-container(row, center, center);
+    }
+
+    .artist__inner__container {
+        border: 1px solid red;
+
+        .artist__section__one {
+            @include flex-container(row, center, center);
+
+            &>div:nth-child(1) {
+                width: 50%;
+                padding: 0 20px;
+            }
+
+        }
+
+        .artist__section__two {
+            @include flex-container(row-reverse, center, center);
+
+            &>div:nth-child(1) {
+                width: 50%;
+                padding: 0 20px;
+            }
+        }
+    }
+
+}

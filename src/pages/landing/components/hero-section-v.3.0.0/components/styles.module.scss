@@ -1,0 +1,94 @@
+@import '../../../../../styles/colors';
+@import '../../../../../styles/breakpoints';
+.currentYear__Link {
+  --link-width: 10rem;
+  --link-height: 3rem;
+  --segment-width: 2rem;
+  --background-translate: 0px;
+  --coming-soon-link-background: white;
+  text-decoration: none;
+  color: black;
+  position: relative;
+  height: var(--link-height);
+  width: var(--link-width);
+  border: none;
+  padding: 1.5rem 0;
+  @include max-media(425px) {
+    --link-width: 8rem;
+    --segment-width: 1.5rem;
+    --link-height: 2.75rem;
+    padding: 1.25rem 0;
+  }
+  @include max-media(320px) {
+    --link-width: 7rem;
+    --segment-width: 1.25rem;
+    --link-height: 2.5rem;
+  }
+  & > p {
+    // background-color: red;
+    width: min-content;
+    white-space: nowrap;
+    z-index: 5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--coming-soon-link-color);
+    @include max-media(475px) {
+      font-size: 1.1rem;
+    }
+    @include max-media(320px) {
+      font-size: 1rem;
+    }
+  }
+  .currentYear__Link__background {
+    position: absolute;
+    inset: 0;
+    background-color: var(--coming-soon-link-background);
+    z-index: 3;
+    transform: translate(var(--background-translate), 0) skew(-35deg);
+    & > div {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      & > div:first-child {
+        position: absolute;
+        width: var(--segment-width);
+        height: 100%;
+        top: 0;
+        left: 100%;
+        background-color: var(--coming-soon-link-background);
+      }
+      & > div:last-child {
+        position: absolute;
+        width: var(--segment-width);
+        height: 100%;
+        top: 0;
+        right: 100%;
+        background-color: var(--coming-soon-link-background);
+        z-index: 10;
+        margin-right: -1px;
+      }
+
+      & > div:nth-child(2) {
+        position: absolute;
+        width: var(--segment-width);
+        height: 100%;
+        top: 0;
+        right: calc(100% + var(--segment-width));
+        background-color: var(--coming-soon-link-background);
+        z-index: 11;
+        // transform: translate(calc(-1 * var(--segment-width)));
+        opacity: 1;
+        margin-right: -1px;
+      }
+    }
+  }
+}

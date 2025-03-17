@@ -1,0 +1,59 @@
+@import '../../../src/styles/colors';
+@import '../../../src/styles/breakpoints';
+@mixin media($bp: 0) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+div.animated__heading__container {
+  --primary-font-size-solid: 3.5rem;
+  --secondary-font-size-outlined: 4.5rem;
+  --primary-font-color: #{$light};
+  width: 100%;
+  height: 5rem;
+  position: relative;
+  user-select: none;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 6rem;
+
+  @include max-media($bp: 480px) {
+    margin-bottom: 4rem;
+  }
+  & > div:first-child {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > h1.animated__heading__container__filled__text {
+      font-family: medieval;
+      font-weight: 700;
+      color: var(--primary-font-color);
+      width: min-content;
+      transform: translate(-30px, 0);
+      font-size: var(--primary-font-size-solid);
+    }
+  }
+  & > div:last-child {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    z-index: 14;
+    display: flex;
+    justify-content: center;
+    // align-items: flex-start;
+    & > h1.animated__heading__container__outlined__text {
+      font-family: medieval;
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 2px;
+      -webkit-text-stroke-color: $secondary;
+      width: min-content;
+      font-size: var(--secondary-font-size-outlined);
+      filter: brightness(1.25);
+    }
+  }
+}

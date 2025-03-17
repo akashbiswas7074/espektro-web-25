@@ -1,0 +1,47 @@
+.cloud-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  --cloud-opacity: 0.15;
+  --cloud-speed-1: 110s;
+  --cloud-speed-2: 100s;
+}
+
+.cloud-background::before,
+.cloud-background::after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 50%;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.cloud-background::before {
+  top: 0;
+  left: 0;
+  background-image: url('https://github.com/joshuaward/codepen-images/blob/master/clouds-left.png?raw=true');
+  animation: clouds1 var(--cloud-speed-1) linear infinite;
+  opacity: var(--cloud-opacity);
+}
+
+.cloud-background::after {
+  bottom: 0;
+  left: 0;
+  background-image: url('https://github.com/joshuaward/codepen-images/blob/master/clouds-right.png?raw=true');
+  animation: clouds2 var(--cloud-speed-2) linear infinite;
+  opacity: var(--cloud-opacity);
+}
+
+@keyframes clouds1 {
+  to { background-position: 200%; }
+}
+
+@keyframes clouds2 {
+  to { background-position: -200%; }
+}

@@ -1,0 +1,36 @@
+.preload {
+  transition: opacity 1s, transform 1s;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2e8c9; /* Paper color */
+  color: white;
+}
+
+.back {
+  overflow: hidden;
+  height: 100vh;
+  background-color: #f2e8c9; /* Paper color */
+  /* background-image: url('/images/paper-texture.png'); */
+  background-blend-mode: multiply;
+  position: relative;
+}
+
+.back::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg, 
+      rgba(122, 84, 45, 0.02) 0px, 
+      rgba(122, 84, 45, 0.02) 1px, 
+      transparent 1px, 
+      transparent 2px
+    );
+  pointer-events: none;
+}

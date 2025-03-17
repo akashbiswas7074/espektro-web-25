@@ -1,0 +1,32 @@
+
+@import '../../../../../styles/colors';
+
+.navbar_container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    height: min-content;
+    width: 100%; 
+    position: fixed;
+    top: 0;
+    border-radius: 0.5rem;
+    background-color: $primary;
+    color: $light;
+    z-index : 20;
+
+
+    border-width: 2px;
+    border-color: $action;
+    border-style: solid;
+
+    & > span:nth-last-child(n):hover {
+        cursor: pointer;
+    };
+
+    & > span > a {
+        text-decoration: none;
+        color: $light;
+    }
+}

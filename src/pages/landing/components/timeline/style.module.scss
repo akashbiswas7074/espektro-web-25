@@ -1,0 +1,347 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/breakpoints';
+.timeline__section__wrapper {
+  width: 100%;
+  background-color: $primary;
+  padding-top: 5rem;
+  @include max-media($bp: 480px) {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+}
+.timeline_main_section {
+  width: 100%;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  // gap: var(--gap);
+  position: relative;
+  overflow: hidden;
+  & > .timeline_text_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    width: min-content;
+    padding: 0.5rem;
+    font-size: 2.5rem;
+    color: $primary;
+    font-weight: 600;
+
+    // border: 2px solid red;
+  }
+
+  & > .timeline_section {
+    --gap: 8rem;
+
+    // border: 2px solid red;
+    width: 100%;
+    height: max-content;
+    margin-top: 1rem;
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 1rem;
+
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, minmax(14rem, min-content));
+    // grid-auto-rows: minmax(10rem, max-content);
+
+    & > .event_container {
+      border: 0.1rem solid $action_dark;
+      position: relative;
+
+      width: 80%;
+      height: 10rem;
+      border-radius: 0.5rem;
+      padding: 1rem;
+
+      & > .main_event {
+        // border: 2px solid red;
+
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        flex-direction: column;
+        color: $primary;
+
+        & > .event_name_con {
+          font-weight: 600;
+          color: $primary;
+          align-self: flex-end;
+          padding: 0 0.5rem;
+        }
+
+        & > .event_desc_con {
+          // border: 2px solid red;
+          width: 80%;
+          align-self: flex-end;
+        }
+
+        & > .event_timing_con {
+          padding: 0.5rem;
+          width: 100%;
+          --dateH: 3rem;
+          height: var(--dateH);
+          margin-inline: calc(1 * -1);
+
+          text-align: center;
+          background-color: $primary;
+
+          color: white;
+          font-size: 0.8rem;
+          font-weight: 700;
+
+          display: grid;
+          place-content: center;
+          position: relative;
+
+          border-radius: calc(var(--dateH) / 2) 0 0 calc(var(--dateH) / 2);
+        }
+
+        & > .event_timing_con::before {
+          content: '';
+          width: 2rem;
+          aspect-ratio: 1;
+          background: $primary;
+          background-image: linear-gradient(
+            rgba(0, 0, 0, 0.2) 100%,
+            transparent
+          );
+          position: absolute;
+          top: 100%;
+          right: 0;
+          z-index: -10;
+          clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+      }
+    }
+
+    & > .event_container:nth-child(2n) {
+      // background-color: $primary;
+      transform: translate(15%, 0);
+
+      & > .main_event > .event_timing_con {
+        align-self: last baseline;
+        border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
+      }
+
+      & > .main_event > .event_timing_con::before {
+        left: 0;
+        z-index: -10;
+        top: 100%;
+        clip-path: polygon(0 0, 100% 100%, 100% 0);
+      }
+    }
+
+    & > .event_container::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      border: solid red;
+    }
+
+    & > .event_container:nth-child(2n)::before {
+      content: '';
+      position: absolute;
+      right: -1.5rem;
+      top: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
+      bottom: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
+      border-width: 0.2rem 0.2rem 0.2rem 0;
+      border-radius: 0 2rem 2rem 0;
+      border-color: $primary;
+    }
+
+    & > .event_container:nth-child(2n + 1)::after {
+      content: '';
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      background-color: $light;
+      border-width: 0.2rem;
+      border-radius: 50%;
+      border-color: $action_dark;
+      left: -2.4rem;
+      top: 2rem;
+      // top: 50%;s
+      // left: -7%;
+      // transform: translate(-50%, -50%);
+    }
+
+    & > .event_container:nth-child(2n)::after {
+      content: '';
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      border-width: 0.2rem;
+      border-color: $primary;
+      position: absolute;
+      top: 2rem;
+      right: -2.4rem;
+      background-color: white;
+    }
+
+    & > .event_container:nth-child(2n + 1) {
+      transform: translate(15%, 0%);
+      color: $primary;
+
+      & > .main_event > .event_name_con {
+        align-self: flex-start;
+      }
+
+      & .main_event > .event_desc_con {
+        align-self: flex-start;
+        text-align: left;
+      }
+    }
+
+    & > .event_container:first-child::before {
+      border-top: 0;
+      border-top-left-radius: 0;
+    }
+
+    & > .event_container:last-child:nth-child(2n + 1)::before {
+      border-bottom: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    & > .event_container:last-child:nth-child(2n)::before {
+      border-bottom: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    & > .event_container:nth-child(2n + 1)::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      // top: -5rem;
+      // bottom: -6.77rem;
+      top: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
+      bottom: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
+      border-width: 0.2rem 0 0.2rem 0.2rem;
+      border-radius: 2rem 0 0 2rem;
+      border-color: $primary;
+    }
+  }
+
+  @include mobile {
+    .timeline_section {
+      width: 100%;
+      height: max-content;
+      padding: 1rem;
+      margin-top: 5rem;
+
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(5, 18rem);
+
+      & > .event_container {
+        width: 80%;
+        height: 10rem;
+        border-radius: 0.5rem;
+        padding: 1rem;
+
+        & > .main_event {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          & > .event_desc_con {
+            color: $primary;
+            padding: 0.5rem 1rem;
+          }
+        }
+      }
+
+      // &>.event_container:nth-child(2n)::after {
+      //     content: '';
+      //     width: 40rem;
+      //     height: 2rem;
+      //     border-color: $primary;
+      //     position: absolute;
+      //     top: 2.5rem;
+      //     right: -2.4rem;
+      //     background-color: red;
+      // }
+
+      & > .event_container:nth-child(2n) {
+        transform: translate(20%, 5%);
+      }
+
+      & > .event_container:nth-child(2n)::before {
+        content: '';
+        position: absolute;
+        width: 0.2rem;
+        height: 12%;
+        left: 50%;
+        top: 3%;
+        transform: translate(0, -110%);
+      }
+
+      & > .event_container:nth-child(2n)::after {
+        content: '';
+        position: absolute;
+        width: 70%;
+        height: 0.2rem;
+        border-radius: 0;
+        border-width: 0;
+        background-color: $primary;
+        // border-width: 0.1rem;
+        left: 50%;
+        top: 0.3rem;
+        transform: translate(-100%, -650%);
+      }
+
+      & > .event_container:nth-child(2n + 1) {
+        transform: translate(10%, 150%);
+      }
+
+      & > .event_container:nth-child(2n + 1)::before {
+        content: '';
+        position: absolute;
+        width: 0.2rem;
+        height: 12%;
+        left: 50%;
+        top: 3%;
+        transform: translate(0, -110%);
+      }
+
+      & > .event_container:nth-child(2n + 1)::after {
+        position: absolute;
+        width: 66%;
+        height: 0.2rem;
+        border-width: 0;
+        border-radius: 0;
+        border-color: $primary;
+        background-color: $primary;
+        top: -1rem;
+        left: 50%;
+      }
+    }
+
+    .timeline_section::before {
+      content: '';
+      position: absolute;
+      width: 0.2rem;
+      height: 100%;
+      top: 8%;
+      left: 50%;
+      background-color: $primary;
+    }
+
+    .timeline_section::after {
+      content: '';
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      top: 0%;
+      left: calc(50% + 0.5rem);
+      top: 10%;
+      background-color: $secondary;
+    }
+  }
+}

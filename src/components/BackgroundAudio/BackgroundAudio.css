@@ -1,0 +1,87 @@
+.background-audio-container {
+  position: fixed;
+  bottom: 30px;        /* Changed from top to bottom */
+  right: 30px;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+}
+
+.audio-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;        /* Made slightly larger */
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Active (unmuted) state */
+.audio-control-button.active {
+  background-color: rgba(40, 167, 69, 0.9);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+}
+
+.audio-control-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.audio-control-button.active:hover {
+  background-color: rgba(40, 167, 69, 0.9);
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.6);
+}
+
+.volume-slider {
+  width: 0;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 10px;
+  transition: width 0.3s ease;
+}
+
+.audio-control-button:hover + .volume-slider,
+.volume-slider:hover {
+  width: 100px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Make button more visible on mobile */
+@media (max-width: 768px) {
+  .background-audio-container {
+    bottom: 20px;     /* Adjusted for mobile */
+    right: 20px;
+  }
+  
+  .audio-control-button {
+    width: 45px;
+    height: 45px;
+  }
+}

@@ -1,0 +1,116 @@
+:root {
+  --brown: #615349;
+  --paper: #e6ddd0;
+}
+
+.map-hero-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 40;
+  background-color: #161816;
+  overflow: hidden;
+}
+
+.map-base {
+  width: 100%;
+  height: 100%;
+  background-color: var(--paper);
+  background-image: url("https://res.cloudinary.com/dlrlet9fg/image/upload/v1742206116/map_kgec_hp_u0e50f.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  opacity: 0.9;
+}
+
+.center-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.center-content.visible {
+  opacity: 1;
+}
+
+.logo-container {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.espektro-title {
+  font-size: 6rem;
+  font-family: "Lobster Two", cursive;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5),
+               0 0 20px rgba(255, 255, 255, 0.3);
+  letter-spacing: 4px;
+}
+
+.espektro-tagline {
+  font-size: 2rem;
+  font-family: "Satisfy", cursive;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.float-button {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.5rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: floatButton 4s ease-in-out infinite;
+}
+
+.float-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes floatButton {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .espektro-title {
+    font-size: 3.5rem;
+  }
+  
+  .espektro-tagline {
+    font-size: 1.5rem;
+  }
+  
+  .float-button {
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+  }
+}

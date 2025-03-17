@@ -1,0 +1,141 @@
+@import '../../../../styles/colors';
+
+@mixin media($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+.main_hero_section {
+  --heading-font-size: 3.75rem;
+  --espektro-logo-width: 12rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $primary;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+
+  &>div.main_hero_section__background__image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+
+    &>img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      // filter: brightness(0.5);
+      filter: blur(1px) grayscale(0.5);
+    }
+  }
+
+  &>div.main_hero_section__content__container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    //   background-color: rgba(255, 255, 0, 0.196);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem 2rem 3rem 2rem;
+    gap: 2rem;
+
+    &>div {
+      flex: 1 1 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &>div.hero__section__logo__container {
+      width: var(--espektro-logo-width);
+
+      // margin: 2rem 0;
+      @include media(768px) {
+        --espektro-logo-width: 10rem;
+      }
+
+      @include media(480px) {
+        --espektro-logo-width: 7.5rem;
+      }
+    }
+
+    &>div.hero__section__heading__container {
+      width: 100%;
+      height: 5rem;
+      position: relative;
+
+      @include media(768px) {
+        height: 3rem;
+        --heading-font-size: 3rem;
+      }
+
+      @include media(480px) {
+        --heading-font-size: 2.5rem;
+      }
+
+      @include media(375px) {
+        --heading-font-size: 2.25rem;
+      }
+
+      &>div:first-child {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 15;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &>h1.main_hero_section__filled__text {
+          font-size: var(--heading-font-size);
+          font-family: medieval;
+          font-weight: 700;
+          color: $light;
+          width: min-content;
+          transform: translateX(-2rem);
+
+          @include media(768px) {
+            transform: translateX(-1rem);
+          }
+        }
+      }
+
+      &>div:last-child {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 14;
+        transform: translate(0%, 30px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &>h1.main_hero_section__outlined__text {
+          font-size: var(--heading-font-size);
+          font-family: medieval;
+          font-weight: 700;
+          color: transparent;
+          -webkit-text-stroke: 1px;
+          -webkit-text-stroke-color: $light;
+          transform: translateX(2rem);
+          width: min-content;
+
+          @include media(768px) {
+            transform: translateX(1rem);
+          }
+        }
+      }
+    }
+  }
+}
+
+.espektro__countdown {
+  width: 100%;
+}

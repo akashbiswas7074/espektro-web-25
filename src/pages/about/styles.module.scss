@@ -1,0 +1,610 @@
+@import '../../default.scss';
+
+// Color Palette - Updated for old paper theme
+$paper-color: #f2e8c9;
+$paper-dark: #e0d4b4;
+$paper-shadow: #d5c5a1;
+$text-color: #392f1c;
+$accent-color-1: #8b4513; // Saddle brown
+$accent-color-2: #654321; // Dark brown
+$accent-color-3: #a0522d; // Sienna
+$accent-color-4: #cd853f; // Peru
+$dark-color: #2c2417;
+$light-color: #fdfbf1;
+$gradient-primary: linear-gradient(135deg, $accent-color-1, $accent-color-2);
+$gradient-secondary: linear-gradient(135deg, $accent-color-3, $accent-color-4);
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$wide: 1440px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: $mobile) { @content; }
+  }
+  @else if $breakpoint == tablet {
+    @media (max-width: $tablet) { @content; }
+  }
+  @else if $breakpoint == desktop {
+    @media (max-width: $desktop) { @content; }
+  }
+  @else if $breakpoint == wide {
+    @media (min-width: $wide) { @content; }
+  }
+}
+
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// Paper texture mixin
+@mixin paper-texture {
+  background-color: $paper-color;
+  background-image: url('/images/paper-texture.png');
+  background-blend-mode: multiply;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        45deg, 
+        rgba(122, 84, 45, 0.01) 0px, 
+        rgba(122, 84, 45, 0.01) 1px, 
+        transparent 1px, 
+        transparent 2px
+      );
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+}
+
+.aboutContainer {
+  color: $text-color;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  overflow-x: hidden;
+  @include paper-texture;
+  
+  * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @include respond-to(mobile) {
+    padding: 0 15px;
+  }
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: $accent-color-1;
+  border-bottom: 2px solid $paper-shadow;
+  padding-bottom: 0.5rem;
+  
+  @include respond-to(tablet) {
+    font-size: 2rem;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Hero Section
+.heroSection {
+  height: 70vh;
+  min-height: 500px;
+  background: $paper-dark url('/images/about/hero-bg.jpg') center/cover no-repeat;
+  background-blend-mode: multiply;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 0 20px;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba($paper-color, 0.6), rgba($paper-dark, 0.8));
+    z-index: 1;
+  }
+  
+  @include respond-to(mobile) {
+    height: 50vh;
+    min-height: 400px;
+  }
+}
+
+.heroTitle {
+  font-size: 4.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $accent-color-1;
+  text-shadow: 2px 2px 4px rgba($paper-shadow, 0.7);
+  
+  @include respond-to(tablet) {
+    font-size: 3.5rem;
+  }
+  
+  @include respond-to(mobile) {
+    font-size: 2.5rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  color: $dark-color;
+  
+  @include respond-to(mobile) {
+    font-size: 1.2rem;
+  }
+}
+
+// About Section
+.aboutSection {
+  padding: 5rem 0;
+  background-color: $paper-color;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        -45deg, 
+        rgba(122, 84, 45, 0.015) 0px, 
+        rgba(122, 84, 45, 0.015) 1px, 
+        transparent 1px, 
+        transparent 2px
+      );
+    pointer-events: none;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.aboutContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.aboutText {
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: $text-color;
+    
+    @include respond-to(mobile) {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.aboutImageContainer {
+  height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba($paper-shadow, 0.8);
+  border: 8px solid $light-color;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($paper-color, 0.2);
+    pointer-events: none;
+  }
+  
+  @include respond-to(mobile) {
+    height: 300px;
+  }
+}
+
+.aboutImage {
+  width: 100%;
+  height: 100%;
+  background: url('/images/about/about-img.jpg') center/cover no-repeat;
+  transition: transform 0.5s ease;
+  filter: sepia(30%);
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Vision Section
+.visionSection {
+  padding: 5rem 0;
+  background-color: $paper-dark;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $gradient-primary;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.visionContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visionCard {
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: $light-color;
+  box-shadow: 0 10px 30px rgba($paper-shadow, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid $paper-shadow;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba($paper-shadow, 0.8);
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: $accent-color-1;
+    border-bottom: 1px solid $paper-shadow;
+    padding-bottom: 0.5rem;
+    
+    @include respond-to(mobile) {
+      font-size: 1.3rem;
+    }
+  }
+  
+  p {
+    line-height: 1.6;
+    color: $text-color;
+    
+    @include respond-to(mobile) {
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// Team Section
+.teamSection {
+  padding: 5rem 0;
+  background-color: $paper-color;
+  background-image: url('/images/paper-texture.png');
+  background-blend-mode: multiply;
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2.5rem;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.teamMember {
+  text-align: center;
+  
+  h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.3rem;
+    color: $accent-color-2;
+    
+    @include respond-to(mobile) {
+      font-size: 1.2rem;
+    }
+  }
+  
+  p {
+    color: $text-color;
+    font-size: 1rem;
+    font-style: italic;
+  }
+}
+
+.memberImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background-color: $light-color;
+  box-shadow: 0 10px 20px rgba($paper-shadow, 0.5);
+  position: relative;
+  overflow: hidden;
+  border: 5px solid $light-color;
+  filter: sepia(20%);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba($paper-color, 0.2), rgba($paper-dark, 0.2));
+  }
+}
+
+// Timeline Section
+.timelineSection {
+  padding: 5rem 0;
+  background-color: $paper-dark;
+  position: relative;
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.timeline {
+  position: relative;
+  padding: 2rem 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: $accent-color-2;
+    transform: translateX(-50%);
+    
+    @include respond-to(tablet) {
+      left: 30px;
+    }
+  }
+}
+
+.timelineItem {
+  margin-bottom: 3rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  @include respond-to(tablet) {
+    justify-content: flex-start;
+    padding-left: 60px;
+  }
+}
+
+.timelineYear {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: $accent-color-3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: $light-color;
+  flex-shrink: 0;
+  z-index: 2;
+  box-shadow: 0 8px 20px rgba($paper-shadow, 0.4);
+  border: 4px solid $light-color;
+  
+  @include respond-to(tablet) {
+    width: 60px;
+    height: 60px;
+    font-size: 1.1rem;
+    position: absolute;
+    left: 0;
+  }
+}
+
+.timelineContent {
+  width: 40%;
+  padding: 1.5rem;
+  background: $light-color;
+  border-radius: 8px;
+  margin: 0 2rem;
+  box-shadow: 0 8px 20px rgba($paper-shadow, 0.4);
+  border: 1px solid $paper-shadow;
+  
+  @include respond-to(tablet) {
+    width: 100%;
+    margin: 0;
+  }
+  
+  h3 {
+    margin-bottom: 0.5rem;
+    color: $accent-color-1;
+    font-size: 1.3rem;
+    border-bottom: 1px solid $paper-shadow;
+    padding-bottom: 0.3rem;
+    
+    @include respond-to(mobile) {
+      font-size: 1.1rem;
+    }
+  }
+  
+  p {
+    line-height: 1.6;
+    color: $text-color;
+  }
+}
+
+// Contact Section
+.contactSection {
+  padding: 5rem 0;
+  background-color: $paper-color;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        45deg, 
+        rgba(122, 84, 45, 0.02) 0px, 
+        rgba(122, 84, 45, 0.02) 1px, 
+        transparent 1px, 
+        transparent 2px
+      );
+    pointer-events: none;
+  }
+  
+  @include respond-to(mobile) {
+    padding: 3rem 0;
+  }
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  
+  @include respond-to(tablet) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.contactInfo {
+  display: grid;
+  gap: 1.5rem;
+  background-color: $light-color;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba($paper-shadow, 0.3);
+  border: 1px solid $paper-shadow;
+}
+
+.contactItem {
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: $accent-color-1;
+    border-bottom: 1px dashed $paper-shadow;
+    padding-bottom: 0.3rem;
+    display: inline-block;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: $text-color;
+  }
+}
+
+.socialLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.socialLink {
+  padding: 0.8rem 1.5rem;
+  background: $light-color;
+  border: 2px solid $accent-color-2;
+  border-radius: 30px;
+  color: $accent-color-2;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: $accent-color-2;
+    border-color: $accent-color-2;
+    color: $light-color;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($paper-shadow, 0.4);
+  }
+}
+
+// Create placeholder images
+.aboutContainer::after {
+  content: '';
+  display: none;
+  // Preload images to use as background
+  background-image:
+    url('/images/about/hero-bg.jpg'),
+    url('/images/about/about-img.jpg');
+}

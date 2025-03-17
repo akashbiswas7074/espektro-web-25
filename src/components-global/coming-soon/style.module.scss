@@ -1,0 +1,136 @@
+@import '../../styles/colors';
+@mixin media($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+.comingsoon__article {
+  // whole component specific
+  --section-background-color: #{$light};
+  --acent-color: #{$secondary};
+  --text-color: #{$primary};
+  --dot-color: #{$action};
+  // loading atom and dot specific
+  --baseline: 35px;
+  --atom-size: calc(var(--baseline) * 4);
+  --dot-size: var(--baseline);
+  //   --atom-stroke: #{calc(var(--baseline) * var(--stroke-multiple))};
+  --atom-stroke: 30px;
+  --dot-revolution-radius: calc(var(--baseline) * 0.6);
+  --atom-color: var(--acent-color);
+  --no-revolution: 4;
+  --transition-duration: 1.2s;
+  --transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  --atom-rotation: 45deg;
+  --text-font-size: 1.5rem;
+
+  background-color: var(--section-background-color);
+  width: 100vw;
+  height: calc(
+    1.414 * var(--atom-size) + var(--dot-size) + var(--dot-revolution-radius)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  @include media(768px) {
+    --baseline: 28px;
+    --atom-stroke: 25px;
+  }
+  @include media(320px) {
+    --baseline: 22px;
+    --atom-stroke: 20px;
+  }
+
+  & > .loading__wrapper {
+    height: var(--atom-size);
+    aspect-ratio: 1/1;
+    position: relative;
+
+    & .atom {
+      position: absolute;
+      width: var(--atom-size);
+      height: 100%;
+      inset: 0;
+      border: var(--atom-stroke) solid var(--atom-color);
+      border-radius: 50%;
+    }
+
+    & .dot {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      animation: revolution
+        calc(var(--transition-duration) * var(--no-revolution)) linear infinite;
+      & > div {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      //   dot resolving around
+      & > div::after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--dot-revolution-radius));
+        left: 0;
+        width: var(--dot-size);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: var(--dot-color);
+        animation: election_motion var(--transition-duration) ease-in-out
+          infinite;
+      }
+    }
+
+    & .text {
+      color: var(--text-color);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      // text-wrap: nowrap;
+      white-space: nowrap;
+      background-color: var(--section-background-color);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bolder;
+      //   letter-spacing: 0.1ch;
+      height: min-content;
+      font-size: 1.75rem;
+      @include media(768px) {
+        font-size: 1.5rem;
+      }
+      @include media(320px) {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@keyframes revolution {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes election_motion {
+  50% {
+    top: calc(calc(var(--atom-size) + var(--atom-stroke)) * 0.85);
+  }
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(1.2);
+  }
+}

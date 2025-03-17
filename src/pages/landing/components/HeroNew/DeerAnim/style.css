@@ -1,0 +1,210 @@
+body {
+  
+}
+
+.entire {
+  height: 350px;
+  position: relative;
+  width: 735px;
+/*   border: 2px solid black; */
+  overflow: hidden;
+  background-color: #c8ecee;
+  background: linear-gradient(to bottom, #b7eaff 0%,#94dfff 100%);
+  margin: 50px auto;
+}
+
+.grass,
+.forest-front,
+.forest-second,
+.forest-bottom {
+  position: absolute;
+  bottom: 0;
+  width: 1470px;
+  animation-name: grass;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  
+}
+
+.forest-bottom {
+  height: 426px;
+/*   width: 4196px; */
+  background-image: url(https://s31.postimg.cc/pcnqyykzv/forest-bottom.png);
+  background-size: 735px 426px;
+  animation-duration: 30s;
+  
+}
+
+.forest-second {
+  background-image: url(https://s31.postimg.cc/mjujepffv/forest-second.png);
+  background-size: 735px 102px;
+  height: 102px;
+  animation-duration: 22s;
+  bottom: 0px;
+}
+
+.grass {
+  height: 20px;
+  background-image: url(https://s31.postimg.cc/px2s1t6kb/grass.png);
+  background-size: 735px 20px;
+  z-index: 2;
+}
+
+.forest-front {
+  height: 83px;
+  background-image: url(https://s31.postimg.cc/hu4lq9grf/forest-front.png);
+  background-size: 735px 83px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+@keyframes grass {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+.bleg_1,
+.bleg_2,
+.fleg_1,
+.fleg_2,
+.tail,
+.head {
+  transform-box: fill-box;
+}
+
+.bleg_1 {
+  transform-origin: 0% 0%;
+  animation-name: leg;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.bleg_2 {
+  transform-origin: 0% 0%;
+  animation-name: leg2;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.5s;
+}
+
+.fleg_1 {
+  transform-origin: 1% 1%;
+  animation-name: leg;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.fleg_2 {
+  transform-origin: 0% 0%;
+  animation-name: leg2;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-delay: 0.5s;
+}
+
+.tail {
+  transform-origin: 0% 0%;
+  animation-name: tail;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.head {
+  transform-origin: 50% 95%;
+  animation-name: head;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.body {
+  transform-origin: 50% 50%;
+  animation-name: body;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+
+
+@keyframes leg {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(30deg);
+  }
+
+  85% {
+    transform: rotate(-25deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes leg2 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(30deg);
+  }
+
+  85% {
+    transform: rotate(-25deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+@keyframes tail {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes head {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-8deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes body {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}

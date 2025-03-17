@@ -1,0 +1,140 @@
+@import '../../../../styles/colors';
+@import '../../../../styles/breakpoints';
+
+@mixin linear-background($primary, $secondary, $angle: 0deg) {
+  background: rgb(90, 87, 131);
+  background: -moz-linear-gradient($angle, $primary 0%, $secondary 100%);
+  background: -webkit-linear-gradient($angle, $primary 0%, $secondary 100%);
+  background: linear-gradient($angle, $primary 0%, $secondary 100%);
+}
+
+.hero__section {
+  width: 100vw;
+  height: max(650px, 100vh);
+  position: relative;
+  overflow-x: hidden;
+  // border: 1px solid red;
+  &__background__container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    @include linear-background(#5a5783, #191825, 0deg);
+    color: white;
+
+    & img.hero__background__vector {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      // visibility: hidden;
+
+      // suggested changes by xnm
+      position: absolute;
+      bottom: 0;
+      z-index: 30;
+    }
+  }
+
+  &__content__container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    color: white;
+    padding: 100px 50px;
+    gap: 3rem;
+
+    @include max-media(680px) {
+      padding: 100px 30px;
+    }
+
+    @include max-media(375px) {
+      padding: 100px 20px 70px 20px;
+    }
+
+    .hero__section__logo__container {
+      width: 8rem;
+
+      @include max-media(680px) {
+        width: 7rem;
+      }
+
+      @include max-media(480px) {
+        width: 5rem;
+      }
+    }
+
+    .hero__section__heading__container {
+      //   & > h1 {
+      //     font-size: 4rem;
+      //     font-weight: bolder;
+      //     filter: drop-shadow(25px 25px 0px rgba(0, 0, 0, 0.25));
+      //   }
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        font: bold 4rem Century Gothic, Arial;
+        width: 100%;
+        height: calc(5rem + 15px);
+
+        & text:first-child {
+          stroke: white;
+          stroke-width: 0.75px;
+          transform: translate(9px, 15px);
+          opacity: 0.5;
+          stroke-linejoin: round;
+          fill: none;
+        }
+
+        & text:last-child {
+          fill: white;
+          transform: translate(-9px, 0px);
+        }
+
+        @include max-media(680px) {
+          font-size: 3.5rem;
+        }
+
+        @include max-media(480px) {
+          font-size: 3rem;
+        }
+      }
+
+      // text {
+      //   fill: none;
+      //   stroke: black;
+      //   stroke-width: 0.5px;
+      //   stroke-linejoin: round;
+      //   animation: 2s pulsate infinite;
+      // }
+    }
+
+    .hero__section__tag__container {
+      color: rgb(209, 209, 209);
+      font-size: 1.25rem;
+      width: 70%;
+
+      @include max-media(980px) {
+        font-size: 1rem;
+      }
+
+      @include max-media(425px) {
+        font-size: 0.9rem;
+        width: 90%;
+      }
+    }
+
+    .hero__section__link__container {
+      margin: 5rem 0;
+    }
+  }
+}

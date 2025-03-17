@@ -1,0 +1,15 @@
+@import "../../styles/colors";
+
+.merchandise__page {
+  padding-top: 5rem;
+  background-color: $primary;
+}
+
+.logo__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 10rem;
+  margin: 4rem 0;
+}

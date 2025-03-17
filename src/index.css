@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Satisfy&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper-color: #000000;
+  --paper-dark: #000000;
+  --paper-shadow: #121212;
+  --text-color: #e0d4b4;
+  --accent-color-1: #8b4513;
+  --accent-color-2: #654321;
+  --accent-color-3: #a0522d;
+  --accent-color-4: #cd853f;
+  --background: #000000;
+  --foreground: var(--text-color);
+
+  --card: var(--paper-color);
+  --card-foreground: var(--text-color);
+
+  --popover: var(--paper-color);
+  --popover-foreground: var(--text-color);
+
+  --primary: var(--accent-color-1);
+  --primary-foreground: var(--paper-color);
+
+  --secondary: var(--paper-dark);
+  --secondary-foreground: var(--accent-color-1);
+
+  --muted: var(--paper-dark);
+  --muted-foreground: var (--accent-color-2);
+
+  --accent: var(--paper-dark);
+  --accent-foreground: var(--accent-color-1);
+
+  --destructive: #a52a2a;
+  --destructive-foreground: var(--paper-color);
+
+  --border: var(--paper-shadow);
+  --input: var(--paper-shadow);
+  --ring: var(--accent-color-3);
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --paper-color: #000000;
+  --paper-dark: #000000;
+  --paper-shadow: #121212;
+  --text-color: #e0d4b4;
+  --accent-color-1: #cd853f;
+  --accent-color-2: #deb887;
+  
+  --background: #000000;
+  --foreground: var(--text-color);
+
+  --card: var(--paper-color);
+  --card-foreground: var(--text-color);
+
+  --popover: var(--paper-color);
+  --popover-foreground: var(--text-color);
+
+  --primary: var(--accent-color-1);
+  --primary-foreground: var(--paper-dark);
+
+  --secondary: var(--paper-shadow);
+  --secondary-foreground: var(--text-color);
+
+  --muted: var(--paper-shadow);
+  --muted-foreground: var(--accent-color-2);
+
+  --accent: var(--paper-shadow);
+  --accent-foreground: var(--text-color);
+
+  --destructive: #8b0000;
+  --destructive-foreground: var(--text-color);
+
+  --border: var(--paper-shadow);
+  --input: var(--paper-shadow);
+  --ring: var(--accent-color-1);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-color: #000000;
+    background-image: none;
+    color: var(--text-color);
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scrolling from cloud animations */
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    pointer-events: none;
+    z-index: -2; /* Below the cloud background */
+  }
+  
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Loading screen for lazy loaded components */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  color: white;
+  font-size: 1.5rem;
+  z-index: 99990;  /* Below audio button */
+}
+
+/* Audio notification styles */
+.audio-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 99995;  /* Below audio button but above most content */
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 5s forwards;
+  pointer-events: none;
+}
+
+/* Navigation z-index adjustments if needed */
+.navbar-container {
+  z-index: 99980;  /* Below audio button */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Special class for when audio is enabled */
+.audio-enabled {
+  /* No visible changes, but useful for JavaScript logic */
+}

@@ -1,0 +1,50 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/breakpoints";
+.after__movie__section__container {
+  // background: #191825;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  padding-bottom: 3rem;
+  // border: 1px solid greenyellow;
+  .after__movie__section__heading__container {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+    background: -webkit-linear-gradient(120deg, #e25e3e 0%, #ffbb5c 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @include max-media(680px) {
+      font-size: 2rem;
+    }
+    @include max-media(480px) {
+      font-size: 1.5rem;
+    }
+  }
+  .after__movie__section__video__container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > iframe {
+      width: min(100%, 1000px);
+      aspect-ratio: 16 / 9;
+      outline: none;
+    }
+  }
+
+  @include max-media(480px) {
+    // padding: 0 30px 0px 30px;
+  }
+  @include max-media(375px) {
+    // padding: 0 20px 0px 20px;
+  }
+  video {
+    width: 100%;
+  }
+}

@@ -1,0 +1,38 @@
+@import '../../../../../styles/colors';
+
+.navbar_container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  height: min-content;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  border-radius: 0.5rem;
+  background-color: $primary;
+  color: $light;
+  // z-index: 100000;
+
+  border-width: 2px;
+  border-color: $action;
+  border-style: solid;
+
+  &>span:nth-last-child(n):hover {
+    cursor: pointer;
+  }
+
+  &>span>a {
+    text-decoration: none;
+    color: $light;
+  }
+}
+
+// .glass__background__effect {
+//   background: rgba(255, 255, 255, 0.27);
+//   border-radius: 16px;
+//   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//   backdrop-filter: blur(7.4px);
+//   -webkit-backdrop-filter: blur(7.4px);
+// }

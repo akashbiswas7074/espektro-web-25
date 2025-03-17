@@ -1,0 +1,137 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/breakpoints";
+
+.hero {
+  --size: clamp(40px, 10vw, 120px);
+
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #000;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1.background__heading,
+  h1.foreground__heading {
+    position: absolute;
+    font-size: 15vw;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+  }
+
+  h5.background__date_text {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-family: Arial, Helvetica, sans-serif;
+    color: #bfbfbf77;
+    // color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.7);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    span {
+      font-size: 0.5em;
+    }
+  }
+
+  div.saturn,
+  div.robot,
+  div.rocket,
+  div.ufo,
+  div.vr,
+  div.circuit {
+    position: absolute;
+    // top: 50%;
+    // left: 50%;
+
+    // transform: translate(-50%, -50%);
+  }
+
+  h1.foreground__heading {
+    color: transparent;
+    // text-shadow: 3px 3px 0 #fff, -3px 3px 0 #fff, -3px -3px 0 #fff,
+    //   3px -3px 0 #fff;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.646);
+  }
+
+  div.imagesWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  div.crushed {
+    width: calc(var(--size) * 4.25);
+  }
+  div.vr {
+    width: calc(var(--size) * 3.2);
+    // top: -3% !important;
+    // left: 26% !important;
+    top: calc(var(--size) * 0.1) !important;
+    left: calc(var(--size) * 1.1) !important;
+  }
+  div.robot {
+    width: calc(var(--size) * 3.5);
+    top: calc(var(--size) * 0.5) !important;
+    left: calc(var(--size) * -0.8) !important;
+  }
+  div.circuit {
+    width: calc(var(--size) * 1.2);
+    // top: 47% !important;
+    // left: 68% !important;
+    top: calc(var(--size) * 2) !important;
+    left: calc(var(--size) * 3) !important;
+  }
+  div.rocket {
+    width: calc(var(--size) * 0.85);
+    // top: 2% !important;
+    // left: 86% !important;
+    top: calc(var(--size) * 0) !important;
+    left: calc(var(--size) * 4.2) !important;
+  }
+  div.saturn {
+    width: calc(var(--size) * 1.25);
+    // top: 80% !important;
+    // left: -15% !important;
+    top: calc(var(--size) * 3.2) !important;
+    left: calc(var(--size) * -1) !important;
+  }
+  div.ufo {
+    width: calc(var(--size) * 0.76);
+    // top: -7% !important;
+    // left: -7% !important;
+    top: calc(var(--size) * -0.5) !important;
+    left: calc(var(--size) * -0.2) !important;
+  }
+}
+
+div.scroll__arrow__container {
+  position: absolute;
+  bottom: 2vh;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  p {
+    // margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  img.scroll__arrow {
+    animation: move-upwards 1000ms infinite ease-in-out;
+
+    @keyframes move-upwards {
+      from {
+        transform: translateY(-15%);
+      }
+      to {
+        transform: translateY(10%);
+      }
+    }
+  }
+}

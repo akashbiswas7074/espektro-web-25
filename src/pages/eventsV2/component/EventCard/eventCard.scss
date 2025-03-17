@@ -1,0 +1,226 @@
+.event-card {
+  $dark: #000;
+  $white: #fff;
+
+  $accent-blue: #4a7fd4;
+  $accent-green: #87b3ff;
+  $accent-purple: #5d49d4;
+  $accent-pink: #ff7272;
+  $accent-purple-light: #af70ff;
+
+  $dark-blue: #091921;
+  $neon-blue: #55bdc7;
+
+  $white-transparent: rgba(255, 255, 255, 0.025);
+
+  $light-grey: #f8f8fa;
+  $grey: #f1f1f3;
+  $grey-shade-2: #eeeeee;
+  $text-grey: #c0c0c0;
+  $dark-grey: #8e8e8e;
+
+  $black-75: rgba(0, 0, 0, 0.75);
+  $black-60: rgba(0, 0, 0, 0.6);
+  $black-50: rgba(0, 0, 0, 0.5);
+  $black-shade-4: #3c4043;
+  $black-light: #1c1c1e;
+  $black-light-dark: #111111;
+  $black-light-dark-transparent: rgba(17, 17, 17, 0.5);
+
+  $blue: #007bff;
+  $green: #0f9d58;
+  $yellow: #ffc107;
+  $red: #d43544;
+
+  $google-blue: #4285f4;
+  $google-green: #34a853;
+  $google-yellow: #fbbc04;
+  $google-red: #ea4335;
+
+  $blue-gradient: linear-gradient(to right, #085078, #85d8ce);
+  $accent-gradient: linear-gradient(255.65deg, #5d49d4 0%, #4a7fd4 100%);
+  $accent-gradient-tabs: linear-gradient(180deg, #4a7fd4 0%, #5d49d4 100%);
+
+  $gen-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  $font-family: "Poppins", sans-serif;
+  $font-tagline: "Kalam", cursive;
+
+  background-color: $black-light;
+  border-radius: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(214, 115, 16, 0.5); 
+    &::before {
+      transform: translateX(100%);
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(151, 148, 147, 0.4),
+      transparent
+    );
+    transition: transform 0.6s ease;
+    z-index: 1;
+  }
+
+  .image,
+  .details {
+    position: relative;
+    z-index: 2; // Ensure content is above the beam effect
+  }
+
+  .text-details {
+    flex-wrap: wrap;
+  }
+
+  .image {
+    width: 180px;
+    min-width: 180px;
+    position: relative;
+    border-radius: 10px 0px 0 10px;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px 0px 0 10px;
+    }
+  }
+
+  .image-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: fill;
+      border-radius: 50%;
+    }
+  }
+
+  .details {
+    flex-grow: 1;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .event-title-tagline {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .timeline {
+      font-size: 11px;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .left-border-element {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+  }
+
+  .btn-primary {
+    margin-top: 1.5rem;
+    height: auto;
+    font-size: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .title-tagline {
+    font-family: $font-tagline;
+    font-size: 14px;
+
+    &.title-tagline-small {
+      font-size: 11px;
+      line-height: 1.25;
+      display: inline-block;
+      margin-top: 8px;
+    }
+  }
+
+  .coin-details {
+    display: flex;
+    align-items: center;
+
+    .coin-icon {
+      width: 10px;
+      margin-inline: 2px 6px;
+    }
+
+    span {
+      color: $text-grey;
+    }
+  }
+
+  .text-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    flex-wrap: wrap;
+
+    .text {
+      color: $text-grey;
+    }
+  }
+
+  .text-details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 548px) {
+  .event-card {
+    flex-direction: column;
+    overflow: hidden;
+
+    .image {
+      height: 200px;
+      width: 100%;
+      min-width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      img {
+        display: block;
+        object-fit: contain;
+        backdrop-filter: blur(5px) brightness(0.5);
+        border-radius: 0;
+      }
+    }
+  }
+}
