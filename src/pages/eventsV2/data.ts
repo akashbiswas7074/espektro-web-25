@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EventProps, EventDayProps, EventSectionProps, EventData } from './types';
 
 // Helper function to add id to events
@@ -33,7 +34,7 @@ const rawEventData = [
     eventPriceForKGEC: 0,
     eventOrganiserClub: {
           name: "Infinitio",
-      image: "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881673/MEME-O-Math_ihdzfl.png"
+      image: "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881893/Infinitio_logo_c2sdys.png"
     },
     eventCoordinators: [
         {
@@ -58,7 +59,7 @@ const rawEventData = [
     otherPlatformUrl: "https://techtix2025.robosoccer.com",
     eventPrize: 500,
     brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881657/Math_o_meme_lfc9ss.pdf",
-    registrationLink:"https://www.google.com/"
+    registrationLink:"https://www.facebook.com/100063718663992/posts/pfbid02yY87czS3q9WdH57AgHC3cb5TBDrMM4ci3oiQEipKkzmaHGUcQSKEVQpFTo4kLMxcl/?app=fbl"
   },
   {
     _id: "evt001",
@@ -177,7 +178,7 @@ const rawEventData = [
     eventVenue: "Admin Building",
     eventImages: [
         {
-            url: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741809393/Code_Dictator_dap2y8.png",
+            url: "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742333680/POPESTICAL_BRIGE_1_nhmqkf.png",
             _id: "img003"
         }
     ],
@@ -644,7 +645,7 @@ const rawEventData = [
   eventPriceForKGEC: 125,
   eventOrganiserClub: {
       name: "KeyGEnCoders",
-      image: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741806201/robotics_society_dipkma.png"
+      image: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741811698/kgen_coder_azan26.png"
   },
   eventCoordinators: [
       {
