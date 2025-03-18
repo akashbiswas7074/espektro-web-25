@@ -1,5 +1,5 @@
 @import "../../styles/colors";
-@import "../../styles/_breakpoints";
+@import "../../styles/breakpoints";
 @import "../../styles/fonts";
 
 .header {
@@ -108,38 +108,30 @@ nav.background__transparent {
   }
 }
 
+/* Update the hamburger button styles */
 .HamburgerButton__button {
-  display: none;
-  width: 3rem;
-  transition: transform 0.4s ease-in-out;
+  background: transparent;
+  border: none;
   cursor: pointer;
-  @include max-media(910px) {
-    display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
   }
-  @include max-media(480px) {
-    width: 2.5rem;
+
+  &:focus {
+    outline: none;
   }
+
+  // Remove the existing hamburger button wrapper styles if not needed anymore
   .HamburgerButton__button__wrapper {
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    border: 1px solid white;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    & > div {
-      width: 50%;
-      transform: skew(-35deg);
-      height: 1px;
-      background-color: #fff;
-      transition: transform 0.3s ease-in-out;
-    }
+    display: none;
   }
-}
-.HamburgerButton__button:hover {
-  transform: scale(1.1);
 }
 
 .button__clicked {
@@ -264,24 +256,5 @@ nav.background__transparent {
       background-color: var(--background);
       //   border: 1px solid red;
     }
-  }
-}
-
-// Add the .active_link class if it doesn't exist
-
-.active_link {
-  // Style for active links
-  position: relative;
-  font-weight: 600;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    display: block;
   }
 }

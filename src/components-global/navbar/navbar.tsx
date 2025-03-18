@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
-
-// import Logo from "/espektroLogo.png";
 import { useGSAP } from "@gsap/react";
-
+import { GiHamburgerMenu } from "react-icons/gi"; // Import hamburger icon
+import { IoMdClose } from "react-icons/io"; // Import close icon
 import styles from "./styles.module.scss";
 
 gsap.registerPlugin(Observer);
@@ -41,6 +39,7 @@ const links = [
   //   href: "/espektro-merchandise",
   // },
 ];
+
 function Navigation() {
   // const scrollToSection = (sectionId: string) => {
   //   const targetSection = document.getElementById(sectionId);
@@ -326,14 +325,11 @@ function HamburgerButton({
 }) {
   return (
     <button className={styles.HamburgerButton__button} onClick={onClick}>
-      <div
-        className={`${isClicked ? styles.button__clicked : ""} ${
-          styles.HamburgerButton__button__wrapper
-        }`}
-      >
-        <div></div>
-        <div></div>
-      </div>
+      {isClicked ? (
+        <IoMdClose size={24} color="#e8dcc9" />
+      ) : (
+        <GiHamburgerMenu size={24} color="#e8dcc9" />
+      )}
     </button>
   );
 }
