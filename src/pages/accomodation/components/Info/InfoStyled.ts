@@ -34,6 +34,7 @@ export const Col = styled.div`
   text-align: center;
   padding: 0 18px;
   width: 25%;
+  font-family: "Medieval Sharp", cursive;
   @media (max-width: 1200px) {
     padding: 0 8px;
   }
@@ -63,7 +64,7 @@ export const Title = styled.div`
   color: #554DF1;
   font-size: 22px;
   line-height: 33px;
-  font-family: Poppins, sans-serif;
+  font-family: "Medieval Sharp", cursive;
   font-weight: 700;
   margin-top: 20px;
   @media (max-width: 1200px) {
@@ -77,7 +78,7 @@ export const Text = styled.div`
   color: #F2F5FA;
   font-size: 18px;
   line-height: 27px;
-  font-family: Montserrat, sans-serif;
+  font-family: "Medieval Sharp", cursive;
   margin-top: 15px;
   @media (max-width: 1200px) {
     font-size: 14px;

@@ -129,9 +129,7 @@ const EspektroAbout: React.FC = () => {
               the course of several days, attendees are treated to a dynamic
               experience.
           </p>
-        </motion.div>
-      </div>
-      <p className={styles.brochureText}>Espektro – Where culture meets technology in a festival of innovation and creativity!</p>
+          <p className={styles.brochureText}>Espektro – Where culture meets technology in a festival of innovation and creativity!</p>
       <a
               href="https://res.cloudinary.com/dezguraul/image/upload/v1741930364/espektro_sponsor_brochure_5_iubdru.pdf"
               target="_blank"
@@ -139,6 +137,9 @@ const EspektroAbout: React.FC = () => {
             >
                <button className={styles.button}>Event Brochure</button>
             </a>
+        </motion.div>
+      </div>
+      
     </section>
   );
 };

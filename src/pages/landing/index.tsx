@@ -88,12 +88,12 @@ const HomeScreen: React.FC = () => {
 
   return (
     <div className="home-screen">
-      <div className="video-overlay">
+      {/* <div className="video-overlay">
         <VideoHero 
           onVideoEnd={handleVideoEnd} 
           onFadeStart={handleVideoFadeStart}
         /> 
-      </div>
+      </div> */}
       <div className={`navbar-container ${showNavbar ? 'navbar-visible' : 'navbar-hidden'}`}>
         {/* <Navigation /> */}
       </div>

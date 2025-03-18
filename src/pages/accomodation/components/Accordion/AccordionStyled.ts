@@ -1,17 +1,91 @@
 import styled from "styled-components";
 
-interface AccordionBodyProps {
-  isOpen: boolean;
-}
+export const InfoWrapper = styled.div`
+  padding: 0 16px;
+  margin-top: 2rem;
+  margin-bottom: 100px;
+  @media (max-width: 1200px) {
+    padding: 0 30px;
+    margin-top: 75px;
+  }
+   @media (max-width: 992px) {
+    padding: 0 30px;
+    margin-top: 75px;
+  }
+  @media (max-width: 640px) {
+    padding: 0 50px;
+    margin-top: 0px;
+  }
+`;
 
-interface AccordionSwitchProps {
-  isOpen: boolean;
-}
+export const Row = styled.div`
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1275px;
+  margin: 0 auto;
+`;
 
-interface AccordionItemProps {
-  isOpen: boolean;
-}
+export const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 18px;
+  width: 25%;
+  font-family: "Medieval Sharp", cursive;
+  @media (max-width: 1200px) {
+    padding: 0 8px;
+  }
+  @media (max-width: 768px) {
+    width: 50%;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 640px) {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 40px;
+  }
+`;
 
+export const Icon = styled.div`
+  width: 40px;
+  svg {
+    width: 100%;
+    fill: #554DF1;
+  }
+  @media (max-width: 1200px) {
+    width: 30px;
+  }
+`;
+
+export const Title = styled.div`
+  color: #554DF1;
+  font-size: 22px;
+  line-height: 33px;
+  font-family: "Medieval Sharp", cursive;
+  font-weight: 700;
+  margin-top: 20px;
+  @media (max-width: 1200px) {
+    font-size:16px;
+    line-height: 24px;
+    margin-top: 11px;
+  }
+`;
+
+export const Text = styled.div`
+  color: #F2F5FA;
+  font-size: 18px;
+  line-height: 27px;
+  font-family: "Medieval Sharp", cursive;
+  margin-top: 15px;
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    line-height: 19px;
+    margin-top: 5px;
+  }
+`;
 
 export const AccordionWrapper = styled.div`
   margin-top: 70px;
@@ -24,30 +98,6 @@ export const AccordionWrapper = styled.div`
   }
   @media (max-width: 640px) {
     margin-top: 45px;
-  }
-`;
-
-export const Title = styled.div`
-  // border:2px solid red;
-  width:100%;
-  font-size: 30px;
-  color: #554DF1;
-  font-weight: 600;
-  font-family: Montserrat, sans-serif;
-  @media (max-width: 1200px) {
-    font-size: 24px;
-    letter-spacing: 0.2px;
-  }
-  @media (max-width: 1024px) {
-    margin-bottom: 36px;
-  }
-  @media (max-width: 768px) {
-    font-size: 26px;
-    text-align: center;
-  }
-  @media (max-width: 640px) {
-    font-size: 16px;
-    text-align: center;
   }
 `;
 
@@ -64,17 +114,7 @@ export const AccordionStyled = styled.div`
   }
 `;
 
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-export const AccordionItem = styled.div<AccordionItemProps>`
+export const AccordionItem = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -83,6 +123,7 @@ export const AccordionItem = styled.div<AccordionItemProps>`
   border: 2px solid #F2F5FA;
   border-radius: 10px;
   min-height: 76px;
+  font-family: "Medieval Sharp", cursive;
   @media (max-width: 768px) {
     padding: 17px 20px;
   }
@@ -91,7 +132,7 @@ export const AccordionItem = styled.div<AccordionItemProps>`
 export const AccordionTitle = styled.div`
   font-size: 18px;
   color: #F2F5FA;
-  font-family: Poppins, sans-serif;
+  font-family: "Medieval Sharp", cursive;
   font-weight: 700;
   cursor: pointer;
   padding-right: 40px;
@@ -104,45 +145,15 @@ export const AccordionTitle = styled.div`
   }
 `;
 
-
-export const AccordionBody = styled.div<AccordionBodyProps>`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  padding-right: 60px;
-  @media (max-width: 768px) {
-    padding-right: 0;
-  }
-`;
-
 export const AccordionText = styled.div`
   margin-top: 15px;
   color: #F2F5FA;
-  font-family: Montserrat, sans-serif;
+  font-family: "Medieval Sharp", cursive;
   font-size: 18px;
   line-height: 27px;
   @media (max-width: 768px) {
     font-size: 12px;
     margin-top: 11px;
     line-height: 18px;
-  }
-`;
-
-export const AccordionSwitch = styled.div<AccordionSwitchProps>`
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transform-origin: center;
-  transition: all 0.2s;
-  transform: ${({ isOpen }) => isOpen && "scale(1, -1)"};
-  @media (max-width: 768px) {
-    right: 20px;
-    top: 23px;
-    width: 30px;
-    height: 30px;
   }
 `;

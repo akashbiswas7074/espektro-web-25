@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@import '../../styles/fonts';
 @import '../../styles/colors';
 
 .accomodation__page {
@@ -22,8 +22,7 @@
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: $medieval-sharp;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -74,7 +73,7 @@ body {
 
         .heading {
             color: #cb8805;
-            font-family: 'Roboto';
+            font-family: $medieval-sharp;
             font-size: 32px;
             font-weight: 700;
 

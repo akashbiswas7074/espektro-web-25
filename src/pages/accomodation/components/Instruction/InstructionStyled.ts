@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const InstructionWrapper = styled.div`
   padding: 0 16px;
   @media (max-width: 1200px) {
@@ -21,8 +20,8 @@ export const Title = styled.div`
   font-size: 30px;
   color: #986fe9;
   font-weight: 600;
-  margin-top:2rem;
-  font-family: Montserrat, sans-serif;
+  margin-top: 2rem;
+  font-family: "Medieval Sharp", cursive;
   @media (max-width: 1200px) {
     font-size: 24px;
     letter-spacing: 0.2px;
@@ -44,7 +43,7 @@ export const Text = styled.div`
   color: #F2F5FA;
   font-size: 18px;
   line-height: 27px;
-  font-family: Montserrat, sans-serif;
+  font-family: "Medieval Sharp", cursive;
   margin-top: 15px;
   position: relative;
 
@@ -57,7 +56,7 @@ export const Text = styled.div`
     font-size: 1rem;
     color: #8afa88;
     font-weight: 700;
-}
+  }
   @media (max-width: 1200px) {
     font-size: 14px;
     line-height: 19px;
@@ -71,22 +70,19 @@ export const Col = styled.div`
   align-items: left;
   text-align: left;
   padding: 0 100px;
-//   margin-bottom:2rem;
   width: 100%;
+  font-family: "Medieval Sharp", cursive;
+  
   @media (max-width: 1200px) {
     padding: 0 80px;
   }
   @media (max-width: 768px) {
     width: 100%;
-    // margin-bottom: 16px;
     padding: 0 40px;
-
   }
   @media (max-width: 640px) {
     width: 100%;
     max-width: 320px;
-    // margin: 0 auto 40px;
     padding: 0 10px;
-
   }
 `;

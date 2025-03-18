@@ -1,5 +1,6 @@
 @import '../../../../styles/colors';
 @import '../../../../styles/breakpoints';
+@import '../../../../styles/fonts';
 *,
 *::before,
 *::after {
@@ -113,7 +114,7 @@
             align-items: center;
 
             & > p {
-              font-family: medieval;
+              font-family: $medieval-sharp;
               font-weight: bold;
               font-size: medium;
               color: #ffffff; // Explicitly set to white
