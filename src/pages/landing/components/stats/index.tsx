@@ -1,7 +1,15 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import OutlinedHeading from "@/components-global/outlined-heading";
+import { useGSAP } from "@gsap/react";
+
 import NumberAnimation from "../NumberAnimation";
 import styles from "./style.module.scss";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Stats = () => {
   const yearsData = [
@@ -80,77 +88,97 @@ const Stats = () => {
     },
   ];
 
-  // Using IntersectionObserver instead of GSAP
-  const timelineRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    // Create an intersection observer to handle animations
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.1 // Trigger when 10% of element is visible
-    };
-    
-    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach(entry => {
-        // Add animation class when element enters viewport
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.animate);
-        }
+  const yearListContainerRef = useRef<HTMLUListElement>(null);
+  useGSAP(() => {
+    const yearWiseLists: gsap.TweenTarget[] = gsap.utils.toArray(
+      ".statistics-yearwise-list"
+    );
+    yearWiseLists.forEach((yearList) => {
+      gsap.from(yearList, {
+        yPercent: 50,
+        duration: 6,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: yearList as gsap.DOMTarget,
+          start: "top-=100% 80%",
+          end: () => "+=" + 100,
+          scrub: true,
+          // markers: true,
+        },
       });
-    };
-    
-    const observer = new IntersectionObserver(handleIntersection, observerOptions);
-    
-    // Observe all year list items
-    document.querySelectorAll(`.${styles.year__list}`).forEach(item => {
-      observer.observe(item);
     });
-    
-    // Observe the timeline container for line animation
-    if (timelineRef.current) {
-      observer.observe(timelineRef.current);
-    }
-    
-    // Observe statistics items
-    document.querySelectorAll(`.${styles.statistics__container}`).forEach(item => {
-      observer.observe(item);
+
+    if (!yearListContainerRef.current) return;
+    const listHeight = yearListContainerRef.current.clientHeight;
+    const lastChild = yearListContainerRef.current.lastChild as HTMLElement;
+    const lastChildHeight = lastChild.clientHeight;
+    gsap.to("#year-wise-list-container", {
+      css: {
+        "--central-line-visibility": "visible",
+        "--central-line-height": `100%`,
+        "--last-child-height": `${lastChildHeight + 5}px`,
+      },
+      ease: "none",
+      duration: 1,
+      scrollTrigger: {
+        trigger: "#year-wise-list-container",
+        start: "top 80%",
+        end: "+=" + listHeight,
+        toggleActions: "play none none reset",
+        // markers: true,
+        scrub: true,
+      },
     });
-    
-    return () => observer.disconnect();
-  }, []);
+
+    gsap.from(".statistics-content", {
+      y: 50,
+      opacity: 0,
+      duration: 0.6,
+      ease: "power4.out",
+      stagger: 0.08,
+      scrollTrigger: {
+        trigger: ".statistics-content",
+        start: "top 80%",
+        end: "+=100",
+        toggleActions: "play none none reverse",
+      },
+    });
+  });
 
   return (
     <div id="espektro-past-stats" className={styles.stats_main_container}>
       <article className={styles.statistics__article}>
         <OutlinedHeading label="Statistics" theme="vintage" />
         <div className={styles.statistics__wrapper}>
-          {statistics.map((stats) => (
-            <div
-              key={stats.id}
-              className={styles.statistics__container}
-            >
-              <h2>
-                <NumberAnimation endValue={stats.count} unit={stats.unit} />
-              </h2>
-              <p>{stats.title}</p>
-            </div>
-          ))}
+          {statistics.map((stats) => {
+            return (
+              <div
+                key={stats.id}
+                className={`${styles.statistics__container} statistics-content`}
+              >
+                <h2 className="">
+                  <NumberAnimation endValue={stats.count} unit={stats.unit} />
+                </h2>
+                <p>{stats.title}</p>
+              </div>
+            );
+          })}
         </div>
       </article>
       <div className={styles.content_list_container}>
         <OutlinedHeading label="Over Years" theme="vintage" />
-        <div ref={timelineRef} className={styles.year__list__wrapper}>
-          {/* Add a direct DOM element for the timeline line */}
-          <div className={styles.timeline_line}></div>
-          <ul className={styles.year__list__container}>
+        <div className={styles.year__list__wrapper}>
+          <ul
+            ref={yearListContainerRef}
+            id="year-wise-list-container"
+            className={styles.year__list__container}
+          >
             {yearsData.map((details, idx) => (
               <YearStats
                 key={idx}
                 year={details.year as any}
                 description={details.description}
                 title={details.title}
-                style={{ animationDelay: `${idx * 0.2}s` }}
               />
             ))}
           </ul>
@@ -165,10 +193,9 @@ interface YearStatsProps extends React.HTMLAttributes<HTMLLIElement> {
   title: string;
   description: string;
 }
-
 function YearStats({ year, title, description, ...props }: YearStatsProps) {
   return (
-    <li {...props} className={styles.year__list}>
+    <li {...props} className={`${styles.year__list} statistics-yearwise-list`}>
       <div className={styles.year__list__year__label}>
         <p>{year}</p>
       </div>

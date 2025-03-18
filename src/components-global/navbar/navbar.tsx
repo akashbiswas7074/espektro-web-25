@@ -246,7 +246,7 @@ function Navigation() {
           <a className={styles.logo__container}>
             <div>
               <img
-                src="https://res.cloudinary.com/dlly7wr0a/image/upload/v1741896257/espektroLogo_1_kffjjj.png"
+                src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209222/especktro_25_sz9geh.png"
                 alt="logo"
               />
             </div>

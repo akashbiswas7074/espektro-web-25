@@ -113,11 +113,15 @@ nav.background__transparent {
   background: transparent;
   border: none;
   cursor: pointer;
-  display: flex;
+  display: none; /* Hide by default on desktop */
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
   transition: all 0.3s ease;
+  
+  @include max-media(910px) {
+    display: flex; /* Show on mobile devices */
+  }
 
   &:hover {
     opacity: 0.8;

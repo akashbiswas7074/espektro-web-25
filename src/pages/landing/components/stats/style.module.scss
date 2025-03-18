@@ -1,6 +1,7 @@
 @import '../../../../styles/colors';
 // @import '../../../../styles/breakpoints';
 @import '../../../../styles/fonts';
+@import '../../../../styles/brown-theme';
 
 .content_list_container {
   gap: 4rem; // one extra rem bcz of title (The Origin) is
@@ -12,11 +13,11 @@
   @include desktop {
     gap: 6rem;
   }
-//
+
   & .content_list_heading {
-    color: white;
+    color: $brown-light;
     margin: 2rem 0;
-    background: -webkit-linear-gradient(120deg, #541074 0%, #ae1ee7 100%);
+    background: -webkit-linear-gradient(120deg, $brown-dark 0%, $brown-medium1 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -24,27 +25,8 @@
 }
 .year__list__wrapper {
   --central-line-left: 80px;
-  --central-line-color: #{$text-medium};
+  --central-line-color: #{$brown-medium1};
   padding: 0 1rem;
-  position: relative;
-  margin: 2rem 0;
-
-  // Timeline line element
-  .timeline_line {
-    position: absolute;
-    top: 0;
-    left: var(--central-line-left);
-    width: 2px;
-    height: 0; // Initial height
-    background-color: var(--central-line-color);
-    transform-origin: top;
-    transition: height 1.5s ease-out;
-  }
-
-  // When parent is in view, animate the line
-  &.animate .timeline_line {
-    height: 100%;
-  }
 
   @include xs {
     --central-line-left: 100px;
@@ -60,30 +42,24 @@
   }
 
   & .year__list__container {
+    --central-line-height: 0%;
+    --last-child-height: 0px;
+    --central-line-visibility: hidden;
+    --central-line-width: 2px;
     --distance-from-central-line: 1.5rem;
+    // border: 1px solid red;
     position: relative;
     padding-left: var(--central-line-left);
     display: flex;
     flex-direction: column;
     gap: 3rem;
     & .year__list {
+      //   border: 1px solid yellow;
       position: relative;
-      color: white;
+      color: $brown-light;
       display: flex;
       flex-direction: column;
       padding: 0 1rem;
-
-      // Add CSS animation properties
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-
-      // When this element has the animate class, show it
-      &.animate {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
       .year__list__year__label {
         // border: 1px solid blue;
         position: absolute;
@@ -96,10 +72,10 @@
         justify-content: flex-end;
         align-items: center;
         padding-right: var(--distance-from-central-line);
-        color: $secondary;
+        color: $brown-medium2;
         font-size: 1.5rem;
         -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 0.6px $text-medium;
+        -webkit-text-stroke: 0.6px $brown-medium1;
 
         @include sm {
           font-size: 1.8rem;
@@ -115,7 +91,7 @@
         align-items: center;
         padding-left: var(--distance-from-central-line);
         font-size: 1.5rem;
-        color: $text-dark;
+        color: $brown-medium3;
         font-family: $caveat-medium;
 
         @include mobile {
@@ -133,7 +109,7 @@
         // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         // backdrop-filter: blur(5px);
         // -webkit-backdrop-filter: blur(5px);
-        color: $text-light;
+        color: $brown-light;
         font-size: 0.9rem;
         font-family: $poppins-sans;
         @include sm {
@@ -155,14 +131,6 @@
           -50%
         )
         rotateZ(45deg);
-      // Add animation for the square markers
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    // When year item is animated, make the square visible too
-    & .year__list.animate::after {
-      opacity: 1;
     }
 
     @include xs {
@@ -197,23 +165,12 @@
     align-items: center;
     justify-content: center;
 
-    // Add CSS animation properties
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-
-    // When this element has the animate class, show it
-    &.animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     & > h2 {
       font-size: 2.5rem;
       font-family: $poppins-sans;
       font-weight: bolder;
-      color: $text-light;
-      background: -webkit-linear-gradient(120deg, #880e7e 0%, #ec5cff 100%);
+      color: $brown-light;
+      background: -webkit-linear-gradient(120deg, $brown-dark 0%, $brown-medium1 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -223,7 +180,7 @@
       font-size: 1.25rem;
       font-family: $poppins-sans;
       font-weight: 500;
-      color: $text-light;
+      color: $brown-light;
     }
   }
 
@@ -270,7 +227,7 @@
 
 .stats_main_container {
   width: 100%;
-  background: $primary;
+  background: #000000; // Changed from $brown-dark to black
   display: flex;
   justify-content: center;
   align-items: center;
@@ -390,7 +347,7 @@
     & > li:nth-child(n) {
       // transform: translateX(5%);
       font-size: 1rem; //1.2rem
-      color: $light;
+      color: $brown-light;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -400,13 +357,13 @@
       gap: 1.25rem;
 
       & > h2 {
-        color: $text-dark;
+        color: $brown-medium3;
         font-weight: 700;
         font-size: 1.5rem;
       }
 
       & > p {
-        color: $text-light;
+        color: $brown-light;
       }
     }
 
