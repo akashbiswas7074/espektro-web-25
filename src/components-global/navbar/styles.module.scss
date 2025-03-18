@@ -54,6 +54,7 @@ nav.background__transparent {
   justify-content: flex-end;
   width: 100%;
   height: 100%;
+  font-family: $medieval-sharp;
   //   border: 1px solid red;
   @include max-media(910px) {
     display: none;
@@ -101,7 +102,7 @@ nav.background__transparent {
     font-size: 1.75rem;
     font-weight: bolder;
     color: $text-light;
-    font-family: medieval;
+    font-family: $medieval-sharp;
     @include max-media(480px) {
       font-size: 1.5rem;
     }

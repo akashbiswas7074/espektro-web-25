@@ -15,13 +15,7 @@ const EspektroAbout: React.FC = () => {
         <OutlinedHeading label="Espektro" theme="vintage" />
     
       </motion.div>
-      <a
-              href="https://res.cloudinary.com/dezguraul/image/upload/v1741930364/espektro_sponsor_brochure_5_iubdru.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-               <button className={styles.button}>Brochure</button>
-            </a>
+     
      
       <div className={styles.about_main_section}>
         <div className={styles.about_img_grid_container}>
@@ -137,6 +131,14 @@ const EspektroAbout: React.FC = () => {
           </p>
         </motion.div>
       </div>
+      <p className={styles.brochureText}>Espektro – Where culture meets technology in a festival of innovation and creativity!</p>
+      <a
+              href="https://res.cloudinary.com/dezguraul/image/upload/v1741930364/espektro_sponsor_brochure_5_iubdru.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+               <button className={styles.button}>Event Brochure</button>
+            </a>
     </section>
   );
 };

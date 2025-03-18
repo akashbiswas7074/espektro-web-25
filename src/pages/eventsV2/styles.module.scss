@@ -13,6 +13,7 @@
   list-style: none;
   gap: 1rem;
   border-radius: 10px;
+  font-family: $medieval-sharp;
 
   & > li {
     flex: 1;
@@ -21,6 +22,7 @@
     cursor: pointer;
     color: $text-medium;
     font-size: clamp(0.75rem, 2vw, 1rem);
+    font-family: $medieval-sharp;
     padding-block: 0.25rem;
 
     &[data-active="true"] {
@@ -43,6 +45,7 @@
   align-items: center;
   gap: 50px;
   min-height: 100dvh;
+  font-family: $medieval-sharp;
 
   & > div.section__container {
     width: 100%;
@@ -82,7 +85,7 @@
     justify-content: center;
 
     color: $text-dark;
-    font-family: $caveat-medium;
+    font-family: $medieval-sharp;
 
     @include mobile {
       font-size: 1.8rem;
