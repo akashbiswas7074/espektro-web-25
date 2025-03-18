@@ -14,6 +14,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
+  const [showSkipButton, setShowSkipButton] = useState(false);
   const currentRateRef = useRef<number>(playbackRate);
   const targetRateRef = useRef<number>(playbackRate);
   const animationRef = useRef<number | null>(null);
@@ -64,7 +65,33 @@ const VideoHero: React.FC<VideoHeroProps> = ({
     );
   };
 
+  // Function to handle skip button click
+  const handleSkip = () => {
+    setIsEnding(true);
+    onFadeStart();
+    setTimeout(() => {
+      // Re-enable scrolling when video is skipped
+      document.body.classList.remove('no-scroll');
+      onVideoEnd();
+    }, 1000); // Wait for fade animation to start before ending video
+  };
+
   useEffect(() => {
+    // Add no-scroll class to body when component mounts
+    document.body.classList.add('no-scroll');
+
+    // Clean up function to re-enable scrolling when component unmounts
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
+
+  useEffect(() => {
+    // Show skip button after 2 seconds
+    const skipButtonTimer = setTimeout(() => {
+      setShowSkipButton(true);
+    }, 2000);
+
     const videoElement = videoRef.current;
     if (videoElement) {
       // Set initial playback rate when video is loaded
@@ -91,6 +118,8 @@ const VideoHero: React.FC<VideoHeroProps> = ({
       };
 
       const handleEnded = () => {
+        // Re-enable scrolling when video ends
+        document.body.classList.remove('no-scroll');
         onVideoEnd();
       };
 
@@ -104,6 +133,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
       });
 
       return () => {
+        clearTimeout(skipButtonTimer);
         videoElement.removeEventListener('timeupdate', handleTimeUpdate);
         videoElement.removeEventListener('ended', handleEnded);
         videoElement.removeEventListener('loadeddata', () => {});
@@ -114,6 +144,10 @@ const VideoHero: React.FC<VideoHeroProps> = ({
         }
       };
     }
+
+    return () => {
+      clearTimeout(skipButtonTimer);
+    };
   }, [onVideoEnd, onFadeStart, isEnding, playbackRate]);
 
   return (
@@ -130,6 +164,29 @@ const VideoHero: React.FC<VideoHeroProps> = ({
           type="video/mp4"
         />
       </video>
+      
+      {showSkipButton && (
+        <button 
+          className={`skip-button ${showSkipButton ? 'visible' : ''}`}
+          onClick={handleSkip}
+        >
+          <svg 
+            className="skip-icon" 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            width="22" 
+            height="22" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <polygon points="5 4 15 12 5 20 5 4"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19"></line>
+          </svg>
+        </button>
+      )}
     </div>
   );
 };
