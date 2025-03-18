@@ -1,23 +1,65 @@
 @import '../../../../styles/colors';
 @import '../../../../styles/breakpoints';
+
+// Animation keyframes
+@keyframes draw-line {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes circle-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .timeline__section__wrapper {
   width: 100%;
   background-color: $primary;
   padding-top: 5rem;
+  padding-bottom: 3rem;
   @include max-media($bp: 480px) {
     padding-top: 3rem;
     padding-bottom: 5rem;
   }
 }
+
 .timeline_main_section {
   width: 100%;
   display: flex;
   justify-items: center;
   align-items: center;
   flex-direction: column;
-  // gap: var(--gap);
   position: relative;
   overflow: hidden;
+  
   & > .timeline_text_container {
     display: flex;
     justify-content: center;
@@ -28,39 +70,66 @@
     font-size: 2.5rem;
     color: $primary;
     font-weight: 600;
-
-    // border: 2px solid red;
   }
 
   & > .timeline_section {
     --gap: 8rem;
-
-    // border: 2px solid red;
     width: 100%;
     height: max-content;
     margin-top: 1rem;
-    width: 100%;
     overflow: hidden;
     padding: 1rem 1rem;
+    position: relative;
 
     display: grid;
     gap: var(--gap);
     grid-template-columns: 1fr;
     grid-template-rows: repeat(8, minmax(14rem, min-content));
-    // grid-auto-rows: minmax(10rem, max-content);
 
+    // Vertical line animation preparation
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      width: 0.3rem;
+      height: 0%;
+      background-color: $action_dark;
+      z-index: -1;
+    }
+    
+    // Animated class for timeline section
+    &.animate_timeline::before {
+      height: 0;
+      animation: draw-line 1.5s ease-out forwards;
+    }
+    
     & > .event_container {
       border: 0.1rem solid $action_dark;
       position: relative;
-
       width: 80%;
-      height: 10rem;
+      height: auto;
+      min-height: 10rem;
       border-radius: 0.5rem;
       padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0; // Start with opacity 0 for animation
+      
+      // Animation effects when in view
+      &.animate_event {
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+      }
+
+      &:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
 
       & > .main_event {
-        // border: 2px solid red;
-
         display: flex;
         justify-content: center;
         align-items: baseline;
@@ -72,12 +141,14 @@
           color: $primary;
           align-self: flex-end;
           padding: 0 0.5rem;
+          font-size: 1.2rem;
+          margin: 0.5rem 0;
         }
 
         & > .event_desc_con {
-          // border: 2px solid red;
           width: 80%;
           align-self: flex-end;
+          line-height: 1.4;
         }
 
         & > .event_timing_con {
@@ -99,93 +170,81 @@
           position: relative;
 
           border-radius: calc(var(--dateH) / 2) 0 0 calc(var(--dateH) / 2);
-        }
-
-        & > .event_timing_con::before {
-          content: '';
-          width: 2rem;
-          aspect-ratio: 1;
-          background: $primary;
-          background-image: linear-gradient(
-            rgba(0, 0, 0, 0.2) 100%,
-            transparent
-          );
-          position: absolute;
-          top: 100%;
-          right: 0;
-          z-index: -10;
-          clip-path: polygon(0 0, 100% 0, 0 100%);
+          
+          &::before {
+            content: '';
+            width: 2rem;
+            aspect-ratio: 1;
+            background: $primary;
+            background-image: linear-gradient(
+              rgba(0, 0, 0, 0.2) 100%,
+              transparent
+            );
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: -10;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+          }
         }
       }
     }
 
+    // Even numbered events
     & > .event_container:nth-child(2n) {
-      // background-color: $primary;
       transform: translate(15%, 0);
+      
+      &.animate_event {
+        animation-name: fade-in-left;
+      }
 
       & > .main_event > .event_timing_con {
         align-self: last baseline;
         border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
+        
+        &::before {
+          left: 0;
+          z-index: -10;
+          top: 100%;
+          clip-path: polygon(0 0, 100% 100%, 100% 0);
+        }
       }
-
-      & > .main_event > .event_timing_con::before {
-        left: 0;
-        z-index: -10;
-        top: 100%;
-        clip-path: polygon(0 0, 100% 100%, 100% 0);
+      
+      &::before {
+        content: '';
+        position: absolute;
+        right: -1.5rem;
+        top: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
+        bottom: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
+        border-width: 0.2rem 0.2rem 0.2rem 0;
+        border-radius: 0 2rem 2rem 0;
+        border-color: $primary;
+      }
+      
+      &::after {
+        content: '';
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border-width: 0.2rem;
+        border-color: $primary;
+        position: absolute;
+        top: 2rem;
+        right: -2.4rem;
+        background-color: white;
+        transform: scale(0); // Start scaled down
+        animation: circle-in 0.5s 0.5s forwards;
       }
     }
 
-    & > .event_container::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      border: solid red;
-    }
-
-    & > .event_container:nth-child(2n)::before {
-      content: '';
-      position: absolute;
-      right: -1.5rem;
-      top: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
-      bottom: calc(calc(var(--gap) / 3 * -1) - 2.99rem);
-      border-width: 0.2rem 0.2rem 0.2rem 0;
-      border-radius: 0 2rem 2rem 0;
-      border-color: $primary;
-    }
-
-    & > .event_container:nth-child(2n + 1)::after {
-      content: '';
-      position: absolute;
-      width: 2rem;
-      height: 2rem;
-      background-color: $light;
-      border-width: 0.2rem;
-      border-radius: 50%;
-      border-color: $action_dark;
-      left: -2.4rem;
-      top: 2rem;
-      // top: 50%;s
-      // left: -7%;
-      // transform: translate(-50%, -50%);
-    }
-
-    & > .event_container:nth-child(2n)::after {
-      content: '';
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      border-width: 0.2rem;
-      border-color: $primary;
-      position: absolute;
-      top: 2rem;
-      right: -2.4rem;
-      background-color: white;
-    }
-
+    // Odd numbered events
     & > .event_container:nth-child(2n + 1) {
       transform: translate(15%, 0%);
       color: $primary;
+      
+      &.animate_event {
+        animation-name: fade-in-right;
+      }
 
       & > .main_event > .event_name_con {
         align-self: flex-start;
@@ -195,8 +254,35 @@
         align-self: flex-start;
         text-align: left;
       }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        background-color: $light;
+        border-width: 0.2rem;
+        border-radius: 50%;
+        border-color: $action_dark;
+        left: -2.4rem;
+        top: 2rem;
+        transform: scale(0); // Start scaled down
+        animation: circle-in 0.5s 0.5s forwards;
+      }
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: -1.5rem;
+        top: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
+        bottom: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
+        border-width: 0.2rem 0 0.2rem 0.2rem;
+        border-radius: 2rem 0 0 2rem;
+        border-color: $primary;
+      }
     }
 
+    // First and last events special styling
     & > .event_container:first-child::before {
       border-top: 0;
       border-top-left-radius: 0;
@@ -211,19 +297,6 @@
       border-bottom: 0;
       border-bottom-right-radius: 0;
     }
-
-    & > .event_container:nth-child(2n + 1)::before {
-      content: '';
-      position: absolute;
-      left: -1.5rem;
-      // top: -5rem;
-      // bottom: -6.77rem;
-      top: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
-      bottom: calc(calc(var(--gap) / 2 * -1) - 2.75rem);
-      border-width: 0.2rem 0 0.2rem 0.2rem;
-      border-radius: 2rem 0 0 2rem;
-      border-color: $primary;
-    }
   }
 
   @include mobile {
@@ -237,6 +310,18 @@
       gap: 0.8rem;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(5, 18rem);
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 0.2rem;
+        height: 0;
+        top: 0;
+        left: 50%;
+        background-color: $primary;
+        z-index: 1;
+        animation: draw-line 1.5s ease-out forwards;
+      }
 
       & > .event_container {
         width: 80%;

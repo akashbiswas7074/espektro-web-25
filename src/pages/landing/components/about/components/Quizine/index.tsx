@@ -30,7 +30,7 @@ const Exotica: React.FC = () => {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1705035698/espektro/2023/about/espektro.webp"
+              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742327716/Quixine_web_poezry.png"
               alt="vertical"
               className={styles.about_img}
             />
@@ -49,7 +49,12 @@ const Exotica: React.FC = () => {
               once: true,
             }}
           >
-         
+            <div className='w-[50%] h-full' >
+            <img
+              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742327453/free_download_cliparts_of_witch_xgdwjx.png"
+              alt="horizontal"
+              className={styles.about_img}
+            /></div>
 
           </motion.div>
           <motion.div
@@ -67,12 +72,13 @@ const Exotica: React.FC = () => {
             }}
           >
             {/* shkfb */}
-            <div className='w-[20%] -mt-50' >
-            <img
-              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742322170/Oil_Lamps_and_Candles___by_Ev_Ganin_t6qzwx.png"
+            <div className='w-[50%] h-full' >
+            {/* <img
+              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742327453/free_download_cliparts_of_witch_xgdwjx.png"
               alt="horizontal"
               className={styles.about_img}
-            /></div>
+            /> */}
+            </div>
           </motion.div>
         </div>
         <motion.div

@@ -1,6 +1,6 @@
 import AnimatedHeading from '@/components-global/animated-heading';
 import ComingSoonComponent from '@/components-global/coming-soon';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './style.module.scss';
 
 const Event_list = [
@@ -63,20 +63,61 @@ const Event_list = [
 ];
 
 const TimelineSection = () => {
+  const timelineSectionRef = useRef<HTMLDivElement>(null);
+  const eventRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (entry.target === timelineSectionRef.current) {
+            entry.target.classList.add(styles.animate_timeline);
+          } else {
+            entry.target.classList.add(styles.animate_event);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+    // Observe the timeline section
+    if (timelineSectionRef.current) {
+      observer.observe(timelineSectionRef.current);
+    }
+
+    // Observe each event container
+    eventRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className={styles.timeline_main_section}>
       <div className={styles.timeline_text_container}>
         <p>Timeline</p>
       </div>
 
-      <div className={styles.timeline_section}>
-        {/* <div className={styles.circletop}></div> */}
-        {Event_list.map((event) => {
+      <div className={styles.timeline_section} ref={timelineSectionRef}>
+        {Event_list.map((event, index) => {
           return (
-            <div className={styles.event_container}>
+            <div 
+              key={event.id} 
+              className={styles.event_container}
+              ref={(el) => (eventRefs.current[index] = el)}
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
               <div className={styles.main_event}>
-                {/* <div className={styles.pointdiv}></div> */}
-                {/* <div className={styles.pointdiv}> */}
                 <p className={styles.event_timing_con}>
                   {event.event_data_time}
                 </p>
@@ -84,7 +125,6 @@ const TimelineSection = () => {
                 <p className={styles.event_desc_con}>
                   {event.event_description}
                 </p>
-                {/* </div> */}
               </div>
             </div>
           );
@@ -95,7 +135,7 @@ const TimelineSection = () => {
 };
 
 function TimelineWrapper() {
-  const [isOnHold, _] = useState(true);
+  const [isOnHold, _] = useState(false);
   return (
     <section
       id="espektro-timeline"

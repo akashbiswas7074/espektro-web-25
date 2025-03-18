@@ -81,7 +81,7 @@ const EspektroAbout: React.FC = () => {
               margin: "-50px",
             }}
           >
-            <div className='w-[20%]'>
+            <div className='w-[20%] '>
               <img
                 src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742233724/download_16_fvtzyw.png"
                 alt="Espektro decoration"
