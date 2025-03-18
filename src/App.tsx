@@ -7,6 +7,7 @@ import ErrorPage from "./pages/landing/Error404";
 import {EventsV2} from './pages/eventsV2/index';
 import HomeScreen from './pages/landing';
 import ArtistsPage from './pages/landing/components/artist-v5';
+import AccomodationScreen from "./pages/accomodation";
 // import audioService from './services/AudioService';
 
 const App: React.FC = () => {
@@ -35,8 +36,8 @@ const App: React.FC = () => {
         <Route path="/" element={<HomeScreen />} />
         <Route path="/events" element={<EventsV2 />} />
         <Route path="/artists" element={<ArtistsPage />} />
-        {/* <Route path="/accomodation" element={<AccomodationScreen />} />
-        <Route path="/espektro-merchandise" element={<MerchandiseScreen />} /> */}
+    <Route path="/accomodation" element={<AccomodationScreen/>} /> 
+        {/* <Route path="/espektro-merchandise" element={<MerchandiseScreen />} /> */}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
