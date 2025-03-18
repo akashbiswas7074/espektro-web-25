@@ -281,3 +281,14 @@ img {
   border-radius: 20px;
   border: 3px solid var(--paper-color);
 }
+
+/* Add this to your global CSS file */
+
+.no-scroll {
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+  position: fixed !important;
+  touch-action: none !important;
+  -ms-touch-action: none !important;
+}
