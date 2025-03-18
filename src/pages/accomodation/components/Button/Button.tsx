@@ -11,16 +11,15 @@ const Button: React.FC = () => {
           <p className={style.description}>
             Book your tickets now and secure your spot at the most exciting tech event of the year!
           </p>
-          <button className={style.button}>
-            <a
-              className={style.link}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfXrxIVEPUyoonslEkfFUwzPHcPzAWHPc7rYTO5F5ot3QaYiQ/viewform?usp=header"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book Now
-            </a>
-          </button>
+          <a
+  className={style.link}
+  href="https://docs.google.com/forms/d/e/1FAIpQLSfXrxIVEPUyoonslEkfFUwzPHcPzAWHPc7rYTO5F5ot3QaYiQ/viewform?usp=header"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <button className={style.button}>Book Now</button>
+</a>
+
         </div>
       </section>
 
@@ -31,16 +30,15 @@ const Button: React.FC = () => {
           <p className={style.description}>
             Join us for an exotic experience filled with creativity, art, and innovation!
           </p>
-          <button className={style.button}>
-            <a
-              className={style.link}
-              href="https://forms.gle/FUbY5nk7iY9n2Xkn8"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book Now
-            </a>
-          </button>
+          <a
+  className={style.link}
+  href="https://forms.gle/FUbY5nk7iY9n2Xkn8"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <button className={style.button}>Book Now</button>
+</a>
+
         </div>
       </section>
     </div>
@@ -48,3 +46,4 @@ const Button: React.FC = () => {
 };
 
 export default Button;
+
