@@ -1,0 +1,73 @@
+/**
+ * Special enhancements for mobile devices
+ * Import this after the other style sheets
+ */
+
+// Enhanced mobile image display
+@media (max-width: 576px) {
+  .event-card {
+    // Improved image container
+    .image {
+      position: relative;
+      overflow: hidden;
+      
+      // Enhanced image styling
+      img {
+        object-fit: cover;
+        transform-origin: center top;
+        
+        // Add subtle zoom effect on cards not in focus
+        .silk-carousel-item:not(.active-card) & {
+          transform: scale(1.08);
+        }
+      }
+      
+      // Add title overlay for better identification of non-active cards
+      &::before {
+        content: attr(data-title);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        
+        // Only show on non-active cards
+        .silk-carousel-item:not(.active-card) & {
+          opacity: 1;
+        }
+      }
+    }
+    
+    // Improve buttons on mobile
+    .details .flex .cursor-pointer {
+      height: 42px; // Taller buttons for better touch targets
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 14px; // Slightly smaller font
+      }
+    }
+  }
+}
+
+// Add the filename as a data attribute for display in non-active cards
+document.addEventListener('DOMContentLoaded', () => {
+  const eventCards = document.querySelectorAll('.event-card');
+  eventCards.forEach(card => {
+    const titleEl = card.querySelector('.event-title-tagline h3');
+    const imageEl = card.querySelector('.image');
+    if (titleEl && imageEl) {
+      imageEl.setAttribute('data-title', titleEl.textContent || '');
+    }
+  });
+});

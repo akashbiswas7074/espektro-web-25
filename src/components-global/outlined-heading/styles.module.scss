@@ -6,14 +6,14 @@ $outline-font-sizes: (
   sm: 3rem,
   mobile: 3.25rem,
   tablet: 3.5rem,
-  desktop: 3.75rem,
+  desktop: 5.75rem,
 );
 $solid-font-sizes: (
   xs: 2rem,
   sm: 2.25rem,
   mobile: 2.5rem,
   tablet: 2.75rem,
-  desktop: 3rem,
+  desktop: 5rem,
 );
 .outline__heading__container {
   width: 100%;
@@ -53,6 +53,19 @@ $solid-font-sizes: (
           font-size: $font-size;
         }
       }
+    }
+  }
+}
+
+// Add vintage theme specific styles
+.vintage {
+  svg {
+    & .outline {
+      opacity: 0.65;
+      stroke: #cbc2b8;
+    }
+    & .solid {
+      fill: #c2bab0;
     }
   }
 }

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-
-// import axios from 'axios ';
 import moment from 'moment';
+import { GiWizardStaff } from 'react-icons/gi';
 
 import OutlinedHeading from '@/components-global/outlined-heading';
 
@@ -10,6 +9,8 @@ import styles from './styles.module.scss';
 import type { EventData } from './types';
 
 import { demoEventData } from './data';
+import './harryPotter.scss';
+import SilkCarousel from '@/components/SilkCarousel';
 
 const eventLinks = [
   {
@@ -59,8 +60,7 @@ function EventsV2() {
   // const [___, setDay2Event] = useState<EventData[]>([]);
   // const [____, setDay3Event] = useState<EventData[]>([]);
   // const [dataarray, setDataArray] = useState<
-  //   { day: number; event: EventData[] }[]
-  // >([]);
+  //   { day: number; event: EventData[] }[]>([]);
 
   const [events, setEvents] = useState<EventData[]>([]);
 
@@ -168,7 +168,7 @@ function EventsSection({
   console.log(days);
   return (
     <section className={styles.event__section}>
-      {/* <div className="cloud-background"></div> */}
+      <div className="cloud-background"></div>
       <article>
         {days.map((day, idx: number) => {
           return (
@@ -189,88 +189,29 @@ function EventDayContainer({
   day: string;
   events: EventData[];
 }) {
-  // const scrollablContainerRef = useRef<ElementRef<"ul">>(null);
-  // const leftControl = useRef<ElementRef<"div">>(null);
-  // const rightControl = useRef<ElementRef<"div">>(null);
-  // const [isLeftControlVisible, setIsLeftControlVisible] = useState(true);
-  // const [isRightControlVisible, setIsRightControlVisible] = useState(true);
-  // This is a build test comment
-  // useEffect(() => {
-  //   if (
-  //     !scrollablContainerRef.current ||
-  //     !leftControl.current ||
-  //     !rightControl.current
-  //   )
-  //     return;
-  //   const target = scrollablContainerRef.current;
-  //   const firstChild = target.firstChild as HTMLLIElement;
-  //   setIsLeftControlVisible(target.scrollLeft < firstChild.offsetLeft);
-  //   setIsRightControlVisible(
-  //     target.offsetWidth >= target.scrollWidth - target.scrollLeft
-  //   );
-  // }, [scrollablContainerRef, leftControl, rightControl]);
-
   return (
-    <div className={styles.event_day_container}>
-      {events.length === 1 ? (
-        <style>
-          {`@media only screen and (max-width: 448px) {
-              .event-cards-1 {
-                grid-auto-columns: 100%;
-              }
-            }`}
-        </style>
-      ) : null}
-      {/* controls */}
-      {/* <div
-        ref={leftControl}
-        hidden={isLeftControlVisible}
-        className={styles.controls__prev}
-        onClick={() => {
-          if (!scrollablContainerRef.current) return;
-          const target = scrollablContainerRef.current;
-          target.scrollLeft -= 400;
-        }}
-      >
-        <FaArrowLeftLong />
+    <div className={`${styles.event_day_container} magic-parchment`}>
+      <h3 className="day-header">
+        <GiWizardStaff className="staff-icon" /> 
+        {moment(day, 'DD-MM-YYYY').format('Do MMMM')} 
+        <GiWizardStaff className="staff-icon" />
+      </h3>
+      
+      <div className="carousel-container-wrapper">
+        <SilkCarousel 
+          autoPlayInterval={5000}
+          slidesToShow={1} // Always 1 to focus on single card
+          theme="harry-potter"
+          arrows={events.length > 1}
+          infinite={true}
+        >
+          {events.map((event, idx) => (
+            <div key={idx} className="event-card-wrapper">
+              <EventCard {...event} />
+            </div>
+          ))}
+        </SilkCarousel>
       </div>
-      <div
-        ref={rightControl}
-        hidden={isRightControlVisible}
-        className={styles.controls__next}
-        onClick={() => {
-          if (!scrollablContainerRef.current) return;
-          const target = scrollablContainerRef.current;
-          target.scrollLeft += 400;
-        }}
-      >
-        <FaArrowRightLong />
-      </div> */}
-      {/* controls end */}
-      <h3>{moment(day, 'DD-MM-YYYY').format('Do MMMM')}</h3>
-      <ul
-        // ref={scrollablContainerRef}
-        className={`${styles.card__container} event-cards-${events.length}`}
-        // style={{
-        //   gridAutoColumns: events.length === 1 ? "100%" : "95%",
-        // }}
-        // onScroll={(e) => {
-        //   const target = e.target as HTMLUListElement;
-        //   const firstChild = target.firstChild as HTMLLIElement;
-
-        //   if (!leftControl.current || !rightControl.current) return;
-        //   setIsLeftControlVisible(target.scrollLeft < firstChild.offsetLeft);
-        //   setIsRightControlVisible(
-        //     target.offsetWidth >= target.scrollWidth - target.scrollLeft
-        //   );
-        // }}
-      >
-        {events.map((event, idx) => (
-          <li key={idx}>
-            <EventCard {...event} />
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }

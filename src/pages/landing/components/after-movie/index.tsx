@@ -1,22 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import ReactPlayer from 'react-player/youtube';
 
 import styles from "./styles.module.scss";
 
 function AfterMovieSection(): React.JSX.Element {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (!videoRef.current) return;
-    videoRef.current.playbackRate = 3;
-  }, []);
+
+
   return (
     <section className={styles.after__movie__section__container}>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        src="https://res.cloudinary.com/dezguraul/video/upload/v1741707323/espektro24_upload_txqj02.mp4"
-      />
+      <div className="w-full h-full flex justify-center items-center">
+      <ReactPlayer url='https://www.youtube.com/watch?v=gy9v5iKmV-I'  playing={true} muted />
+      {/* <ReactPlayer
+          url='https://www.youtube.com/watch?v=gy9v5iKmV-I'
+          className={styles.react__player}
+          playing={true}
+          muted
+          width="100%"
+          height="100%"
+        /> */}
+      </div>
     </section>
   );
 }

@@ -1,64 +1,15 @@
-// import AnimatedHeadingV2 from '@/components-global/animated-headingV2';
 import { useRef } from "react";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// import listicon from '../../../../assets/listarrow.png';
 import OutlinedHeading from "@/components-global/outlined-heading";
 import { useGSAP } from "@gsap/react";
 
 import NumberAnimation from "../NumberAnimation";
 import styles from "./style.module.scss";
 
-// interface YearListItemProps {
-//   year: number;
-//   description: string;
-// }
-
 gsap.registerPlugin(ScrollTrigger);
-
-// const YearListItem = ({ year, description }: YearListItemProps) => {
-//   const yearlistRef = useRef<HTMLLIElement>(null);
-
-//   useGSAP(() => {
-//     gsap.utils
-//       .toArray(yearlistRef.current?.children || [])
-//       .forEach((item: unknown) => {
-//         const element = item as HTMLElement;
-//         gsap.fromTo(
-//           element.children[0] as HTMLElement,
-//           {
-//             y: '+=100',
-//             opacity: 0,
-//           },
-//           {
-//             y: 0,
-//             opacity: 1,
-//             duration: 1,
-//             ease: 'power4.out',
-//             scrollTrigger: {
-//               trigger: yearlistRef.current,
-//               start: 'top 80%',
-//               end: '+=50%',
-//               toggleActions: 'play none none reset',
-//               // markers: true,
-//             },
-//           }
-//         );
-//       });
-//   });
-
-//   return (
-//     <li ref={yearlistRef}>
-//       {/* <img src={listicon} alt="List Icon" className={styles.listicon} /> */}
-//       <p>{year}</p>
-//       <div>
-//         <span>{description}</span>
-//       </div>
-//     </li>
-//   );
-// };
 
 const Stats = () => {
   const yearsData = [
@@ -196,42 +147,8 @@ const Stats = () => {
 
   return (
     <div id="espektro-past-stats" className={styles.stats_main_container}>
-      {/* <AnimatedHeadingV2 heading="Statistics" variant="light" /> */}
-
-      {/* <div className={styles.stats_subheading}>
-        <p>
-          <span>Espektro</span>, KGEC's annual fest, India's largest, returns in
-          2024 for a thrilling blend of techno-management, culture, and
-          excitement, fostering the flame of creativity and student spirit.
-          Explore our rich history in the pursuit of <span>excellence</span>.
-        </p>
-      </div> */}
-
-      {/* <ul className={styles.stats_top_container}>
-        <li>
-          <h2>Footfall : </h2>
-          <p>
-            Espektro has consistently drawn a crowd of 25,000+ attendees each
-            year, creating an electric atmosphere on the KGEC campus.
-          </p>
-        </li>
-        <li>
-          <h2>Artists : </h2>
-          <p>
-            With a lineup of 250+ artists, the fest showcases a diverse range of
-            talents, spanning music, dance, and other performing arts.
-          </p>
-        </li>
-        <li>
-          <h2>Events : </h2>
-          <p>
-            Boasting over 100 events, Espektro provides a platform for students
-            to showcase their skills and compete in various domains.
-          </p>
-        </li>
-      </ul> */}
       <article className={styles.statistics__article}>
-        <OutlinedHeading label="Statistics" />
+        <OutlinedHeading label="Statistics" theme="vintage" />
         <div className={styles.statistics__wrapper}>
           {statistics.map((stats) => {
             return (
@@ -249,7 +166,7 @@ const Stats = () => {
         </div>
       </article>
       <div className={styles.content_list_container}>
-        <OutlinedHeading label="Over Years" />
+        <OutlinedHeading label="Over Years" theme="vintage" />
         <div className={styles.year__list__wrapper}>
           <ul
             ref={yearListContainerRef}

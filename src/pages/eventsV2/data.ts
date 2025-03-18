@@ -1,6 +1,15 @@
 import { EventProps, EventDayProps, EventSectionProps, EventData } from './types';
 
-export const demoEventData: EventData[] = [
+// Helper function to add id to events
+const processEvents = (events: any[]): EventData[] => {
+  return events.map((event, index) => ({
+    ...event,
+    id: index + 1, // Add numeric id
+  }));
+};
+
+// Apply to your event data - demoEventData will now have IDs added
+const rawEventData = [
   {
     _id: "evt024",
     title: "Math-o-Meme",
@@ -472,15 +481,6 @@ export const demoEventData: EventData[] = [
   registrationLink:"https://unstop.com/p/wrestlemania-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428238"
 },
 {
-  _id: "evt007",
-  title: "Puzzlify",
-  description: "A robotic soccer competition where teams design manual robots to compete in an arena designed for robotic soccer matches.",
-  rules: "Each team must bring one robot. Only one participant controls the robot during a match. Robots cannot grab or withhold the ball. Judges' decisions are final.",
-  prizes: "Total Prize Pool: ₹20,000 (subject to change based on participation).",
-  tagLine: "Build. Compete. Dominate.",
-  startTime: "2025-03-25T14:00:00Z",
-  endTime: "2025-03-25T17:00:00Z",
-  eventVenue: "MSB-109",
   eventImages: [
       {
           url: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741809393/PUZZLIFY_WEB_dn0eat.png",
@@ -872,6 +872,9 @@ export const demoEventData: EventData[] = [
   registrationLink:"https://unstop.com/quiz/mathematicos-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428361"
 },
 ];
+
+// Process the raw data to add the required id field
+export const demoEventData: EventData[] = processEvents(rawEventData);
 
 export const demoEventProps: EventProps[] = [
   {

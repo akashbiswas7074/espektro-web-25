@@ -1,4 +1,3 @@
-
 export interface EventProps {
   poster: string;
   title: string;
@@ -26,7 +25,8 @@ export interface EventSectionProps {
 
 
 export interface EventData {
-  _id: string;
+  id?: number; // Make id optional
+  _id?: string; // Add _id as an alternative
   title: string;
   description: string;
   rules: string;

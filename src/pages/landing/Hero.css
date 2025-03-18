@@ -2,6 +2,7 @@
   position: relative;
   min-height: 100vh;
 }
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -74,7 +75,8 @@
   width: 100%;
   text-align: center;
   margin: 0.5rem auto;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6), 
+               0 2px 4px rgba(0, 0, 0, 0.5); /* Reduced shadow */
 }
 
 .button-group {
@@ -164,7 +166,6 @@
 /* src/Hero.css */
 .hero {
   opacity: 0;
-
   animation: fadeInUp 0.5s ease-out forwards;
   height: 100vh;
   display: flex;
@@ -180,12 +181,6 @@
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 3;
-  height: 100vh;
 }
 
 .floating-btn {
@@ -236,25 +231,24 @@
   max-width: 85%;
   margin: 0 auto;
   animation: titleFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2))
-         drop-shadow(0 0 25px rgba(255, 255, 255, 0.1));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1)); /* Significantly reduced shadow */
 }
 
 .hero-logo {
   max-width: 100%;
   height: auto;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
   animation: glowPulse 3s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
   0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1))
-           drop-shadow(0 0 20px rgba(255,255,255,0.05));
+    filter: brightness(0) invert(1) 
+           drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
   }
   50% {
-    filter: drop-shadow(0 0 15px rgba(255,255,255,0.2))
-           drop-shadow(0 0 30px rgba(255,255,255,0.1));
+    filter: brightness(0) invert(1) 
+           drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
   }
 }
 
@@ -467,4 +461,33 @@
   position: relative;
   background-color: #000000;
   color: #ffffff;
+}
+
+.tagline-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -12px; /* Reduced negative margin to move it up closer to the logo */
+  margin-bottom: 0; /* Removed bottom margin */
+}
+
+.tagline {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in-out forwards;
+  animation-delay: 0.8s;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  line-height: 1; /* Tighter line height */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5),
+               0 1px 2px rgba(0, 0, 0, 0.4); /* Reduced text shadow */
+}
+
+/* Add enhanced shadow effects */
+.shadow-enhanced {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.shadow-text {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
 }

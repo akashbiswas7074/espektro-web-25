@@ -88,6 +88,16 @@
     }
   }
 
+  // Add specific styling for the carousel container
+  :global(.carousel-container-wrapper) {
+    margin-top: 30px;
+    position: relative;
+    min-height: 520px; // Ensure consistent height
+    
+    // Add space for indicators
+    margin-bottom: 40px;
+  }
+
   // controls
   .controls__prev,
   .controls__next {

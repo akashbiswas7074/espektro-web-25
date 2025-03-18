@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
+
+// import Logo from "/espektroLogo.png";
 import { useGSAP } from "@gsap/react";
+
 import styles from "./styles.module.scss";
 
 gsap.registerPlugin(Observer);
@@ -11,6 +15,11 @@ const links = [
     label: "Home",
     href: "/",
   },
+  // {
+  //   id: 2,
+  //   label: 'About',
+  //   href: '/#espektro-about',
+  // },
   {
     id: 3,
     label: "Artists",
@@ -26,21 +35,25 @@ const links = [
     label: "Accomodation",
     href: "/accomodation",
   },
+  // {
+  //   id: 6,
+  //   label: "Merchandise",
+  //   href: "/espektro-merchandise",
+  // },
 ];
-
 function Navigation() {
+  // const scrollToSection = (sectionId: string) => {
+  //   const targetSection = document.getElementById(sectionId);
+  //   if (targetSection) {
+  //     window.scrollTo({
+  //       top: targetSection.offsetTop,
+  //       behavior: 'smooth',
+  //     });
+  //   }
+  // };
+
   const [toggleMobileNav, setToggleMobileNav] = useState(false);
   const mobileNavContainerRef = useRef<HTMLDivElement>(null);
-  // Fix: Use currentPath in the component by removing the unused setState
-  const currentPath = window.location.pathname;
-
-  // Handle navigation with page refresh
-  const handleNavigation = (href: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    // Force a full page refresh when navigating
-    window.location.href = href;
-  };
-  
   useEffect(() => {
     if (!mobileNavContainerRef.current) return;
     const handler = (e: TouchEvent | WheelEvent) => e.preventDefault();
@@ -56,16 +69,16 @@ function Navigation() {
       mobileNavContainerRef.current?.removeEventListener("touchmove", handler);
     };
   }, []);
-  
   const HeroSection = document.querySelector(
     '[data-id="espektro-hero-section"]'
   );
-  
   useEffect(() => {
     if (!HeroSection) return;
     const navObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          //! if hero is intersecting with the viewport then
+          //! these css rules will be applied, overidding the rules mentioned in .navigation class
           if (entry.isIntersecting) {
             gsap.to("#navbar", {
               css: {
@@ -76,7 +89,11 @@ function Navigation() {
               duration: 0.2,
               ease: "power1.inOut",
             });
-          } else {
+          }
+          //! if hero is not intersecting, then two cased arise
+          //! one -> is mobile nav visbile or not
+          else {
+            //! if mobile nav is visible the apply these css rules
             if (toggleMobileNav) {
               gsap.to("#navbar", {
                 css: {
@@ -87,7 +104,9 @@ function Navigation() {
                 duration: 0,
                 ease: "power3.inOut",
               });
-            } else {
+            }
+            //! if mobile nav is not visible the apply these css rules
+            else {
               gsap.to("#navbar", {
                 css: {
                   background: "rgba(255, 255, 255, 0.12)",
@@ -102,11 +121,34 @@ function Navigation() {
         });
       },
       {
+        // root: layout,
+        // top right bottom left
+        // 70px is the height of the navbar
+        // it's like pretending that when navbar is not intersecting with hero then do something
         rootMargin: "-70px 0px 0px 0px",
       }
     );
     navObserver.observe(HeroSection);
+    //! re-run for state change -> toggleMobileNav
   }, [HeroSection, toggleMobileNav]);
+
+  // Observer.create({
+  //   type: "wheel,touch,scroll", // comma-delimited list of what to listen for ("wheel,touch,scroll,pointer")
+  //   onUp: () => {
+  //     gsap.to("#navbar", {
+  //       y: 0,
+  //       duration: 0,
+  //       ease: "power1.inOut",
+  //     });
+  //   },
+  //   onDown: () => {
+  //     gsap.to("#navbar", {
+  //       y: -80,
+  //       duration: 0,
+  //       ease: "power1.inOut",
+  //     });
+  //   },
+  // });
 
   const { contextSafe } = useGSAP({
     dependencies: [toggleMobileNav],
@@ -166,7 +208,6 @@ function Navigation() {
       );
     visibleTL.play();
   });
-  
   const handleToggleOff = contextSafe(() => {
     const hiddenTL = gsap
       .timeline()
@@ -203,11 +244,7 @@ function Navigation() {
             toggleMobileNav ? styles.background__transparent : ""
           }`}
         >
-          <a 
-            className={styles.logo__container} 
-            href="/"
-            onClick={(e) => handleNavigation("/", e)}
-          >
+          <a className={styles.logo__container}>
             <div>
               <img
                 src="https://res.cloudinary.com/dlly7wr0a/image/upload/v1741896257/espektroLogo_1_kffjjj.png"
@@ -220,13 +257,7 @@ function Navigation() {
               {links.map((link) => {
                 return (
                   <li key={link.id}>
-                    <a 
-                      href={link.href}
-                      onClick={(e) => handleNavigation(link.href, e)}
-                      className={currentPath === link.href ? styles.active_link : ""}
-                    >
-                      {link.label}
-                    </a>
+                    <a href={link.href}>{link.label}</a>
                   </li>
                 );
               })}
@@ -234,6 +265,9 @@ function Navigation() {
             <HamburgerButton
               isClicked={toggleMobileNav}
               onClick={() => {
+                //! delaying the click event, after 0.2s of user clicking
+                //! state will be updated, this is because, rapid clicking(on/off) causes unfinished animation
+                //! so in toggle off state for a few second links are still visible
                 setTimeout(() => {
                   setToggleMobileNav((prev) => !prev);
                   if (!toggleMobileNav) {
@@ -241,7 +275,7 @@ function Navigation() {
                   } else {
                     handleToggleOff();
                   }
-                }, 200);
+                }, 200); //* experiment with this value
               }}
             />
           </div>
@@ -268,8 +302,6 @@ function Navigation() {
                       if (toggleMobileNav) {
                         setToggleMobileNav((prev) => !prev);
                         handleToggleOff();
-                        // Force page refresh for mobile navigation
-                        window.location.href = link.href;
                       }
                     }}
                   >

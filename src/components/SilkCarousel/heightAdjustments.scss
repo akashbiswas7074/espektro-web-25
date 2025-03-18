@@ -1,0 +1,51 @@
+/* 
+ * Additional height adjustments for SilkCarousel
+ * Import this file after the main styles.scss
+ */
+
+// Desktop-first approach with larger card sizes
+.silk-carousel-container {
+  // Large desktop screens
+  @media (min-width: 1600px) {
+    .silk-carousel-track {
+      min-height: 650px;
+      
+      .silk-carousel-item {
+        min-height: 630px;
+      }
+    }
+  }
+  
+  // Ultra-wide screens
+  @media (min-width: 2000px) {
+    .silk-carousel-track {
+      min-height: 700px;
+      
+      .silk-carousel-item {
+        min-height: 680px;
+      }
+    }
+  }
+}
+
+// Ensure Event Cards expand to fill available height
+.event-card-wrapper {
+  height: 100%;
+  
+  .event-card {
+    height: 100%;
+    
+    // Adjust content for taller cards
+    .details {
+      // Increase spacing between sections for better readability
+      .text-details-row {
+        margin-bottom: 0.5rem;
+      }
+      
+      // Allow more space for descriptions
+      .timeline {
+        padding: 0.5rem 0;
+      }
+    }
+  }
+}

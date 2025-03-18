@@ -1,28 +1,26 @@
 import "./Hero.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import SectionWrapper from "@/components-global/section-divider";
 
-// Remove the unused import:
 import ClubsSection from "./components/clubs-24";
 import EventSection from "./components/events";
 import FooterSection from "./components/footer";
 import SponsorSection from "./components/sponsorship-v.2.0.0";
 import Stats from "./components/stats";
 import styles from "./style.module.scss";
-import Navigation from "@/components-global/navbar/navbar";
+// import Navigation from "@/components-global/navbar/navbar";
 import MainTextAnimation from "./components/HeroNew/components/MainTextAnim/MainTextAnim";
 import VideoHero from '../../components/VideoHero/VideoHero';
 import AboutSection from "./components/about";
 
 const HomeScreen: React.FC = () => {
-  // Remove navigate const since we're not using it
-  // const navigate = useNavigate();
   const [showNavbar, setShowNavbar] = useState(false);
   const [videoActive, setVideoActive] = useState(true);
+  const [_isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [_imageError, setImageError] = useState(false);
 
   const handleNavigateToEvents = () => {
-    // Replace navigate with direct window.location to force a refresh
     window.location.href = '/events';
   };
 
@@ -58,28 +56,35 @@ const HomeScreen: React.FC = () => {
     },
   ];
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const hero = document.getElementById("hero");
     const scrollPosition = window.scrollY;
     
-    // Show navbar when scrolling begins
     if (scrollPosition > 50 && videoActive) {
       setShowNavbar(true);
     }
     
     if (hero) {
       const heroHeight = hero.clientHeight;
-      const blur = (scrollPosition / heroHeight) * 10;
+      const blur = Math.min((scrollPosition / heroHeight) * 5, 5);
       hero.style.filter = `blur(${blur}px)`;
     }
-  };
+  }, [videoActive]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [videoActive]);
+  }, [handleScroll, videoActive]);
+
+  const handleVideoLoad = () => {
+    setIsVideoLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   return (
     <div className="home-screen">
@@ -90,7 +95,7 @@ const HomeScreen: React.FC = () => {
         />
       </div>
       <div className={`navbar-container ${showNavbar ? 'navbar-visible' : 'navbar-hidden'}`}>
-        <Navigation />
+        {/* <Navigation /> */}
       </div>
       <div className="landing">
         <div className="hero-section" id="hero">
@@ -100,24 +105,36 @@ const HomeScreen: React.FC = () => {
             loop 
             muted 
             playsInline
+            preload="metadata"
+            onLoadedData={handleVideoLoad}
+            poster="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742230891/video-poster.jpg"
           >
             <source 
-              src="https://res.cloudinary.com/dlrlet9fg/video/upload/v1742216971/Nested_Sequence_11_1_1_gw71zc.mp4" 
+              src="https://res.cloudinary.com/dlrlet9fg/video/upload/q_auto:low,f_auto/v1742230891/Nested_Sequence_11_1_1_1_q0o0b6.mp4" 
               type="video/mp4" 
             />
+            Your browser does not support the video tag.
           </video>
           <div className="hero-overlay"></div>
-          <div className="hero-content container mx-auto px-4">
+          <div className="hero-content container mx-auto px-4 shadow-enhanced">
             <div className="flex flex-col items-center justify-center min-h-screen">
-              <div className="text-center z-10 space-y-10 absolute-center">
+              <div className="text-center z-10 space-y-6 absolute-center shadow-text">
                 <div className="hero-logo-container w-full max-w-3xl mx-auto flex justify-center">
                   <img 
-                    src="https://res-console.cloudinary.com/dlrlet9fg/thumbnails/v1/image/upload/v1742209222/ZXNwZWNrdHJvXzI1X3N6OWdlaA==/drilldown"
+                    src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209222/especktro_25_sz9geh.png" 
                     alt="ESPEKTRO"
-                    className="hero-logo animate-fade-in"
+                    className="hero-logo animate-fade-in enhanced-logo"
+                    loading="eager"
+                    onError={handleImageError}
                   />
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="tagline-container">
+                  <MainTextAnimation
+                    text="THE WONDERS WEAVE"
+                    className="tagline text-[1rem] md:text-[1.4rem] lg:text-[1.8rem] font-light tracking-wider text-gray-200"
+                  />
+                </div>
+                <div className="w-full flex justify-center mt-2">
                   <MainTextAnimation
                     text="3rd to 6th APRIL"
                     className="hero-dates text-[1.2rem] md:text-[1.8rem] lg:text-[2.2rem] font-light tracking-widest"
@@ -129,9 +146,11 @@ const HomeScreen: React.FC = () => {
                     onClick={handleNavigateToEvents}
                   >
                     <img 
-                      src="https://res-console.cloudinary.com/dlrlet9fg/thumbnails/v1/image/upload/v1742209982/RVNQRUtUUk9fY2xvdGhfZTl0ZzZx/drilldown" 
+                      src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209982/ESPEKTRO_cloth_e9tg6q" 
                       alt="Events" 
                       className="event-button-img"
+                      loading="lazy"
+                      onError={() => console.log("Event button image failed to load")}
                     />
                   </button>
                 </div>
@@ -139,7 +158,6 @@ const HomeScreen: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* Remove any extra containers that might cause spacing */}
         <div id="trigger" className="landing-page">
           <div className={styles.banner}>
             <EventSection direction="left" />

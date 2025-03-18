@@ -1,0 +1,25 @@
+// Special track configurations for height adjustments
+
+.silk-carousel-track {
+  // Create a special container for the items
+  position: relative;
+  display: flex;
+  align-items: center; // Center items vertically
+  min-height: 520px; // Maintain minimum height
+  
+  // Handle height differentials between active and inactive cards
+  .silk-carousel-item {
+    // Default sizing
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // Transition all properties
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    &.active-card {
+      // Keep centered vertically while smaller
+      align-self: center;
+    }
+  }
+}

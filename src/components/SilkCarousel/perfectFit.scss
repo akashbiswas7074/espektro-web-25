@@ -1,0 +1,240 @@
+/**
+ * Special styling for perfect event card fit
+ * Import this after the main styles.scss
+ */
+
+// Make sure content within each card fits perfectly
+.silk-carousel-item-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  
+  // Ensure event card wrapper takes proper dimensions
+  .event-card-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // Special styling for event card
+    .event-card {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      max-height: none;
+      border-radius: 12px;
+      overflow: hidden;
+      
+      // Make sure image section has correct dimensions
+      .image {
+        height: 100%;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.1) 0%,
+            rgba(0, 0, 0, 0.2) 100%
+          );
+          z-index: 1;
+        }
+        
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.5s ease;
+        }
+      }
+      
+      // Ensure details section scrolls properly if content is too long
+      .details {
+        height: 100%;
+        overflow-y: auto;
+        position: relative;
+        padding: 1.5rem;
+        
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(26, 26, 29, 0.95),
+            rgba(17, 17, 19, 0.98)
+          );
+          z-index: -1;
+        }
+        
+        // Better spacing for text
+        .text-details-row {
+          margin-bottom: 0.75rem;
+        }
+        
+        // Better typography
+        .event-title-tagline h3 {
+          color: #fff;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+        }
+        
+        // Improve labels
+        .label {
+          color: #aaa;
+          font-size: 0.85em;
+          font-weight: 500;
+        }
+        
+        // Improve text styling
+        .text {
+          color: #ddd;
+          font-size: 0.95em;
+        }
+        
+        // Better buttons
+        .flex .cursor-pointer {
+          transition: all 0.3s ease;
+          transform: translateY(0);
+          
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(214, 115, 16, 0.3);
+          }
+        }
+      }
+      
+      // Hover effects
+      &:hover {
+        .image img {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+// Different layouts based on screen width
+@media (min-width: 1200px) {
+  // Large desktop layout - wider images
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    flex-direction: row;
+    
+    .image {
+      width: 50%; // Increased from 40% to make image more prominent
+      min-width: 400px; // Increased for larger desktop displays
+      max-width: 450px; // Cap the maximum width
+    }
+    
+    .details {
+      width: 50%; // Adjusted to match image width
+      padding-left: 2rem; // More padding between image and content
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  // Desktop layout - balanced proportions
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    flex-direction: row;
+    
+    .image {
+      width: 45%; // Increased from 40%
+      min-width: 350px; // Increased from 300px
+      max-width: 400px; // Cap the maximum width
+    }
+    
+    .details {
+      width: 55%; // Balanced with image
+      padding-left: 1.75rem; // Comfortable spacing
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  // Tablet layout - slightly adjusted horizontal
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    flex-direction: row;
+    
+    .image {
+      width: 40%; // Increased from 35%
+      min-width: 250px; // Increased from 200px
+    }
+    
+    .details {
+      width: 60%; // Adjusted to match image width
+      padding-left: 1.5rem; // Added specific padding
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  // Tablet layout - slightly adjusted horizontal
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    flex-direction: row;
+    
+    .image {
+      width: 35%;
+      min-width: 200px;
+    }
+    
+    .details {
+      width: 65%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  // Mobile layout - stacked (vertical)
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    flex-direction: column;
+    
+    .image {
+      width: 100%;
+      height: 220px; // Increased from 180px for better display
+      min-height: 220px;
+    }
+    
+    .details {
+      width: 100%;
+      height: calc(100% - 220px); // Adjust to match new image height
+      padding: 1.2rem; // Slightly reduced padding to fit content
+    }
+  }
+}
+
+// Small mobile devices - adjust proportions
+@media (max-width: 400px) {
+  .silk-carousel-item-content .event-card-wrapper .event-card {
+    .image {
+      height: 200px; // Slightly smaller on very small screens
+      min-height: 200px;
+    }
+    
+    .details {
+      height: calc(100% - 200px);
+      
+      // Reduce spacing for smaller screens
+      .text-details-row {
+        margin-bottom: 0.5rem;
+      }
+      
+      // Reduce button spacing
+      .flex {
+        margin-top: 0.75rem;
+      }
+    }
+  }
+}

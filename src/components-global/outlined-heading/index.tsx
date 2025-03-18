@@ -4,13 +4,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import React from 'react';
 import styles from './styles.module.scss';
 gsap.registerPlugin(ScrollTrigger);
-interface OutlinedHeadingProps extends React.HTMLAttributes<HTMLDivElement> {
+
+export interface OutlinedHeadingProps extends React.HTMLAttributes<HTMLDivElement> {
   label: string;
+  theme?: string; // Add theme property to interface
 }
-function OutlinedHeading({
-  label,
-  ...props
-}: OutlinedHeadingProps): React.JSX.Element {
+
+const OutlinedHeading: React.FC<OutlinedHeadingProps> = ({ label, theme = "default", ...props }) => {
   const svgContainerRef = React.useRef<HTMLDivElement>(null);
   const svgRef = React.useRef<SVGSVGElement>(null);
   const outlineTextRef = React.useRef<SVGTextElement>(null);
@@ -71,7 +71,7 @@ function OutlinedHeading({
     <div
       ref={svgContainerRef}
       {...props}
-      className={`${styles.outline__heading__container} ${props.className}`}
+      className={`${styles.outline__heading__container} ${props.className} ${theme === "vintage" ? styles.vintage : ""}`}
     >
       <svg
         ref={svgRef}
@@ -83,8 +83,20 @@ function OutlinedHeading({
             gradientTransform="rotate(30)"
             id="outlined-heading-linear-gradient"
           >
-            <stop offset="0%" stopColor="#ea65cb" />
-            <stop offset="100%" stopColor="#986fe9" />
+            {theme === "vintage" ? (
+              <>
+                <stop offset="0%" stopColor="#8b6e4e" /> {/* Medium brown */}
+                <stop offset="25%" stopColor="#a98459" /> {/* Medium brown text */}
+                <stop offset="50%" stopColor="#a38767" /> {/* Dark brown */}
+                <stop offset="75%" stopColor="#e8dcc9" /> {/* Light text on dark backgrounds */}
+                <stop offset="100%" stopColor="#5e4a33" /> {/* Dark brown */}
+              </>
+            ) : (
+              <>
+                <stop offset="0%" stopColor="#e8dcc9" />
+                <stop offset="100%" stopColor="#a98459" />
+              </>
+            )}
           </linearGradient>
         </defs>
         <text
