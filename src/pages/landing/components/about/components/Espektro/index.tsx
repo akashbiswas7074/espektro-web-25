@@ -13,8 +13,16 @@ const EspektroAbout: React.FC = () => {
         viewport={{ once: true }}
       >
         <OutlinedHeading label="Espektro" theme="vintage" />
+    
       </motion.div>
-      
+      <a
+              href="https://res.cloudinary.com/dezguraul/image/upload/v1741930364/espektro_sponsor_brochure_5_iubdru.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+               <button className={styles.button}>Brochure</button>
+            </a>
+     
       <div className={styles.about_main_section}>
         <div className={styles.about_img_grid_container}>
           <motion.div

@@ -132,8 +132,8 @@
     flex-direction: column;
     font-family: $poppins-sans;
     font-weight: 500;
-
-    background: -webkit-linear-gradient(120deg, #812099 0%, #bd1eee 100%);
+    color: $text-light;
+    background: $text-light;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
