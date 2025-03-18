@@ -34,7 +34,7 @@ const EspektroAbout: React.FC = () => {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1704223885/espektro/2023/techtix-exotica/qj9b9gbg08n2wbbr1nb4.webp"
+              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1705035698/espektro/2023/about/espektro.webp"
               alt="Main Espektro event"
               className={styles.about_img}
               loading="lazy"
@@ -81,7 +81,7 @@ const EspektroAbout: React.FC = () => {
               margin: "-50px",
             }}
           >
-            <div className=''>
+            <div className='w-[20%]'>
               <img
                 src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742233724/download_16_fvtzyw.png"
                 alt="Espektro decoration"
@@ -111,13 +111,21 @@ const EspektroAbout: React.FC = () => {
           className={styles.about_content_section}
         >
           <p>
-            Alfresco, the Annual Hall Day cum Alumni Reunion of Rishi Bankim
-            Chandra Hall, brings all the present residents to work co-operatively
-            and make this event a great success. The hostellers of Rishi Bankim
-            Chandra Hall has reached the peak of their success and accomplished
-            every dream of their life. They have created an unforgettable image
-            which will be remembered forever and thus, feels proud to be an alumni
-            of Rishi Bankim Chandra Hall.
+          <span className="text-vintage-brown-text text-3xl"> 
+                Espektro</span><span className=" "> is the annual cultural and technical spectacle hosted
+                by {' '}
+              </span>
+              <span className="text-vintage-brown-text text-3xl ">
+                Kalyani Government Engineering College{" "}
+              </span>
+              <span className="">
+              . As West Bengal's
+              second-largest fest, Espektro masterfully intertwines the realms of technology
+                and
+              </span>
+              creativity, setting the stage for a multifaceted celebration. Over
+              the course of several days, attendees are treated to a dynamic
+              experience.
           </p>
         </motion.div>
       </div>

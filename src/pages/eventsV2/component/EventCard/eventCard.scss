@@ -48,9 +48,10 @@
 
   background-color: $black-light;
   border-radius: 10px;
-  height: 580px; // Increased from 500px for desktop
-  min-height: 580px; // Set min-height to match
+  height: 450px; // Reduced from 580px
+  min-height: 450px; // Reduced from 580px
   max-height: none; // Remove max-height constraint
+  width: 100%; // Ensure card takes full width of grid cell
   display: flex;
   flex-direction: row;
   position: relative;
@@ -94,8 +95,8 @@
   }
 
   .image {
-    width: 400px; // Increased from 300px for desktop
-    min-width: 400px; // Increased from 300px for desktop
+    width: 220px; // Reduced from 400px
+    min-width: 220px; // Reduced from 400px
     position: relative;
     border-radius: 10px 0px 0 10px;
     overflow: hidden; // Ensure image doesn't overflow
@@ -141,7 +142,7 @@
 
   .details {
     flex-grow: 1;
-    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    padding: 1.2rem 1rem 0.8rem 1rem; // Reduced padding
     position: relative;
     display: flex;
     flex-direction: column;
@@ -154,7 +155,7 @@
       margin-bottom: 10px;
       
       h3 {
-        font-size: 18px;
+        font-size: 16px; // Smaller font size
         font-weight: 600;
         margin-bottom: 5px;
         line-height: 1.3;
@@ -168,11 +169,11 @@
     }
 
     .timeline {
-      font-size: 11px;
-      margin-top: 0.5rem;
+      font-size: 10px; // Smaller font
+      margin-top: 0.3rem; // Less margin
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.3rem; // Less gap
       flex-grow: 1; // Let the timeline section grow
       overflow-y: auto; // Add scrolling for long content
     }
@@ -236,7 +237,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem; // Reduced gap
+    margin-bottom: 0.2rem; // Add small margin between rows
   }
 
   // Add styles to handle variable height in carousel
@@ -261,8 +263,8 @@
 
 @media only screen and (max-width: 992px) {
   .event-card {
-    height: 530px;
-    min-height: 530px;
+    height: 450px; // Same as desktop now
+    min-height: 450px;
     .image {
       width: 220px;
       min-width: 220px;
@@ -272,8 +274,8 @@
 
 @media only screen and (max-width: 768px) {
   .event-card {
-    height: 540px;
-    min-height: 540px;
+    height: 450px; // Same as desktop now
+    min-height: 450px;
     .image {
       width: 200px;
       min-width: 200px;
@@ -372,8 +374,8 @@
 @media only screen and (min-width: 1400px) {
   .event-card {
     .image {
-      width: 450px; // Larger for big screens
-      min-width: 450px;
+      width: 250px; // Reduced from 450px
+      min-width: 250px;
     }
   }
 }
@@ -381,8 +383,8 @@
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .event-card {
     .image {
-      width: 420px;
-      min-width: 420px;
+      width: 220px; // Reduced from 420px
+      min-width: 220px;
     }
   }
 }
@@ -390,8 +392,8 @@
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .event-card {
     .image {
-      width: 350px;
-      min-width: 350px;
+      width: 200px; // Reduced from 350px
+      min-width: 200px;
     }
   }
 }

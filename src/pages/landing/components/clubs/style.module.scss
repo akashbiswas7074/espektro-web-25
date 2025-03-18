@@ -105,7 +105,7 @@
           & > div {
             position: absolute;
             inset: 0;
-            color: $action;
+            color: #ffffff; // Changed from $action to white
             width: 100%;
             z-index: 1001;
             display: flex;
@@ -116,6 +116,8 @@
               font-family: medieval;
               font-weight: bold;
               font-size: medium;
+              color: #ffffff; // Explicitly set to white
+              text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); // Added shadow for better visibility
               transition: color 0.3s ease-in-out;
             }
           }

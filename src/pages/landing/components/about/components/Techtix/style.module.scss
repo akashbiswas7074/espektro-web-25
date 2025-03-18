@@ -35,7 +35,7 @@ $medieval-sharp: 'MedievalSharp', cursive;
       word-wrap: break-word;
       text-align: left;
       padding: 1rem 1rem;
-      font-family: $medieval-sharp;
+      font-family:  $medieval-sharp;
       overflow: hidden;
     }
 
@@ -59,7 +59,7 @@ $medieval-sharp: 'MedievalSharp', cursive;
 
         // border: 2px solid red
         & > img {
-          border: 1px solid white;
+          // border: 1px solid white;
           border-radius: 0.5rem;
         }
       }
@@ -97,7 +97,7 @@ $medieval-sharp: 'MedievalSharp', cursive;
 
         & > img {
           border-radius: 0.5rem;
-          border: 1px solid white;
+          // border: 1px solid white;
         }
       }
     }

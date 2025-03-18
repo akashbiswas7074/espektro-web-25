@@ -91,6 +91,15 @@ img {
   will-change: transform;
 }
 
+/* About image responsive styles */
+.about_img {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
 @media (max-width: 768px) {
   .hero-section {
     transform: translateZ(0);
@@ -105,5 +114,17 @@ img {
   /* Optimize scrolling on mobile */
   * {
     -webkit-overflow-scrolling: touch;
+  }
+
+  .about_img {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .about_img {
+    width: 100%;
+    border-radius: 4px;
   }
 }

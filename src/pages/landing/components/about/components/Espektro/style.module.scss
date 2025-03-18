@@ -60,6 +60,7 @@ $medieval-sharp: 'MedievalSharp', cursive;
         & > img {
           border: 1px solid white;
           border-radius: 0.5rem;
+          width: 10%;
         }
       }
 
@@ -80,6 +81,8 @@ $medieval-sharp: 'MedievalSharp', cursive;
           align-self: center;
           border-radius: 0.5rem;
           border: 2px solid white;
+          // width: 100vh;
+          height: fit-content; // Smaller width for image2
         }
       }
 
@@ -97,6 +100,7 @@ $medieval-sharp: 'MedievalSharp', cursive;
         & > img {
           border-radius: 0.5rem;
           border: 1px solid white;
+          width: 10%; // Smaller width for image3
         }
       }
     }
@@ -110,6 +114,17 @@ $medieval-sharp: 'MedievalSharp', cursive;
 
       & > .about_img_grid_container {
         flex: 2;
+        
+        .imgone img.about_img {
+          width: 100%;
+          max-width: none;
+        }
+        
+        .imgtwo img.about_img, 
+        .imgthree img.about_img {
+          width: 100%; // Keep images 2 and 3 smaller on mobile too
+          max-width: none;
+        }
       }
     }
   }

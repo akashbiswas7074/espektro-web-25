@@ -1,0 +1,104 @@
+@import "../../styles/colors";
+@import "../../styles/breakpoints";
+
+.about_section {
+  padding: 4rem 0;
+  background-color: $background-primary;
+  color: $text-light;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    
+    @include max-media(768px) {
+      padding: 0 1.5rem;
+      gap: 2rem;
+    }
+  }
+  
+  .about_content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    
+    @include max-media(992px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
+  .about_text {
+    flex: 1;
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: $text-light;
+      
+      @include max-media(768px) {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+    }
+    
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: $text-medium;
+      margin-bottom: 1.5rem;
+      
+      @include max-media(768px) {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+    }
+  }
+  
+  .about_img_container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about_img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    
+    // Make the image wider on mobile devices
+    @include max-media(768px) {
+      max-width: 100%;
+      width: 100%;
+    }
+    
+    // Even wider on very small screens
+    @include max-media(480px) {
+      width: 100%;
+      border-radius: 4px;
+      margin: 0 -1rem; // Negative margin to make it slightly wider than container
+    }
+  }
+}
+
+// If the image is used elsewhere outside the about section
+:global(.about_img) {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  
+  @include max-media(768px) {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  @include max-media(480px) {
+    width: 100%;
+  }
+}

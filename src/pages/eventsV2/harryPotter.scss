@@ -104,6 +104,45 @@
     z-index: 0;
     border-radius: 12px;
   }
+
+  .events_grid_container {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d3a625'%3E%3Cpath d='M12 3.5L8.5 5.5L12 7.5L15.5 5.5L12 3.5ZM3 7.5L7.5 10L11 8L6.5 5.5L3 7.5ZM21 7.5L17.5 5.5L13 8L16.5 10L21 7.5ZM7.5 14L3 11.5L8.5 16L7.5 14ZM16.5 14L15.5 16L21 11.5L16.5 14ZM12 13L8.5 10.5L12 8L15.5 10.5L12 13Z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+    }
+  }
+
+  .event_grid_item:nth-child(3n+1)::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    right: -10px;
+    top: 50%;
+    background: radial-gradient(circle, var(--hogwarts-gold) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(3px);
+    opacity: 0.6;
+    z-index: 10;
+    animation: float 3s infinite ease-in-out;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 .day-header {

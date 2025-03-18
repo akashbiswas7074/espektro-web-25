@@ -1,6 +1,7 @@
 import React from 'react';
 import EspektroAbout from './components/Espektro';
 import Exotica from './components/Exotica';
+import Quizine from './components/Quizine';
 import Techtix from './components/Techtix';
 import styles from './style.module.scss';
 import AfterMovieSection from '../after-movie';
@@ -14,6 +15,7 @@ const AboutSection: React.FC = () => {
       <EspektroAbout />
       <Techtix />
       <Exotica />
+      <Quizine/>
    {/* <About24 /> */}
     </article>
   );

@@ -10,7 +10,6 @@ import type { EventData } from './types';
 
 import { demoEventData } from './data';
 import './harryPotter.scss';
-import SilkCarousel from '@/components/SilkCarousel';
 
 const eventLinks = [
   {
@@ -53,15 +52,6 @@ function EventsNav({
 }
 
 function EventsV2() {
-  // const [activeTab, setActiveTab] = useState(1);
-
-  // const [_, setDay0Event] = useState<EventData[]>([]);
-  // const [__, setDay1Event] = useState<EventData[]>([]);
-  // const [___, setDay2Event] = useState<EventData[]>([]);
-  // const [____, setDay3Event] = useState<EventData[]>([]);
-  // const [dataarray, setDataArray] = useState<
-  //   { day: number; event: EventData[] }[]>([]);
-
   const [events, setEvents] = useState<EventData[]>([]);
 
   useEffect(() => {
@@ -145,16 +135,9 @@ function EventsV2() {
 
   return (
     <div className={styles.event__main__container}>
-      {/* <EventsNav active={activeTab} setActive={(tab) => setActiveTab(tab)} /> */}
       <div className={styles.section__container}>
         <OutlinedHeading label="Our Events" />
         <EventsSection days={eventsMap} />
-        {/* <h1 className="text-4xl text-center font-bold text-text-light py-24">
-          Coming Soon
-          <div className={styles.coming__soon}>
-            <ComingSoonDotsComponent/>
-        </div>
-        </h1> */}
       </div>
     </div>
   );
@@ -165,7 +148,6 @@ function EventsSection({
 }: {
   days: { day: string; event: EventData[] }[];
 }) {
-  console.log(days);
   return (
     <section className={styles.event__section}>
       <div className="cloud-background"></div>
@@ -179,8 +161,6 @@ function EventsSection({
     </section>
   );
 }
-
-export default EventsV2;
 
 function EventDayContainer({
   day,
@@ -197,20 +177,12 @@ function EventDayContainer({
         <GiWizardStaff className="staff-icon" />
       </h3>
       
-      <div className="carousel-container-wrapper">
-        <SilkCarousel 
-          autoPlayInterval={5000}
-          slidesToShow={1} // Always 1 to focus on single card
-          theme="harry-potter"
-          arrows={events.length > 1}
-          infinite={true}
-        >
-          {events.map((event, idx) => (
-            <div key={idx} className="event-card-wrapper">
-              <EventCard {...event} />
-            </div>
-          ))}
-        </SilkCarousel>
+      <div className={styles.events_grid_container}>
+        {events.map((event, idx) => (
+          <div key={idx} className={styles.event_grid_item}>
+            <EventCard {...event} />
+          </div>
+        ))}
       </div>
     </div>
   );

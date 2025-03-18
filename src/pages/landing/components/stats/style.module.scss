@@ -1,6 +1,7 @@
 @import '../../../../styles/colors';
 // @import '../../../../styles/breakpoints';
 @import '../../../../styles/fonts';
+@import '../../../../styles/brown-theme';
 
 .content_list_container {
   gap: 4rem; // one extra rem bcz of title (The Origin) is
@@ -12,11 +13,11 @@
   @include desktop {
     gap: 6rem;
   }
-//
+
   & .content_list_heading {
-    color: white;
+    color: $brown-light;
     margin: 2rem 0;
-    background: -webkit-linear-gradient(120deg, #541074 0%, #ae1ee7 100%);
+    background: -webkit-linear-gradient(120deg, $brown-dark 0%, $brown-medium1 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -24,7 +25,7 @@
 }
 .year__list__wrapper {
   --central-line-left: 80px;
-  --central-line-color: #{$text-medium};
+  --central-line-color: #{$brown-medium1};
   padding: 0 1rem;
 
   @include xs {
@@ -55,7 +56,7 @@
     & .year__list {
       //   border: 1px solid yellow;
       position: relative;
-      color: white;
+      color: $brown-light;
       display: flex;
       flex-direction: column;
       padding: 0 1rem;
@@ -71,10 +72,10 @@
         justify-content: flex-end;
         align-items: center;
         padding-right: var(--distance-from-central-line);
-        color: $secondary;
+        color: $brown-medium2;
         font-size: 1.5rem;
         -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 0.6px $text-medium;
+        -webkit-text-stroke: 0.6px $brown-medium1;
 
         @include sm {
           font-size: 1.8rem;
@@ -90,7 +91,7 @@
         align-items: center;
         padding-left: var(--distance-from-central-line);
         font-size: 1.5rem;
-        color: $text-dark;
+        color: $brown-medium3;
         font-family: $caveat-medium;
 
         @include mobile {
@@ -108,7 +109,7 @@
         // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         // backdrop-filter: blur(5px);
         // -webkit-backdrop-filter: blur(5px);
-        color: $text-light;
+        color: $brown-light;
         font-size: 0.9rem;
         font-family: $poppins-sans;
         @include sm {
@@ -168,8 +169,8 @@
       font-size: 2.5rem;
       font-family: $poppins-sans;
       font-weight: bolder;
-      color: $text-light;
-      background: -webkit-linear-gradient(120deg, #880e7e 0%, #ec5cff 100%);
+      color: $brown-light;
+      background: -webkit-linear-gradient(120deg, $brown-dark 0%, $brown-medium1 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -179,7 +180,7 @@
       font-size: 1.25rem;
       font-family: $poppins-sans;
       font-weight: 500;
-      color: $text-light;
+      color: $brown-light;
     }
   }
 
@@ -226,7 +227,7 @@
 
 .stats_main_container {
   width: 100%;
-  background: $primary;
+  background: #000000; // Changed from $brown-dark to black
   display: flex;
   justify-content: center;
   align-items: center;
@@ -346,7 +347,7 @@
     & > li:nth-child(n) {
       // transform: translateX(5%);
       font-size: 1rem; //1.2rem
-      color: $light;
+      color: $brown-light;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -356,13 +357,13 @@
       gap: 1.25rem;
 
       & > h2 {
-        color: $text-dark;
+        color: $brown-medium3;
         font-weight: 700;
         font-size: 1.5rem;
       }
 
       & > p {
-        color: $text-light;
+        color: $brown-light;
       }
     }
 

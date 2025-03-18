@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 
 import SectionWrapper from "@/components-global/section-divider";
 
-import ClubsSection from "./components/clubs-24";
+import ClubsSection from "./components/clubs";
 import EventSection from "./components/events";
 import FooterSection from "./components/footer";
 import SponsorSection from "./components/sponsorship-v.2.0.0";

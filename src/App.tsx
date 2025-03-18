@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components-global/navbar/navbar";
 import ErrorPage from "./pages/landing/Error404";
-import EventsV2 from './pages/eventsV2';
+import {EventsV2} from './pages/eventsV2/index';
 import HomeScreen from './pages/landing';
-import ArtistsPage from './pages/artists/page';
+import ArtistsPage from './pages/landing/components/artist-v5';
 // import audioService from './services/AudioService';
 
 const App: React.FC = () => {

@@ -12,7 +12,7 @@ const Exotica: React.FC = () => {
   return (
     <section className={styles.about_section}>
       {/* <AnimatedHeading heading="Exotica" variant="light" /> */}
-      <OutlinedHeading label="Exotica" theme="vintage" />
+      <OutlinedHeading label="Quixine" theme="vintage" />
       <div className={styles.about_main_section}>
         <div className={styles.about_img_grid_container}>
           <motion.div
@@ -30,7 +30,7 @@ const Exotica: React.FC = () => {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1705036869/espektro/2023/about/exotica.webp"
+              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1705035698/espektro/2023/about/espektro.webp"
               alt="vertical"
               className={styles.about_img}
             />
@@ -93,11 +93,11 @@ const Exotica: React.FC = () => {
             once: true,
           }}
         ><div className='font-medieval  text-lg'>
-          <span className="text-3xl font-bold text-vintage-brown-text">Exotica</span>{" "}
+          {/* <span className="text-3xl font-bold text-amber-200">Exotica</span>{" "}
                     stands as the cultural heartbeat of Espektro, showcasing a
                     rich tapestry of talents from KGEC's student body. This
                     segment immerses attendees in a{" "}
-                    <span className="text-3xl font-bold text-vintage-brown-text">
+                    <span className="text-3xl font-bold text-amber-200">
                       captivating ambiance of music and dance, deeply
                     </span>{" "}
                     rooted in the college's cultural essence. Following the
@@ -107,7 +107,29 @@ const Exotica: React.FC = () => {
                     leaving an indelible impact on every listener. Through
                     Exotica, Espektro not only celebrates KGEC's cultural
                     heritage but also becomes a platform where local talent
-                    harmoniously blends with national luminaries.</div>
+                    harmoniously blends with national luminaries. */}
+
+
+                    <span className="text-3xl font-bold text-vintage-brown-text">Quixine</span>{" "}
+                    awaits, promising a{" "}
+                    <span className="text-3xl font-bold text-vintage-brown-text">gastronomic haven</span>{" "}
+                    that will ignite your senses and elevate your culinary
+                    experience. Prepare to embark on a journey through a myriad
+                    of flavors and culinary marvels,{" "}
+                    <span className="text-3xl font-bold text-vintage-brown-text">
+                      where every bite tells a story and every dish is a
+                      masterpiece
+                    </span>{" "}
+                    in its own right. Immerse yourself in a world of excitement
+                    as Quixine hosts exhilarating culinary contests, inviting
+                    you to showcase your skills and creativity in the kitchen.
+                    Whether you're a seasoned chef or an aspiring{" "}
+                    <span className="text-3xl font-bold text-vintage-brown-text">home cook</span>, there's
+                    something for everyone to savor and enjoy.
+                    <br />
+                    Join us at Quixine and discover the true essence of culinary
+                    artistry. Your taste buds will thank you for this
+                    unforgettable experience!</div>
         </motion.div>
       </div>
     </section>

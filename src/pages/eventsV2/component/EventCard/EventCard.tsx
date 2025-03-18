@@ -84,9 +84,8 @@ const EventCard = (event: EventData) => {
         </div>
         <div className="timeline">
           <div className="text-details">
-            <span className="label">Organiser Club:</span>
+            <span className="label">Organiser:</span> {/* Shortened label */}
             <div className="text image-detail">
-              {" "}
               <img src={event.eventOrganiserClub?.image} alt="" />
               {event.eventOrganiserClub?.name}
             </div>
@@ -179,10 +178,10 @@ const EventCard = (event: EventData) => {
             </div>
           </div>
         </div>
-        <div className="flex gap-4">
-          <Button className="cursor-pointer p-0 w-full mt-8 text-text-primary hover:bg-text-light bg-text-floral">
+        <div className="flex gap-2"> {/* Reduced gap */}
+          <Button className="cursor-pointer p-0 w-full mt-4 text-text-primary hover:bg-text-light bg-text-floral"> {/* Reduced margin-top */}
             <a
-              className="px-4 py-2 w-full h-full"
+              className="p-2 w-full h-full" /* Reduced padding */
               href={event.registrationLink}
               target="_blank"
               rel="noopener noreferrer"
@@ -192,7 +191,7 @@ const EventCard = (event: EventData) => {
           </Button>
 
           <Button
-            className="cursor-pointer p-0 w-full mt-8 text-text-primary hover:bg-text-light bg-text-floral"
+            className="cursor-pointer p-0 w-full mt-4 text-text-primary hover:bg-text-light bg-text-floral" /* Reduced margin-top */
             onClick={() => {
               if (event.brochureLink) {
                 const link = document.createElement("a");
@@ -204,7 +203,7 @@ const EventCard = (event: EventData) => {
               }
             }}
           >
-            Download Rulebook
+            Rules
           </Button>
         </div>
       </div>

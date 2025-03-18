@@ -1,16 +1,18 @@
-import HorizontalImg from '@/assets/images/horizontalimg.jpg';
-import VerticalImg from '@/assets/images/verticalimg.jpeg';
+// import HorizontalImg from '@/assets/images/horizontalimg.jpg';
+// import VerticalImg from '@/assets/images/verticalimg.jpeg';
 import React from 'react';
 
 import { motion } from 'framer-motion';
 
-import AnimatedHeading from '@/components-global/animated-heading';
+// import AnimatedHeading from '@/components-global/animated-heading';
 import styles from './style.module.scss';
+import OutlinedHeading from '@/components-global/outlined-heading';
 
 const Techtix: React.FC = () => {
   return (
     <section className={styles.about_section}>
-      <AnimatedHeading heading="Techtix" variant="light" />
+      {/* <AnimatedHeading heading="Techtix" variant="light" /> */}
+      <OutlinedHeading label="Techtix" theme="vintage" />
       <div className={styles.about_main_section}>
         <motion.div
           className={styles.about_content_section}
@@ -30,13 +32,35 @@ const Techtix: React.FC = () => {
             once: true,
           }}
         >
-          Alfresco, the Annual Hall Day cum Alumni Reunion of Rishi Bankim
-          Chandra Hall, brings all the present residents to work co-operatively
-          and make this event a great success. The hostellers of Rishi Bankim
-          Chandra Hall has reached the peak of their success and accomplished
-          every dream of their life. They have created an unforgettable image
-          which will be remembered forever and thus, feels proud to be an alumni
-          of Rishi Bankim Chandra Hall.
+          <div className='font-medieval text-xl leading-relaxed'>
+          {/* <span className="text-3xl font-bold text-amber-200">Techtix</span> serves as the technical cornerstone of Espektro, immersing 
+            participants in a diverse variety of activities throughout the day. Organized by the college's technical clubs, this 
+            segment showcases a spectrum of <span className="text-amber-200 text-3xl">compelling games and interactive challenges.</span>{" "}
+            Participants are afforded the opportunity to demonstrate their skills, engage in friendly competition, and immerse 
+            themselves in hands-on experiences. From <span className="text-amber-200 text-3xl">innovative workshops to competitive events,</span>{" "}
+            Techtix is designed to captivate and challenge attendees, fostering a spirit of ingenuity and collaboration. Blending 
+            education with entertainment, Techtix elevates the Espektro festival experience, promoting continuous learning and 
+            nurturing a vibrant community of aspiring engineers and tech enthusiasts. */}
+
+            <span className="text-3xl font-bold text-vintage-brown-text">Techtix</span>{" "}
+                    serves as the technical cornerstone of Espektro, immersing
+                    participants in a diverse variety of activities throughout
+                    the day. Organized by the college's technical clubs, this
+                    segment showcases a spectrum of{" "}
+                    <span className="text-3xl font-bold text-vintage-brown-text">
+                      compelling games and interactive challenges.
+                    </span>{" "}
+                    Participants are afforded the opportunity to demonstrate
+                    their skills, engage in friendly competition, and immerse
+                    themselves in hands-on experiences. From{" "}
+                    <span className="text-3xl font-bold text-vintage-brown-text">
+                      innovative workshops to competitive events,
+                    </span>{" "}
+                    Techtix is designed to captivate and challenge attendees,
+                    fostering a spirit of ingenuity and collaboration. Blending
+                    education with entertainment, Techtix elevates the Espektro
+                    festival experience.
+          </div>
         </motion.div>
 
         <div className={styles.about_img_grid_container}>
@@ -59,7 +83,7 @@ const Techtix: React.FC = () => {
             }}
           >
             <img
-              src={VerticalImg}
+              src="https://res.cloudinary.com/dgc9mpvvw/image/upload/v1705035889/espektro/2023/about/techtix.webp"
               alt="vertical"
               className={styles.about_img}
             />
@@ -79,11 +103,11 @@ const Techtix: React.FC = () => {
               once: true,
             }}
           >
-            <img
-              src={HorizontalImg}
+            {/* <img
+              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742233725/download_14_hgxhex.png"
               alt="horizontal"
               className={styles.about_img}
-            />
+            /> */}
           </motion.div>
           <motion.div
             className={styles.imgthree}
@@ -98,12 +122,12 @@ const Techtix: React.FC = () => {
             viewport={{
               once: true,
             }}
-          >
+          ><div className='w-[80%]'>
             <img
-              src={HorizontalImg}
+              src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742233725/download_14_hgxhex.png"
               alt="horizontal"
               className={styles.about_img}
-            />
+            /></div>
           </motion.div>
         </div>
       </div>

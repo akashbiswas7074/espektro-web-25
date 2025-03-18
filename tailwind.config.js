@@ -5,6 +5,8 @@ export const content = [
   './components/**/*.{ts,tsx}',
   './app/**/*.{ts,tsx}',
   './src/**/*.{ts,tsx}',
+  "./index.html",
+  "./src/**/*.{js,ts,jsx,tsx}",
 ];
 export const prefix = '';
 export const theme = {
@@ -18,8 +20,21 @@ export const theme = {
   extend: {
     fontFamily: {
       medieval: ["MedievalSharp", "cursive"],
+      'merriweather': ['Merriweather', 'serif'],
+      'nova-square': ['Nova Square', 'cursive'],
+      'poppins': ['Poppins', 'sans-serif'],
+      'saira': ['Saira Extra Condensed', 'sans-serif'],
+      'unifraktur': ['UnifrakturCook', 'cursive'],
     },
     colors: {
+      // Vintage color scheme
+      vintage: {
+        'brown-medium': '#8b6e4e',
+        'brown-text': '#a98459',
+        'brown': '#a38767',
+        'parchment': '#e8dcc9',
+        'brown-dark': '#5e4a33',
+      },
       'text-light': '#ccc',
       'text-medium': '#999',
       'text-floral': '#f5f5f5',
