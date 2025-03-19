@@ -491,3 +491,52 @@
 .shadow-text {
   filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
 }
+
+/* Add these optimized loading styles to your existing Hero.css */
+
+.video-loading-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 1001;
+}
+
+/* Optimize image loading */
+.hero-logo-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Reduce layout shift */
+.hero-logo {
+  aspect-ratio: 3/1;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+/* Optimize background video loading */
+.hero-background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Apply content visibility to components that are initially offscreen */
+.landing-page > div:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 5000px; /* Estimate of size to reduce layout shift */
+}
+
+/* Enhance image loading */
+img {
+  decoding: async;
+}

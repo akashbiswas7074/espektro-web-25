@@ -5,10 +5,10 @@
   width: 100%;
   height: 100%;
   z-index: 1001; /* Increased from 1000 to be higher than navbar */
-  background-color: #000000;
+  background-color: #000;
   pointer-events: none;
   will-change: opacity; /* GPU hint for smoother transitions */
-  contain: layout paint; /* Optimize browser rendering performance */
+  contain: strict; /* Optimize browser rendering performance */
 }
 
 .hero-video,
@@ -27,6 +27,12 @@
   font-size: 1.5rem;
   font-weight: bold;
   z-index: 51;
+}
+
+.video-loading-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
 }
 
 .transition-overlay {
@@ -62,19 +68,13 @@
 }
 
 .fade-out {
-  animation: fadeOut 1.5s forwards;
-  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); /* More performant easing */
+  animation: videoHero-fadeOut 0.8s forwards cubic-bezier(0.3, 0, 0.2, 1);
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
+@keyframes videoHero-fadeOut {
   to {
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.02); /* Subtle zoom effect */
   }
 }
 
@@ -91,6 +91,9 @@
 
 /* Improved skip button styles for icon-only */
 .skip-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -100,18 +103,19 @@
   font-weight: 500;
   cursor: pointer;
   pointer-events: auto;
-  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1); /* Optimized transition */
+  transition: transform 0.2s, opacity 0.2s; /* Optimized transition */
   opacity: 0;
-  animation: fadeIn 0.4s forwards; /* Faster animation */
+  animation: videoHero-fadeIn 0.3s forwards; /* Faster animation */
   display: flex;
   align-items: center;
   justify-content: center;
   width: 45px; /* Fixed width */
   height: 45px; /* Fixed height */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   will-change: transform, opacity; /* GPU hint for smooth transitions */
+  z-index: 1002;
 }
 
 .skip-button:hover {
@@ -324,6 +328,18 @@
   }
   
   .skip-button {
+    transition: none;
+  }
+  
+  .fade-out {
+    animation: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .skip-button {
+    animation: none;
+    opacity: 1;
     transition: none;
   }
 }
