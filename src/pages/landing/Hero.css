@@ -60,6 +60,7 @@
   width: 100%;
   text-align: center;
   margin: 0.5rem auto;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Added text shadow */
 }
 
 .button-group {
@@ -101,7 +102,7 @@
   margin-top: 0;
   padding-top: 0;
   background-color: #161816;
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.6); /* Enhanced shadow for depth */
 }
 
 /* Optimize floating button animation */
@@ -111,20 +112,28 @@
   outline: none;
   cursor: pointer;
   padding: 0;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   width: auto;
   display: flex;
   justify-content: center;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5)); /* Added drop shadow */
 }
 
 .floating-button:hover {
   transform: scale(1.05);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6)); /* Enhanced drop shadow on hover */
 }
 
 .event-button-img {
   height: auto;
   width: auto;
   max-width: 180px;
+  transition: filter 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* Added shadow to image */
+}
+
+.floating-button:hover .event-button-img {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4)); /* Enhanced shadow on hover */
 }
 
 /* Optimize hero logo */
@@ -132,12 +141,13 @@
   width: 100%;
   max-width: 85%;
   margin: 0 auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
 
 .hero-logo {
   max-width: 100%;
   height: auto;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
 
 .absolute-center {
@@ -149,6 +159,7 @@
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2));
 }
 
 /* Fixed navbar styles */
@@ -222,4 +233,19 @@
   .hero-section, .hero-content {
     height: -webkit-fill-available;
   }
+}
+
+/* Add shadow to section wrappers */
+.section-wrapper {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Shadow class for enhanced text elements */
+.shadow-text {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Enhanced shadow for text elements */
+.tagline {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
