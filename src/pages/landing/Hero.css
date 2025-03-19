@@ -6,9 +6,9 @@
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh; /* Keep full height */
+  height: 100vh;
   overflow: hidden;
-  margin-top: 0; /* Remove top margin */
+  margin-top: 0;
   z-index: 1;
 }
 
@@ -44,98 +44,39 @@
   padding: 0 1rem;
 }
 
+/* Simplified animation */
 .hero-title {
-  background-image: url('https://res.cloudinary.com/dlrlet9fg/image/upload/v1742207742/ZXNwZWNrdHJvXzI1X2V6Y2p5cw==');
-  background-size: cover;
-  background-position: center;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: none; /* Remove existing text shadow */
-  filter: brightness(1.2) contrast(1.1); /* Enhance the visibility */
-  animation: titleFadeIn 2s ease-out, titleFloat 3s ease-in-out infinite;
-}
-
-@keyframes titleFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  color: white;
+  animation: titleFadeIn 1.5s ease-out;
 }
 
 .hero-dates {
   color: #fff;
   opacity: 0;
   animation: fadeInUp 1s ease-out forwards;
-  animation-delay: 0.8s;
+  animation-delay: 0.5s;
   letter-spacing: 0.2em;
   font-weight: 300;
   width: 100%;
   text-align: center;
   margin: 0.5rem auto;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.6), 
-               0 2px 4px rgba(0, 0, 0, 0.5); /* Reduced shadow */
 }
 
 .button-group {
   opacity: 0;
   animation: fadeInUp 1s ease-out forwards;
-  animation-delay: 1.2s;
+  animation-delay: 0.8s;
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: 1.5rem;
 }
 
-.primary-btn, .secondary-btn {
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.primary-btn {
-  background: linear-gradient(45deg, #ff3366, #ff6b6b);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
-}
-
-.secondary-btn {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 51, 102, 0.4);
-}
-
-.secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.btn-icon {
-  transition: transform 0.3s ease;
-}
-
-.primary-btn:hover .btn-icon {
-  transform: translateX(5px);
-}
-
+/* Simplified keyframes */
 @keyframes titleFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -146,7 +87,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -157,99 +98,46 @@
 .landing-page {
   position: relative;
   z-index: 2;
-  margin-top: 0; /* Remove the 100vh margin */
-  padding-top: 0; /* No padding at top */
+  margin-top: 0;
+  padding-top: 0;
   background-color: #161816;
-  box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
 }
 
-/* src/Hero.css */
-.hero {
-  opacity: 0;
-  animation: fadeInUp 0.5s ease-out forwards;
-  height: 100vh;
+/* Optimize floating button animation */
+.floating-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+  width: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #282c34;
-  color: white;
 }
 
-.bg-hero {
-  background-image: url('https://res.cloudinary.com/dlrlet9fg/image/upload/v1742206116/map_kgec_hp_u0e50f');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+.floating-button:hover {
+  transform: scale(1.05);
 }
 
-.floating-btn {
-  animation: float 3s ease-in-out infinite;
+.event-button-img {
+  height: auto;
+  width: auto;
+  max-width: 180px;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 1.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.banner {
-  padding-top: 2rem; /* Reduce top padding */
-  position: relative;
-  z-index: 3;
-}
-
-/* Ensure content sections are visible */
-#trigger {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
+/* Optimize hero logo */
 .hero-logo-container {
   width: 100%;
   max-width: 85%;
   margin: 0 auto;
-  animation: titleFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1)); /* Significantly reduced shadow */
 }
 
 .hero-logo {
   max-width: 100%;
   height: auto;
-  filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
-  animation: glowPulse 3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    filter: brightness(0) invert(1) 
-           drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
-  }
-  50% {
-    filter: brightness(0) invert(1) 
-           drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
-  }
+  filter: brightness(0) invert(1);
 }
 
 .absolute-center {
@@ -263,181 +151,7 @@
   margin: 0 auto;
 }
 
-.event-btn {
-  position: relative;
-  padding: 0.5rem 2rem;
-  overflow: visible;
-  background: transparent;
-  border: none;
-  transition: transform 0.3s ease;
-}
-
-.event-btn-img {
-  height: 60px;
-  filter: brightness(1.2);
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-.event-btn:hover .event-btn-img {
-  filter: brightness(1.4);
-  transform: scale(1.05);
-}
-
-.event-btn:hover {
-  transform: translateY(-2px);
-}
-
-.event-btn .btn-icon {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-.event-btn:hover .btn-icon {
-  opacity: 1;
-  transform: translateX(5px);
-}
-
-.floating-button {
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.3s ease;
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
-  width: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.floating-button:hover {
-  transform: scale(1.05) translateY(-5px);
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) brightness(1.1);
-}
-
-.event-button-img {
-  height: auto;
-  width: auto;
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-  max-width: 200px;
-}
-
-@media (min-width: 768px) {
-  .event-button-img {
-    width: 220px;
-  }
-}
-
-@media (max-width: 768px) {
-  .event-button-img {
-    max-width: 150px;
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 576px) {
-  .hero-section {
-    margin-top: 3.5rem;
-  }
-  
-  .hero-logo-container {
-    max-width: 90%;
-  }
-  
-  .hero-dates {
-    font-size: 1rem !important;
-    letter-spacing: 0.15em;
-  }
-  
-  .absolute-center {
-    width: 95%;
-  }
-  
-  .event-button-img {
-    max-width: 130px;
-  }
-}
-
-@media (min-width: 577px) and (max-width: 767px) {
-  .hero-logo-container {
-    max-width: 80%;
-  }
-  
-  .event-button-img {
-    max-width: 150px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .hero-logo-container {
-    max-width: 70%;
-  }
-  
-  .event-button-img {
-    max-width: 180px;
-  }
-}
-
-@media (min-width: 992px) {
-  .hero-logo-container {
-    max-width: 65%;
-  }
-  
-  .event-button-img {
-    max-width: 200px;
-  }
-}
-
-/* Portrait mode adjustments */
-@media (max-height: 600px) and (orientation: landscape) {
-  .hero-section {
-    height: 120vh;
-  }
-  
-  .hero-logo-container {
-    max-width: 50%;
-  }
-  
-  .hero-dates {
-    margin: 0.25rem auto;
-  }
-  
-  .button-group {
-    margin-top: 0.75rem;
-  }
-  
-  .event-button-img {
-    max-width: 140px;
-  }
-}
-
-/* High-resolution screen adjustments */
-@media (min-width: 1440px) {
-  .hero-logo-container {
-    max-width: 60%;
-  }
-  
-  .hero-dates {
-    font-size: 2.5rem !important;
-  }
-  
-  .event-button-img {
-    max-width: 220px;
-  }
-}
-
-/* Fix for iOS Safari viewport height issue */
-@supports (-webkit-touch-callout: none) {
-  .hero-section, .hero-content {
-    height: -webkit-fill-available;
-  }
-}
-
+/* Fixed navbar styles */
 .navbar-container {
   position: fixed;
   top: 0;
@@ -457,43 +171,7 @@
   opacity: 1;
 }
 
-.home-screen {
-  position: relative;
-  background-color: #000000;
-  color: #ffffff;
-}
-
-.tagline-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: -12px; /* Reduced negative margin to move it up closer to the logo */
-  margin-bottom: 0; /* Removed bottom margin */
-}
-
-.tagline {
-  opacity: 0;
-  animation: fadeIn 1.5s ease-in-out forwards;
-  animation-delay: 0.8s;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  line-height: 1; /* Tighter line height */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5),
-               0 1px 2px rgba(0, 0, 0, 0.4); /* Reduced text shadow */
-}
-
-/* Add enhanced shadow effects */
-.shadow-enhanced {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-}
-
-.shadow-text {
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
-}
-
-/* Add these optimized loading styles to your existing Hero.css */
-
+/* Loading placeholders */
 .video-loading-fallback {
   position: fixed;
   top: 0;
@@ -504,39 +182,44 @@
   z-index: 1001;
 }
 
-/* Optimize image loading */
-.hero-logo-container img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.section-loading {
+  height: 300px;
+  background-color: #161816;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Reduce layout shift */
-.hero-logo {
-  aspect-ratio: 3/1;
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-}
-
-/* Optimize background video loading */
-.hero-background-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* Apply content visibility to components that are initially offscreen */
+/* Content visibility optimization */
 .landing-page > div:not(:first-child) {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 5000px; /* Estimate of size to reduce layout shift */
+  contain-intrinsic-size: 1px 500px;
 }
 
-/* Enhance image loading */
-img {
-  decoding: async;
+/* Responsive media queries - simplified */
+@media (max-width: 768px) {
+  .hero-logo-container {
+    max-width: 90%;
+  }
+  
+  .event-button-img {
+    max-width: 150px;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-logo-container {
+    max-width: 65%;
+  }
+  
+  .event-button-img {
+    max-width: 180px;
+  }
+}
+
+/* iOS Safari fix */
+@supports (-webkit-touch-callout: none) {
+  .hero-section, .hero-content {
+    height: -webkit-fill-available;
+  }
 }

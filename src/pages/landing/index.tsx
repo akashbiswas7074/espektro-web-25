@@ -1,98 +1,113 @@
 import "./Hero.css";
 import "./AudioControls.css";
-import React, { useEffect, useState, useCallback } from "react";
-
+import React, { useEffect, useState, useCallback, lazy, Suspense } from "react";
 import SectionWrapper from "@/components-global/section-divider";
 
-import ClubsSection from "./components/clubs";
-import EventSection from "./components/events";
-import FooterSection from "./components/footer";
-import SponsorSection from "./components/sponsorship-v.2.0.0";
-import Stats from "./components/stats";
+// Lazy load components that aren't needed immediately
+const VideoHero = lazy(() => import('../../components/VideoHero/VideoHero'));
+const ClubsSection = lazy(() => import("./components/clubs"));
+const EventSection = lazy(() => import("./components/events"));
+const FooterSection = lazy(() => import("./components/footer"));
+const SponsorSection = lazy(() => import("./components/sponsorship-v.2.0.0"));
+const Stats = lazy(() => import("./components/stats"));
+const AboutSection = lazy(() => import("./components/about"));
+
+// Import only what's needed immediately
 import styles from "./style.module.scss";
 import MainTextAnimation from "./components/HeroNew/components/MainTextAnim/MainTextAnim";
-import VideoHero from '../../components/VideoHero/VideoHero';
-import AboutSection from "./components/about";
 
 const HomeScreen: React.FC = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [videoActive, setVideoActive] = useState(true);
-  const [_isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [_imageError, setImageError] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
-  const handleNavigateToEvents = () => {
+  // Define constants outside of render function
+  const videoPoster = "https://res.cloudinary.com/dlrlet9fg/image/upload/v1742230891/video-poster.jpg";
+  const logoSrc = "https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209222/especktro_25_sz9geh.png";
+  const eventBtnSrc = "https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209982/ESPEKTRO_cloth_e9tg6q";
+  
+  // Memoize handlers
+  const handleNavigateToEvents = useCallback(() => {
     window.location.href = '/events';
-  };
+  }, []);
 
-  const handleVideoFadeStart = () => {
+  const handleVideoFadeStart = useCallback(() => {
     setShowNavbar(true);
-  };
+  }, []);
 
-  const handleVideoEnd = () => {
+  const handleVideoEnd = useCallback(() => {
     setVideoActive(false);
-  };
+  }, []);
 
-  const LANDING_PAGE_SECTIONS: Array<{
-    id: string;
-    position?: "center" | "top" | "bottom";
-    variant?: "light" | "dark";
-    component: React.JSX.Element;
-  }> = [
-    {
-      id: "about",
-      component: <AboutSection/>,
-    },
-    {
-      id: "stats",
-      component: <Stats />,
-    },
-    {
-      id: "sponsors",
-      component: <SponsorSection />,
-    },
-    {
-      id: "clubs",
-      component: <ClubsSection />,
-    },
-  ];
+  const handleVideoLoad = useCallback(() => {
+    setIsVideoLoaded(true);
+  }, []);
 
+  const handleImageError = useCallback(() => {
+    setImageError(true);
+  }, []);
+
+  // Define landing page sections once
+  const LANDING_PAGE_SECTIONS = React.useMemo(() => [
+    { id: "about", component: <AboutSection /> },
+    { id: "stats", component: <Stats /> },
+    { id: "sponsors", component: <SponsorSection /> },
+    { id: "clubs", component: <ClubsSection /> },
+  ], []);
+
+  // Optimize scroll handler with throttling
   const handleScroll = useCallback(() => {
-    const hero = document.getElementById("hero");
-    const scrollPosition = window.scrollY;
-    
-    if (scrollPosition > 50 && videoActive) {
-      setShowNavbar(true);
-    }
-    
-    if (hero) {
-      const heroHeight = hero.clientHeight;
-      const blur = Math.min((scrollPosition / heroHeight) * 5, 5);
-      hero.style.filter = `blur(${blur}px)`;
-    }
+    // Use requestAnimationFrame for smoother scrolling
+    requestAnimationFrame(() => {
+      const hero = document.getElementById("hero");
+      const scrollPosition = window.scrollY;
+      
+      if (scrollPosition > 50 && videoActive) {
+        setShowNavbar(true);
+      }
+      
+      if (hero) {
+        const heroHeight = hero.clientHeight;
+        const blur = Math.min((scrollPosition / heroHeight) * 3, 3); // Reduced blur intensity
+        hero.style.filter = `blur(${blur}px)`;
+      }
+    });
   }, [videoActive]);
 
+  // Setup scroll listener with passive flag for better performance
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    // Create a throttled scroll handler
+    let ticking = false;
+    const throttledScrollHandler = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+      }
     };
-  }, [handleScroll, videoActive]);
-
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
-  };
-
-  const handleImageError = () => {
-    setImageError(true);
-  };
+    
+    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", throttledScrollHandler);
+    };
+  }, [handleScroll]);
 
   return (
     <div className="home-screen">
       <div className="video-overlay">
-        <VideoHero 
-          onVideoEnd={handleVideoEnd} 
-          onFadeStart={handleVideoFadeStart}
-        /> 
+        {videoActive && (
+          <Suspense fallback={<div className="video-loading-fallback"></div>}>
+            <VideoHero 
+              onVideoEnd={handleVideoEnd} 
+              onFadeStart={handleVideoFadeStart}
+              // Lower playback rate to reduce CPU usage
+              playbackRate={1.8}
+            />
+          </Suspense>
+        )}
       </div>
       
       <div className={`navbar-container ${showNavbar ? 'navbar-visible' : 'navbar-hidden'}`}>
@@ -102,56 +117,64 @@ const HomeScreen: React.FC = () => {
         <div className="hero-section" id="hero">
           <video 
             className="hero-background-video" 
-            autoPlay 
-            loop 
-            muted 
+            autoPlay
+            muted
             playsInline
-            preload="metadata"
+            preload="none" // Changed from metadata to reduce initial load
             onLoadedData={handleVideoLoad}
-            poster="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742230891/video-poster.jpg"
+            poster={videoPoster}
+            loading="lazy"
           >
             <source 
               src="https://res.cloudinary.com/dlrlet9fg/video/upload/q_auto:low,f_auto/v1742230891/Nested_Sequence_11_1_1_1_q0o0b6.mp4" 
               type="video/mp4" 
             />
-            Your browser does not support the video tag.
           </video>
+          
           <div className="hero-overlay"></div>
-          <div className="hero-content container mx-auto px-4 shadow-enhanced">
+          
+          <div className="hero-content container mx-auto px-4">
             <div className="flex flex-col items-center justify-center min-h-screen">
-              <div className="text-center z-10 space-y-6 absolute-center shadow-text">
+              <div className="text-center z-10 space-y-6 absolute-center">
                 <div className="hero-logo-container w-full max-w-3xl mx-auto flex justify-center">
                   <img 
-                    src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209222/especktro_25_sz9geh.png" 
+                    src={logoSrc}
                     alt="ESPEKTRO"
-                    className="hero-logo animate-fade-in enhanced-logo"
+                    className="hero-logo animate-fade-in"
                     loading="eager"
+                    width="600"
+                    height="200"
                     onError={handleImageError}
                   />
                 </div>
+                
                 <div className="tagline-container">
                   <MainTextAnimation
                     text="THE WONDERS WEAVE"
                     className="tagline text-[1rem] md:text-[1.4rem] lg:text-[1.8rem] font-light tracking-wider text-gray-200"
                   />
                 </div>
+                
                 <div className="w-full flex justify-center mt-2">
                   <MainTextAnimation
                     text="3rd to 6th APRIL"
                     className="hero-dates text-[1.2rem] md:text-[1.8rem] lg:text-[2.2rem] font-light tracking-widest"
                   />
                 </div>
+                
                 <div className="button-group flex justify-center mt-12">
                   <button 
                     className="floating-button"
                     onClick={handleNavigateToEvents}
                   >
                     <img 
-                      src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209982/ESPEKTRO_cloth_e9tg6q" 
+                      src={eventBtnSrc} 
                       alt="Events" 
                       className="event-button-img"
                       loading="lazy"
-                      onError={() => console.log("Event button image failed to load")}
+                      width="120"
+                      height="120"
+                      onError={() => console.error("Event button image failed to load")}
                     />
                   </button>
                 </div>
@@ -159,35 +182,42 @@ const HomeScreen: React.FC = () => {
             </div>
           </div>
         </div>
+        
         <div id="trigger" className="landing-page">
           <div className={styles.banner}>
-            <EventSection direction="left" />
+            <Suspense fallback={<div className="section-loading"></div>}>
+              <EventSection direction="left" />
+            </Suspense>
             <div className={styles.banner__text__container}>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
-              <span className={styles.banner__text}>#ESPEKTRO'25</span>
+              {/* Reduced repetitive elements */}
+              {Array(5).fill(0).map((_, i) => (
+                <span key={i} className={styles.banner__text}>#ESPEKTRO'25</span>
+              ))}
             </div>
-            <EventSection direction="right" />
+            <Suspense fallback={<div className="section-loading"></div>}>
+              <EventSection direction="right" />
+            </Suspense>
           </div>
+          
           {LANDING_PAGE_SECTIONS.map((section) => (
-            <SectionWrapper
-              key={section.id}
-              id={section.id}
-              elementPosition={section.position}
-              variant={section.variant}
-            >
-              {section.component}
-            </SectionWrapper>
+            <Suspense key={section.id} fallback={<div className="section-loading"></div>}>
+              <SectionWrapper
+                id={section.id}
+                elementPosition={section.position}
+                variant={section.variant}
+              >
+                {section.component}
+              </SectionWrapper>
+            </Suspense>
           ))}
-          <FooterSection />
+          
+          <Suspense fallback={<div className="section-loading"></div>}>
+            <FooterSection />
+          </Suspense>
         </div>
       </div>
     </div>
   );
 };
 
-export default HomeScreen;
+export default React.memo(HomeScreen);

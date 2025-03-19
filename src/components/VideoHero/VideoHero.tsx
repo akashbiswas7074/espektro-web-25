@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback, memo, Suspense } from 'react';
+import React, { useEffect, useRef, useState, useCallback, memo } from 'react';
 import './VideoHero.css';
 
 interface VideoHeroProps {
@@ -6,14 +6,13 @@ interface VideoHeroProps {
   onFadeStart: () => void;
   playbackRate?: number;
   videoSrc?: string;
-  posterImage?: string;
 }
 
-// Separate the actual video component for better code splitting
+// Simplified video element with reduced props
 const VideoElement = memo(({
   videoRef,
   videoSrc,
-  onLoaded,
+  onLoaded
 }: {
   videoRef: React.RefObject<HTMLVideoElement>;
   videoSrc: string;
@@ -25,10 +24,8 @@ const VideoElement = memo(({
     autoPlay
     muted
     playsInline
-    preload="metadata" // Changed from auto to metadata for faster initial load
-    disablePictureInPicture
+    preload="metadata"
     onLoadedMetadata={onLoaded}
-    style={{ willChange: 'transform' }}
   >
     <source src={videoSrc} type="video/mp4" />
   </video>
@@ -37,19 +34,17 @@ const VideoElement = memo(({
 const VideoHero: React.FC<VideoHeroProps> = memo(({ 
   onVideoEnd, 
   onFadeStart,
-  playbackRate = 2,
-  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742204358/04_Final_Render_1_1_fyrxbv.mp4",
-
+  playbackRate = 1.8, // Reduced default playback rate
+  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/q_auto:low,f_auto/v1742204358/04_Final_Render_1_1_fyrxbv.mp4" // Added quality parameters
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
-  const [showSkipButton, setShowSkipButton] = useState(false);
+  // const [showSkipButton, setShowSkipButton] = useState(false);
   const currentRateRef = useRef<number>(playbackRate);
-  const animationRef = useRef<number | null>(null);
   const isEndingRef = useRef(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   
-  // Simplified playback rate change with fewer calculations
+  // Simplified playback rate change - no animations
   const changePlaybackRate = useCallback((newRate: number) => {
     if (videoRef.current && currentRateRef.current !== newRate) {
       videoRef.current.playbackRate = newRate;
@@ -58,20 +53,20 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
   }, []);
 
   // Optimized skip handler
-  const handleSkip = useCallback(() => {
-    if (isEndingRef.current) return; // Prevent multiple calls
+  // const handleSkip = useCallback(() => {
+  //   if (isEndingRef.current) return;
     
-    setIsEnding(true);
-    isEndingRef.current = true;
-    onFadeStart();
+  //   isEndingRef.current = true;
+  //   setIsEnding(true);
+  //   onFadeStart();
     
-    setTimeout(() => {
-      document.body.classList.remove('no-scroll');
-      onVideoEnd();
-    }, 750); // Even shorter timeout for better responsiveness
-  }, [onFadeStart, onVideoEnd]);
+  //   setTimeout(() => {
+  //     document.body.classList.remove('no-scroll');
+  //     onVideoEnd();
+  //   }, 500); // Even shorter timeout
+  // }, [onFadeStart, onVideoEnd]);
 
-  // Handle video loaded event
+  // Video loaded handler
   const handleVideoLoaded = useCallback(() => {
     setVideoLoaded(true);
     if (videoRef.current) {
@@ -80,49 +75,45 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
     }
   }, [playbackRate]);
 
-  // Initial setup - add no-scroll class
+  // Initial setup
   useEffect(() => {
     document.body.classList.add('no-scroll');
     
-    // Show skip button after a short delay
-    const skipButtonTimer = setTimeout(() => {
-      setShowSkipButton(true);
-    }, 1200);
+    // Show skip button after delay
+    // const skipButtonTimer = setTimeout(() => {
+    //   setShowSkipButton(true);
+    // }, 1000);
     
     return () => {
       document.body.classList.remove('no-scroll');
-      clearTimeout(skipButtonTimer);
-      // Clean up any animations on unmount
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      // clearTimeout(skipButtonTimer);
     };
   }, []);
 
-  // Setup video event handlers
+  // Video event handlers - heavily optimized
   useEffect(() => {
     const videoElement = videoRef.current;
     if (!videoElement || !videoLoaded) return;
     
-    // Throttled timeupdate handling
+    // Use fewer updates - higher throttle interval
     let lastUpdateTime = 0;
-    const throttleInterval = 100; // ms between updates
+    const throttleInterval = 250; // Less frequent updates for better performance
     
     const handleTimeUpdate = () => {
       const now = performance.now();
       if (now - lastUpdateTime < throttleInterval) return;
       lastUpdateTime = now;
       
-      const progress = videoElement.currentTime / videoElement.duration;
-      
-      // Very simple playback rate logic - just 2 rates for better performance
-      changePlaybackRate(progress < 0.75 ? 3 : 2);
-      
-      // Check for ending
-      if (videoElement.duration - videoElement.currentTime < 1.8 && !isEndingRef.current) {
-        isEndingRef.current = true;
-        setIsEnding(true);
-        onFadeStart();
+      // Simpler playback rate switching - just once near the end
+      if (videoElement.duration - videoElement.currentTime < 3) {
+        changePlaybackRate(1);
+        
+        // Check for ending only once we're close to the end
+        if (videoElement.duration - videoElement.currentTime < 2 && !isEndingRef.current) {
+          isEndingRef.current = true;
+          setIsEnding(true);
+          onFadeStart();
+        }
       }
     };
 
@@ -142,15 +133,13 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
 
   return (
     <div className={`video-hero-container ${isEnding ? 'fade-out' : ''}`}>
-      <Suspense fallback={<div className="video-loading-placeholder"></div>}>
-        <VideoElement 
-          videoRef={videoRef}
-          videoSrc={videoSrc}
-          onLoaded={handleVideoLoaded}
-        />
-      </Suspense>
+      <VideoElement 
+        videoRef={videoRef}
+        videoSrc={videoSrc}
+        onLoaded={handleVideoLoaded}
+      />
       
-      {showSkipButton && (
+      {/* {showSkipButton && (
         <button 
           className="skip-button"
           onClick={handleSkip}
@@ -167,7 +156,7 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
             <line x1="19" y1="5" x2="19" y2="19"></line>
           </svg>
         </button>
-      )}
+      )} */}
     </div>
   );
 });

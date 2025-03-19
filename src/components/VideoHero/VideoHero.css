@@ -68,7 +68,7 @@
 }
 
 .fade-out {
-  animation: videoHero-fadeOut 0.8s forwards cubic-bezier(0.3, 0, 0.2, 1);
+  animation: videoHero-fadeOut 0.5s forwards ease-out;
 }
 
 @keyframes videoHero-fadeOut {
