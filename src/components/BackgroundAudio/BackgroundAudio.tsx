@@ -1,201 +1,207 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import './BackgroundAudio.css';
 
 interface BackgroundAudioProps {
-  audioSrc: string;
-  initialVolume?: number;
+  audioSrc?: string;
+  defaultVolume?: number;
+  autoPlay?: boolean;
 }
 
 const BackgroundAudio: React.FC<BackgroundAudioProps> = ({
-  audioSrc,
-  initialVolume = 0.3,
+  audioSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742346260/background-loop-71744_uvqcky.mp3",
+  defaultVolume = 0.5,
+  autoPlay = false
 }) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
-  const attemptIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Auto-click function
-  const autoClickButton = () => {
-    if (buttonRef.current && !localStorage.getItem('audioInitialized')) {
-      buttonRef.current.click();
-      localStorage.setItem('audioInitialized', 'true');
-    }
-  };
-
+  const audioPlayerRef = useRef<AudioPlayer>(null);
+  const [audioPlaying, setAudioPlaying] = useState(autoPlay);
+  const [audioInitialized, setAudioInitialized] = useState(false);
+  const [showControls, setShowControls] = useState(true); // Set to true to show immediately
+  
+  // Listen for the VideoHero ended event
   useEffect(() => {
-    // Clear the flag when component mounts to ensure click on fresh page load
-    localStorage.removeItem('audioInitialized');
-    
-    // Attempt auto-click after a short delay to ensure component is ready
-    const timeoutId = setTimeout(autoClickButton, 500);
-
-    // Also try on window load
-    window.addEventListener('load', autoClickButton);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('load', autoClickButton);
+    const handleVideoHeroEnded = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      const bgAudioSrc = customEvent.detail?.backgroundAudioSrc || audioSrc;
+      
+      // Small delay to ensure smooth transition
+      setTimeout(() => {
+        if (audioPlayerRef.current?.audio.current) {
+          // Set the audio source if it's different
+          if (audioPlayerRef.current.audio.current.src !== bgAudioSrc) {
+            audioPlayerRef.current.audio.current.src = bgAudioSrc;
+          }
+          
+          // Start with volume at 0
+          audioPlayerRef.current.audio.current.volume = 0;
+          
+          audioPlayerRef.current.audio.current.play().then(() => {
+            setAudioInitialized(true);
+            setAudioPlaying(true);
+            setShowControls(true);
+            
+            // Gradually increase volume
+            let vol = 0;
+            const fadeIn = setInterval(() => {
+              if (vol < defaultVolume) {
+                vol += 0.05;
+                if (audioPlayerRef.current?.audio.current) {
+                  audioPlayerRef.current.audio.current.volume = vol;
+                }
+              } else {
+                clearInterval(fadeIn);
+              }
+            }, 100);
+          }).catch(err => {
+            console.log("Could not play background audio:", err);
+            // Add user interaction listener for autoplay blocked scenario
+            const playOnInteraction = () => {
+              if (audioPlayerRef.current?.audio.current) {
+                audioPlayerRef.current.audio.current.play()
+                  .then(() => {
+                    setAudioPlaying(true);
+                    setShowControls(true);
+                    document.removeEventListener('click', playOnInteraction);
+                  })
+                  .catch(e => console.log("Still can't play audio:", e));
+              }
+            };
+            
+            document.addEventListener('click', playOnInteraction, { once: true });
+          });
+        }
+      }, 500);
     };
+    
+    document.addEventListener('videohero:ended', handleVideoHeroEnded);
+    
+    return () => {
+      document.removeEventListener('videohero:ended', handleVideoHeroEnded);
+    };
+  }, [audioSrc, defaultVolume]);
+  
+  // Ensure audio controls are always visible
+  useEffect(() => {
+    setShowControls(true);
   }, []);
 
-  // Initialize audio element properly with guaranteed loop
-  useEffect(() => {
-    const audio = new Audio(audioSrc);
-    
-    // Configure audio - always unmuted by default
-    audio.loop = true;
-    audio.volume = initialVolume;
-    audio.preload = 'auto';
-    audio.muted = false; // Ensure it's unmuted
-    audio.autoplay = true;
-    
-    // Add ended event listener as a backup looping mechanism
-    const handleEnded = () => {
-      audio.currentTime = 0;
-      playAudio(audio);
-    };
-    
-    // Add error handler
-    const handleError = (e: Event) => {
-      console.error("Audio error occurred:", e);
-      setTimeout(() => playAudio(audio), 1000);
-    };
-    
-    audio.addEventListener('ended', handleEnded);
-    audio.addEventListener('error', handleError);
-    
-    // Save audio reference
-    audioRef.current = audio;
-    
-    // Try to play immediately
-    playAudio(audio);
-    
-    // Create an interval that keeps trying to play audio
-    attemptIntervalRef.current = setInterval(() => {
-      if (audio.paused && !isMuted) {
-        console.log("Audio stopped - attempting to restart");
-        playAudio(audio);
-      }
-    }, 3000);
-
-    // Attempt to play when the window gets focus
-    const handleFocus = () => {
-      if (audio.paused && !isMuted) {
-        playAudio(audio);
-      }
-    };
-
-    window.addEventListener('focus', handleFocus);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && audio.paused && !isMuted) {
-        playAudio(audio);
-      }
-    });
-    
-    // Set up user interaction detection for autoplay
-    setupUserInteractionHandlers(audio);
-    
-    // Clean up
-    return () => {
-      if (audio) {
-        audio.removeEventListener('ended', handleEnded);
-        audio.removeEventListener('error', handleError);
-        audio.pause();
-        audio.src = '';
-      }
-      
-      window.removeEventListener('focus', handleFocus);
-      
-      if (attemptIntervalRef.current) {
-        clearInterval(attemptIntervalRef.current);
-      }
-    };
-  }, [audioSrc, initialVolume, isMuted]);
-
-  // Listen for system volume changes and try to play audio
-  useEffect(() => {
-    const handleVolumeChange = () => {
-      if (audioRef.current && audioRef.current.paused && !isMuted) {
-        playAudio(audioRef.current);
-      }
-    };
-    
-    // Some browsers fire an event when volume changes
-    if (audioRef.current) {
-      audioRef.current.addEventListener('volumechange', handleVolumeChange);
-    }
-    
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('volumechange', handleVolumeChange);
-      }
-    };
-  }, [isMuted]);
-
-  // Setup handlers for user interaction
-  const setupUserInteractionHandlers = (audio: HTMLAudioElement) => {
-    const playOnUserInteraction = () => {
-      // Ensure unmuted on first interaction
-      audio.muted = false;
-      setIsMuted(false);
-      playAudio(audio);
-    };
-    
-    // Detect interactions to enable autoplay
-    document.addEventListener('click', playOnUserInteraction, { once: true });
-    document.addEventListener('touchstart', playOnUserInteraction, { once: true });
-    document.addEventListener('keydown', playOnUserInteraction, { once: true });
-    document.addEventListener('scroll', playOnUserInteraction, { once: true });
-  };
-
-  // Helper function to play audio with error handling
-  const playAudio = (audio: HTMLAudioElement) => {
-    if (!audio) return;
-
-    // Make sure it's never muted when we try to play
-    audio.muted = false;
-    setIsMuted(false);
-    
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          console.log("Audio playing successfully");
-        })
-        .catch(error => {
-          console.error("Autoplay prevented by browser:", error);
-          // We'll keep trying via the interval
+  const toggleAudio = () => {
+    if (audioPlayerRef.current?.audio.current) {
+      if (audioPlaying) {
+        // Fade out audio
+        let vol = audioPlayerRef.current!.audio.current!.volume;
+        const fadeOut = setInterval(() => {
+          if (vol > 0.05) {
+            vol -= 0.05;
+            if (audioPlayerRef.current?.audio.current) {
+              audioPlayerRef.current.audio.current.volume = vol;
+            }
+          } else {
+            clearInterval(fadeOut);
+            if (audioPlayerRef.current?.audio.current) {
+              audioPlayerRef.current.audio.current.pause();
+            }
+            setAudioPlaying(false);
+          }
+        }, 50);
+      } else {
+        // Initialize if not already
+        if (!audioInitialized) {
+          audioPlayerRef.current.audio.current.volume = 0;
+        }
+        
+        audioPlayerRef.current.audio.current.play().then(() => {
+          setAudioInitialized(true);
+          setAudioPlaying(true);
+          
+          // Fade in
+          let vol = audioPlayerRef.current!.audio.current!.volume;
+          const fadeIn = setInterval(() => {
+            if (vol < defaultVolume) {
+              vol += 0.05;
+              if (audioPlayerRef.current?.audio.current) {
+                audioPlayerRef.current.audio.current.volume = vol;
+              }
+            } else {
+              clearInterval(fadeIn);
+            }
+          }, 50);
+        }).catch(error => {
+          console.log("Play prevented:", error);
         });
+      }
     }
   };
-
-  // Toggle mute/unmute only (not play/pause)
-  const toggleMute = () => {
-    if (!audioRef.current) return;
-
-    const newMutedState = !audioRef.current.muted;
-    audioRef.current.muted = newMutedState;
-    setIsMuted(newMutedState);
-    
-    // If we're unmuting, ensure audio is playing
-    if (!newMutedState && audioRef.current.paused) {
-      playAudio(audioRef.current);
-    }
-  };
-
+  
   return (
-    <div className="background-audio-container">
+    <div className={`background-audio-container ${showControls ? 'visible' : ''}`}>
       <button 
-        ref={buttonRef}
-        className={`audio-control-button ${isMuted ? '' : 'active'}`}
-        onClick={toggleMute}
-        aria-label={isMuted ? "Unmute background music" : "Mute background music"}
-        title={isMuted ? "Unmute background music" : "Mute background music"}
+        className={`audio-toggle-btn ${audioPlaying ? 'audio-playing' : ''}`}
+        onClick={toggleAudio}
+        aria-label={audioPlaying ? 'Mute background audio' : 'Play background audio'}
       >
-        {isMuted ? <FaVolumeMute size={20} /> : <FaVolumeUp size={20} />}
+        {audioPlaying && <div className="audio-active-indicator"></div>}
+        {audioPlaying ? (
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        ) : (
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          >
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        )}
       </button>
+      
+      <AudioPlayer
+        ref={audioPlayerRef}
+        autoPlay={false}
+        src={audioSrc}
+        onPlay={() => setAudioPlaying(true)}
+        onPause={() => setAudioPlaying(false)}
+        onEnded={() => {
+          // Auto-replay the audio when it ends
+          if (audioPlayerRef.current?.audio.current && audioPlaying) {
+            audioPlayerRef.current.audio.current.currentTime = 0;
+            audioPlayerRef.current.audio.current.play()
+              .then(() => setAudioPlaying(true))
+              .catch(e => console.log("Could not replay audio:", e));
+          }
+        }}
+        loop={true}
+        volume={defaultVolume}
+        showJumpControls={false}
+        showSkipControls={false}
+        showFilledVolume={false}
+        customControlsSection={[]}
+        customProgressBarSection={[]}
+        customAdditionalControls={[]}
+        customVolumeControls={[]}
+        style={{ display: 'none' }}
+      />
     </div>
   );
 };

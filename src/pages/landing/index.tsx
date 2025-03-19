@@ -1,5 +1,6 @@
 import "./Hero.css";
-import React, { useEffect, useState, useCallback } from "react";
+import "./AudioControls.css";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 
 import SectionWrapper from "@/components-global/section-divider";
 
@@ -12,7 +13,9 @@ import styles from "./style.module.scss";
 // import Navigation from "@/components-global/navbar/navbar";
 import MainTextAnimation from "./components/HeroNew/components/MainTextAnim/MainTextAnim";
 import VideoHero from '../../components/VideoHero/VideoHero';
+import BackgroundAudio from '../../components/BackgroundAudio/BackgroundAudio';
 import AboutSection from "./components/about";
+// import 'react-h5-audio-player/lib/styles.css';
 
 const HomeScreen: React.FC = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -20,6 +23,9 @@ const HomeScreen: React.FC = () => {
   const [_isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [_imageError, setImageError] = useState(false);
 
+  // Background audio URL - we'll pass this to the BackgroundAudio component
+  const backgroundAudioUrl = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742346260/background-loop-71744_uvqcky.mp3";
+  
   const handleNavigateToEvents = () => {
     window.location.href = '/events';
   };
@@ -88,15 +94,28 @@ const HomeScreen: React.FC = () => {
 
   return (
     <div className="home-screen">
-      {/* <div className="video-overlay">
+      <div className="video-overlay">
         <VideoHero 
           onVideoEnd={handleVideoEnd} 
           onFadeStart={handleVideoFadeStart}
+          autoPlayAudio={true}
+          backgroundAudioSrc={backgroundAudioUrl}
         /> 
-      </div> */}
+      </div>
+      
       <div className={`navbar-container ${showNavbar ? 'navbar-visible' : 'navbar-hidden'}`}>
         {/* <Navigation /> */}
       </div>
+
+      {/* Add the BackgroundAudio component and pass the audioPlaying state */}
+      <div className="hidden">
+      <BackgroundAudio 
+        audioSrc={backgroundAudioUrl}
+        defaultVolume={0.5}
+        autoPlay={true}
+         // Set to true for default behavior
+      /></div>
+      
       <div className="landing">
         <div className="hero-section" id="hero">
           <video 

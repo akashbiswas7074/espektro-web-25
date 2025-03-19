@@ -1,4 +1,4 @@
-.background-audio-container {
+.audio-control {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -9,19 +9,14 @@
   pointer-events: none;
 }
 
-.background-audio-container.visible {
+.audio-control.visible {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
   animation: audioControlFadeIn 0.8s ease-in-out forwards;
 }
 
-/* Hide all React H5 Audio Player UI */
-.background-audio-container .rhap_container {
-  display: none !important;
-}
-
-.audio-toggle-btn {
+.audio-toggle-main {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -40,28 +35,37 @@
   overflow: visible; /* Allow indicator to overflow */
 }
 
-.audio-toggle-btn:hover {
+.audio-toggle-main:hover {
   background-color: rgba(0, 0, 0, 0.8);
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.audio-toggle-btn:active {
+.audio-toggle-main:active {
   transform: translateY(0) scale(0.98);
 }
 
-.audio-toggle-btn svg {
+.audio-toggle-main svg {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
   transition: transform 0.3s ease;
 }
 
-.audio-toggle-btn:hover svg {
+.audio-toggle-main:hover svg {
   transform: scale(1.1);
 }
 
+.background-audio-player {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Audio toggle tooltip */
-.audio-toggle-btn::after {
+.audio-toggle-main::after {
   content: attr(aria-label);
   position: absolute;
   top: -40px;
@@ -79,7 +83,7 @@
   pointer-events: none;
 }
 
-.audio-toggle-btn:hover::after {
+.audio-toggle-main:hover::after {
   opacity: 1;
   visibility: visible;
 }
@@ -96,34 +100,34 @@
 }
 
 @media screen and (max-width: 768px) {
-  .background-audio-container {
+  .audio-control {
     bottom: 20px;
     right: 20px;
   }
   
-  .audio-toggle-btn {
+  .audio-toggle-main {
     width: 42px;
     height: 42px;
   }
   
-  .audio-toggle-btn svg {
+  .audio-toggle-main svg {
     width: 18px;
     height: 18px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .background-audio-container {
+  .audio-control {
     bottom: 15px;
     right: 15px;
   }
   
-  .audio-toggle-btn {
+  .audio-toggle-main {
     width: 38px;
     height: 38px;
   }
   
-  .audio-toggle-btn svg {
+  .audio-toggle-main svg {
     width: 16px;
     height: 16px;
   }
@@ -131,13 +135,13 @@
 
 /* For devices with low performance, reduce visual effects */
 @media (prefers-reduced-motion: reduce) {
-  .audio-toggle-btn {
+  .audio-toggle-main {
     transition: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
   
-  .audio-toggle-btn:hover {
+  .audio-toggle-main:hover {
     transform: none;
   }
 }
@@ -171,50 +175,5 @@
   100% {
     transform: scale(1);
     opacity: 0.7;
-  }
-}
-
-.volume-slider {
-  width: 0;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  overflow: hidden;
-  margin-right: 10px;
-  transition: width 0.3s ease;
-}
-
-.audio-toggle-btn:hover + .volume-slider,
-.volume-slider:hover {
-  width: 100px;
-}
-
-.volume-slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.volume-slider::-moz-range-thumb {
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* Make button more visible on mobile */
-@media (max-width: 768px) {
-  .background-audio-container {
-    bottom: 20px;
-    right: 20px;
-  }
-  
-  .audio-toggle-btn {
-    width: 40px;
-    height: 40px;
   }
 }

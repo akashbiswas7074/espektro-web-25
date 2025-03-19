@@ -8,14 +8,14 @@ import {EventsV2} from './pages/eventsV2/index';
 import HomeScreen from './pages/landing';
 import ArtistsPage from './pages/landing/components/artist-v5';
 import AccomodationScreen from "./pages/accomodation";
-// import audioService from './services/AudioService';
+// Import correctly using the named export
+// import  AudioProvider from './services/AudioService';
+// import AudioControl from './components/AudioControl/AudioControl';
 
 const App: React.FC = () => {
   const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize audio service
-    
     // Apply old paper effect to the document body
     document.body.classList.add('old-paper-theme');
     
@@ -31,16 +31,18 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <> <Navbar />
+    <>
+      <Navbar />
+      {/* <AudioControl showDelay={1000} /> */}
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/events" element={<EventsV2 />} />
         <Route path="/artists" element={<ArtistsPage />} />
-    <Route path="/accomodation" element={<AccomodationScreen/>} /> 
+        <Route path="/accomodation" element={<AccomodationScreen/>} /> 
         {/* <Route path="/espektro-merchandise" element={<MerchandiseScreen />} /> */}
         <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </>
+      </Routes></>
+    
   );
 };
 
