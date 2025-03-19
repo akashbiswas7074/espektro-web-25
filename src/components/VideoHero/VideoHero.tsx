@@ -34,7 +34,7 @@ const VideoElement = memo(({
 const VideoHero: React.FC<VideoHeroProps> = memo(({ 
   onVideoEnd, 
   onFadeStart,
-  playbackRate = 1.8, // Reduced default playback rate
+  playbackRate = 4, // Changed from 1.8 to 4 for faster playback
   videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/q_auto:low,f_auto/v1742204358/04_Final_Render_1_1_fyrxbv.mp4" // Added quality parameters
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -105,8 +105,8 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
       lastUpdateTime = now;
       
       // Simpler playback rate switching - just once near the end
-      if (videoElement.duration - videoElement.currentTime < 3) {
-        changePlaybackRate(1);
+      if (videoElement.duration - videoElement.currentTime < 2) {
+        changePlaybackRate(3);
         
         // Check for ending only once we're close to the end
         if (videoElement.duration - videoElement.currentTime < 2 && !isEndingRef.current) {
