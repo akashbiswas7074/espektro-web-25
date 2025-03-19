@@ -53,7 +53,7 @@ export const Icon = styled.div`
   width: 40px;
   svg {
     width: 100%;
-    fill: #554DF1;
+    fill: #cb8805;
   }
   @media (max-width: 1200px) {
     width: 30px;
@@ -61,7 +61,7 @@ export const Icon = styled.div`
 `;
 
 export const Title = styled.div`
-  color: #554DF1;
+  color: #cb8805;
   font-size: 22px;
   line-height: 33px;
   font-family: "Medieval Sharp", cursive;
@@ -69,7 +69,7 @@ export const Title = styled.div`
   margin-top: 20px;
   @media (max-width: 1200px) {
     font-size:16px;
-    line-height: 24px;
+    line-height: 24px;#cb8805
     margin-top: 11px;
   }
 `;

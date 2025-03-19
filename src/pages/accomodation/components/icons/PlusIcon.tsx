@@ -11,14 +11,14 @@ const PlusIcon: React.FC = () => {
     >
       <path
         d="M17.5 7.2915V27.7082"
-        stroke="#FF827A"
+        stroke="#cb8805"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M7.29102 17.5H27.7077"
-        stroke="#FF827A"
+        stroke="#cb8805"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"

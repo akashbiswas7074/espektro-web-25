@@ -11,7 +11,7 @@ const MinusIcon: React.FC = () => {
     >
       <path
         d="M2.29102 1.5H22.7077"
-        stroke="#FF827A"
+        stroke="#cb8805"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"

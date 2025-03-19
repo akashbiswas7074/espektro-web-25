@@ -31,9 +31,9 @@ export const Title = styled.div`
   // border:2px solid red;
   width:100%;
   font-size: 30px;
-  color: #554DF1;
+  color: #cb8805;
   font-weight: 600;
-  font-family: Montserrat, sans-serif;
+  font-family: MedievalSharp;
   @media (max-width: 1200px) {
     font-size: 24px;
     letter-spacing: 0.2px;
@@ -55,6 +55,8 @@ export const AccordionStyled = styled.div`
   width: 90%;
   height: 100%;
   text-align:left;
+  font-family: MedievalSharp;
+  
   margin: 68px auto 0;
   @media (max-width: 1024px) {
     margin: 40px auto 0;
@@ -91,7 +93,7 @@ export const AccordionItem = styled.div<AccordionItemProps>`
 export const AccordionTitle = styled.div`
   font-size: 18px;
   color: #F2F5FA;
-  font-family: Poppins, sans-serif;
+  font-family: MedievalSharp;
   font-weight: 700;
   cursor: pointer;
   padding-right: 40px;
@@ -116,7 +118,7 @@ export const AccordionBody = styled.div<AccordionBodyProps>`
 export const AccordionText = styled.div`
   margin-top: 15px;
   color: #F2F5FA;
-  font-family: Montserrat, sans-serif;
+  font-family: MedievalSharp;
   font-size: 18px;
   line-height: 27px;
   @media (max-width: 768px) {
@@ -133,6 +135,7 @@ export const AccordionSwitch = styled.div<AccordionSwitchProps>`
   width: 35px;
   height: 35px;
   display: flex;
+  color: #cb8805;
   align-items: center;
   justify-content: center;
   cursor: pointer;
