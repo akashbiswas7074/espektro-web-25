@@ -932,7 +932,7 @@ const rawEventData = [
     __v: 0,
     otherPlatformUrl: "https://techtix2025.robosoccer.com",
     eventPrize: 6000,
-    // brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881662/Mathematicos_a8ukpr.pdf",
+    brochureLink : "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742404915/INQUIZZMANIA_nvlp0t.pdf",
     // registrationLink:"https://unstop.com/quiz/mathematicos-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428361"
   },
 ];
