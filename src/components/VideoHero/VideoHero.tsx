@@ -39,7 +39,7 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
-  // const [showSkipButton, setShowSkipButton] = useState(false);
+  const [showSkipButton, setShowSkipButton] = useState(false); // Reactivated skip button state
   const currentRateRef = useRef<number>(playbackRate);
   const isEndingRef = useRef(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -52,19 +52,19 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
     }
   }, []);
 
-  // Optimized skip handler
-  // const handleSkip = useCallback(() => {
-  //   if (isEndingRef.current) return;
+  // Reactivated skip handler
+  const handleSkip = useCallback(() => {
+    if (isEndingRef.current) return;
     
-  //   isEndingRef.current = true;
-  //   setIsEnding(true);
-  //   onFadeStart();
+    isEndingRef.current = true;
+    setIsEnding(true);
+    onFadeStart();
     
-  //   setTimeout(() => {
-  //     document.body.classList.remove('no-scroll');
-  //     onVideoEnd();
-  //   }, 500); // Even shorter timeout
-  // }, [onFadeStart, onVideoEnd]);
+    setTimeout(() => {
+      document.body.classList.remove('no-scroll');
+      onVideoEnd();
+    }, 500); // Even shorter timeout
+  }, [onFadeStart, onVideoEnd]);
 
   // Video loaded handler
   const handleVideoLoaded = useCallback(() => {
@@ -80,13 +80,13 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
     document.body.classList.add('no-scroll');
     
     // Show skip button after delay
-    // const skipButtonTimer = setTimeout(() => {
-    //   setShowSkipButton(true);
-    // }, 1000);
+    const skipButtonTimer = setTimeout(() => {
+      setShowSkipButton(true);
+    }, 1000);
     
     return () => {
       document.body.classList.remove('no-scroll');
-      // clearTimeout(skipButtonTimer);
+      clearTimeout(skipButtonTimer);
     };
   }, []);
 
@@ -139,24 +139,31 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
         onLoaded={handleVideoLoaded}
       />
       
-      {/* {showSkipButton && (
+      {showSkipButton && (
         <button 
           className="skip-button"
           onClick={handleSkip}
           aria-label="Skip intro video"
         >
-          <svg 
-            viewBox="0 0 24 24" 
-            width="22" 
-            height="22" 
-            stroke="currentColor" 
-            strokeWidth="2"
-          >
-            <polygon points="5 4 15 12 5 20 5 4"></polygon>
-            <line x1="19" y1="5" x2="19" y2="19"></line>
-          </svg>
+          <div className="skip-button-content">
+            <span className="skip-text">Skip</span>
+            <svg 
+              className="skip-icon" 
+              viewBox="0 0 24 24" 
+              width="20" 
+              height="20" 
+              fill="none"
+              stroke="currentColor" 
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19"></line>
+            </svg>
+          </div>
         </button>
-      )} */}
+      )}
     </div>
   );
 });
