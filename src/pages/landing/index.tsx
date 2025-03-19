@@ -92,7 +92,9 @@ const HomeScreen: React.FC = () => {
         <VideoHero 
           onVideoEnd={handleVideoEnd} 
           onFadeStart={handleVideoFadeStart}
-          playbackRate={4} // Set playback rate to 4x speed
+          playbackRate={4}
+          videoSrc="https://res.cloudinary.com/dlrlet9fg/video/upload/v1742353617/04_Final_Render_1_1_fyrxbv_prpfjo.mp4"
+          mobileVideoSrc="https://res.cloudinary.com/dlrlet9fg/video/upload/v1742354431/04_Final_Render_1_1_fyrxbv_prpfjo_t1ejqx.mp4"
         /> 
       </div>
       

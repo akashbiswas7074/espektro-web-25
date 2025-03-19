@@ -6,6 +6,7 @@ interface VideoHeroProps {
   onFadeStart: () => void;
   playbackRate?: number;
   videoSrc?: string;
+  mobileVideoSrc?: string;
 }
 
 // Simplified video element with reduced props
@@ -35,7 +36,8 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
   onVideoEnd, 
   onFadeStart,
   playbackRate = 4, // Changed from 1.8 to 4 for faster playback
-  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742353617/04_Final_Render_1_1_fyrxbv_prpfjo.mp4" // Added quality parameters
+  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742353617/04_Final_Render_1_1_fyrxbv_prpfjo.mp4", // Added quality parameters
+  mobileVideoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742354431/04_Final_Render_1_1_fyrxbv_prpfjo_t1ejqx.mp4"
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
@@ -43,6 +45,29 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
   const currentRateRef = useRef<number>(playbackRate);
   const isEndingRef = useRef(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if device is mobile on component mount
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768 || 
+                    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(mobile);
+    };
+    
+    // Check initially
+    checkMobile();
+    
+    // Add resize listener to check when window size changes
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
+  // Use the appropriate video source based on device type
+  const activeVideoSrc = isMobile ? mobileVideoSrc : videoSrc;
   
   // Simplified playback rate change - no animations
   const changePlaybackRate = useCallback((newRate: number) => {
@@ -135,7 +160,7 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
     <div className={`video-hero-container ${isEnding ? 'fade-out' : ''}`}>
       <VideoElement 
         videoRef={videoRef}
-        videoSrc={videoSrc}
+        videoSrc={activeVideoSrc} // Use the device-appropriate video source
         onLoaded={handleVideoLoaded}
       />
       
