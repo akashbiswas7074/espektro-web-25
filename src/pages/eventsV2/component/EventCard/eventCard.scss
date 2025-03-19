@@ -48,19 +48,19 @@
 
   background-color: $black-light;
   border-radius: 10px;
-  height: 450px; // Reduced from 580px
-  min-height: 450px; // Reduced from 580px
-  max-height: none; // Remove max-height constraint
-  width: 100%; // Ensure card takes full width of grid cell
+  height: 580px; // Use mobile height for all devices
+  min-height: 580px;
+  max-height: none;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; // Always use column layout
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: 0 0 20px rgba(214, 115, 16, 0.5); 
+    box-shadow: 0 0 20px rgba(214, 115, 16, 0.5);
     transform: translateY(-5px);
     &::before {
       transform: translateX(100%);
@@ -95,24 +95,29 @@
   }
 
   .image {
-    width: 220px; // Reduced from 400px
-    min-width: 220px; // Reduced from 400px
+    height: 220px; // Fixed height for the image
+    min-height: 220px;
+    width: 100%; // Take full width of the card
     position: relative;
-    border-radius: 10px 0px 0 10px;
+    border-radius: 10px 10px 0 0; // Rounded corners at the top
     overflow: hidden; // Ensure image doesn't overflow
-    
-    // Enhanced image container
+
+    // Enhanced image container with blur effect on sides
     &::before {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(
         90deg,
-        rgba(0, 0, 0, 0.4) 0%,
-        transparent 30%
+        rgba(0, 0, 0, 0.6) 0%,
+        transparent 15%,
+        transparent 85%,
+        rgba(0, 0, 0, 0.6) 100%
       );
       z-index: 2;
       pointer-events: none; // Allow clicks to pass through
+     
+      
     }
 
     img {
@@ -121,9 +126,25 @@
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 10px 0px 0 10px;
+      border-radius: 10px 10px 0 0; // Rounded corners at the top
       object-fit: cover; // Ensure consistent image rendering
       object-position: center; // Center the image
+    }
+
+    // Add gradient overlay for better text contrast
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.6),
+        transparent
+      );
+      z-index: 2;
     }
   }
 
@@ -141,19 +162,18 @@
   }
 
   .details {
-    flex-grow: 1;
+    height: calc(100% - 220px); // Take remaining space
     padding: 1.2rem 1rem 0.8rem 1rem; // Reduced padding
     position: relative;
     display: flex;
     flex-direction: column;
     overflow-y: auto; // Add scrolling for overflow content
-    max-height: 100%; // Ensure it doesn't overflow the card
 
     .event-title-tagline {
       flex-grow: 0; // Don't let title expand too much
       text-align: left;
       margin-bottom: 10px;
-      
+
       h3 {
         font-size: 16px; // Smaller font size
         font-weight: 600;
@@ -240,160 +260,59 @@
     gap: 1rem; // Reduced gap
     margin-bottom: 0.2rem; // Add small margin between rows
   }
-
-  // Add styles to handle variable height in carousel
-  .active-card & {
-    height: 100%; // Fill parent height when in active card
-    min-height: unset; // Remove fixed min-height
-    max-height: none; // Remove max-height constraint
+  
+  // Buttons container - add this new class
+  .button-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
     
-    // Adjust content for variable height
-    .details {
-      .timeline {
-        // Reduce spacing in timeline section
-        gap: 0.35rem; // Tighter spacing between items
-      }
-      
-      .text-details-row {
-        margin-bottom: 0.2rem; // Add margin between rows for spacing
-      }
+    .btn {
+      flex: 1;
     }
   }
 }
 
-@media only screen and (max-width: 992px) {
-  .event-card {
-    height: 450px; // Same as desktop now
-    min-height: 450px;
-    .image {
-      width: 220px;
-      min-width: 220px;
-    }
-  }
-}
-
+// Responsive adjustments for smaller screens
 @media only screen and (max-width: 768px) {
   .event-card {
-    height: 450px; // Same as desktop now
-    min-height: 450px;
-    .image {
-      width: 200px;
-      min-width: 200px;
+    .details {
+      padding: 1rem; // Reduce padding for smaller screens
     }
   }
 }
 
+// Add new media query for screens below 548px
 @media only screen and (max-width: 548px) {
   .event-card {
-    flex-direction: column;
-    overflow: hidden;
-    height: 580px; // Increased for mobile
-    min-height: 580px;
-    max-height: none;
-
     .image {
-      height: 220px; // Increase from 180px
-      min-height: 220px;
-      width: 100%;
-      min-width: 100%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-
-      img {
-        display: block;
-        object-fit: contain;
-        backdrop-filter: blur(5px) brightness(0.5);
-        border-radius: 0;
-        object-position: center; // Better image positioning
-      }
-      
-      // Add gradient overlay for better text contrast
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 40px;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.6),
-          transparent
-        );
-        z-index: 2;
-      }
+      height: 240px; // Increase image height for small screens
+      min-height: 240px;
     }
     
     .details {
-      height: calc(100% - 220px); // Adjust to match new image height
-      overflow-y: auto;
-      
-      // Optimize spacing for content
-      .event-title-tagline {
-        margin-bottom: 8px;
-      }
-      
-      .timeline {
-        margin-top: 0.3rem;
-        
-        .text-details-row {
-          margin-bottom: 0.4rem;
-        }
-      }
-      
-      .flex {
-        gap: 2px; // Reduce gap between buttons
-        margin-top: 0.75rem;
-      }
+      height: calc(100% - 240px); // Reduce content height accordingly
+      padding: 0.8rem; // Reduce padding further
+    }
+    
+    // Change button layout to column
+    .button-container {
+      flex-direction: column;
+      gap: 0.5rem;
     }
   }
 }
 
-// Very small devices
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 480px) {
   .event-card {
     .image {
-      height: 200px; // Slightly smaller on very small screens
-      min-height: 200px;
+      height: 260px; // Even larger image height for very small screens
+      min-height: 260px;
     }
     
     .details {
-      height: calc(100% - 200px); // Adjust to match
-      padding: 1.2rem 1rem; // Reduce padding on very small screens
-      
-      .flex {
-        flex-direction: column; // Stack buttons on very small screens
-        gap: 8px;
-      }
-    }
-  }
-}
-
-// Responsive adjustments for desktop
-@media only screen and (min-width: 1400px) {
-  .event-card {
-    .image {
-      width: 250px; // Reduced from 450px
-      min-width: 250px;
-    }
-  }
-}
-
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
-  .event-card {
-    .image {
-      width: 220px; // Reduced from 420px
-      min-width: 220px;
-    }
-  }
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .event-card {
-    .image {
-      width: 200px; // Reduced from 350px
-      min-width: 200px;
+      height: calc(100% - 260px); // Further reduce content height
+      padding: 0.8rem 0.6rem; // Reduce padding further for very small screens
     }
   }
 }

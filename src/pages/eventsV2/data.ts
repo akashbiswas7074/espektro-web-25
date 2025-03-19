@@ -481,7 +481,15 @@ const rawEventData = [
   brochureLink: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741802818/WRESTLEMANIA_TECHTIX-1_b64hh8.pdf",
   registrationLink:"https://unstop.com/p/wrestlemania-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428238"
 },
-{
+{ _id: "evt040",
+    title: "Puzzlify",
+    description: "A robotic combat competition where participants design and build bots to battle in a dynamic arena. The objective is to outmaneuver, topple, or disable the opponent’s bot using strategic moves and built-in mechanisms.",
+    rules: "The bot can be wired or wireless and must not exceed 8 kg. Dimensions must be within 30cm x 40cm x 30cm (5% tolerance). Voltage between any two points must not exceed 24V. Ready-made logo kits are not allowed. IC engines are not permitted. Teams must use their own power supply. Bots may have weapons or moving parts, but must stay within the size limit. The arena consists of starting points, pits, and throw-away zones. If a bot fails to move, the opponent wins. Points are awarded for successful attacks. The team with the highest points at the end wins. Judges' decisions are final.",
+    prizes: "Total Prize Pool: ₹35,000 (subject to change based on participation).",
+    tagLine: "Battle. Dominate. Conquer.",
+    startTime: "2025-03-25T13:00:00Z",
+    endTime: "2025-03-25T16:00:00Z",
+    eventVenue: "MSB Lab",
   eventImages: [
       {
           url: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741809393/PUZZLIFY_WEB_dn0eat.png",
@@ -872,6 +880,61 @@ const rawEventData = [
   brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881662/Mathematicos_a8ukpr.pdf",
   registrationLink:"https://unstop.com/quiz/mathematicos-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428361"
 },
+{
+    _id: "evt029",
+    title: "U-25 General Quiz Competition",
+    description: "A robotic soccer competition where teams design manual robots to compete in an arena designed for robotic soccer matches.",
+    rules: "Each team must bring one robot. Only one participant controls the robot during a match. Robots cannot grab or withhold the ball. Judges' decisions are final.",
+    prizes: "Total Prize Pool: ₹20,000 (subject to change based on participation).",
+    tagLine: "Build. Compete. Dominate.",
+    startTime: "2025-03-24T14:00:00Z",
+    endTime: "2025-03-24T16:00:00Z",
+    eventVenue: "MSB Seminar Hall",
+    eventImages: [
+        {
+            url: "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742398397/WhatsApp_Image_2025-03-19_at_16.42.59_7b07b960_rblthe.jpg",
+            _id: "img003"
+        }
+    ],
+    eventType: "Technical",
+    eventMinParticipants: 1,
+    eventMaxParticipants: 1,
+    eventPrice: 0,
+    eventPriceForKGEC: 0,
+    eventOrganiserClub: {
+        name: "Les Quizerables",
+        image: "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742398486/less_qizarable_gpy4u0.png"
+    },
+    eventCoordinators: [
+        {
+            name: "Swayamprabha Banerjee",
+            phone: "8370861237",
+            _id: "coord003"
+        },
+        {
+            name: "Souhardya Patra",
+            phone: "7439621501",
+            _id: "coord003"
+        }
+    ],
+    createdBy: "admin124",
+    sponsors: [
+        {
+            name: "BotTech Innovations",
+            type: "Gold",
+            _id: "spons003",
+            image: "https://example.com/images/bottech-innovations-logo.jpg"
+        }
+    ],
+    eventWinList: [],
+    createdAt: "2025-02-10T12:30:00Z",
+    updatedAt: "2025-03-01T15:45:00Z",
+    __v: 0,
+    otherPlatformUrl: "https://techtix2025.robosoccer.com",
+    eventPrize: 6000,
+    // brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741881662/Mathematicos_a8ukpr.pdf",
+    // registrationLink:"https://unstop.com/quiz/mathematicos-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428361"
+  },
 ];
 
 // Process the raw data to add the required id field
