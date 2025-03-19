@@ -170,24 +170,20 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
           onClick={handleSkip}
           aria-label="Skip intro video"
         >
-          <div className="skip-button-content">
-            <span className="skip-text"></span>
-            <svg 
-              className="skip-icon" 
-              viewBox="0 0 24 24" 
-              width="20" 
-              height="20" 
-              fill="none"
-              stroke="currentColor" 
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polygon points="5 4 15 12 5 20 5 4"></polygon>
-              <line x1="19" y1="5" x2="19" y2="19"></line>
-          
-            </svg>
-          </div>
+          <svg 
+            className="skip-icon" 
+            viewBox="0 0 24 24" 
+            width="20" 
+            height="20" 
+            fill="none"
+            stroke="currentColor" 
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polygon points="5 4 15 12 5 20 5 4"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19"></line>
+          </svg>
         </button>
       )}
     </div>
