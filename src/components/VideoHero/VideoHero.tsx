@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback, memo } from 'react';
 import './VideoHero.css';
 
 interface VideoHeroProps {
@@ -8,7 +8,7 @@ interface VideoHeroProps {
   videoSrc?: string;
 }
 
-const VideoHero: React.FC<VideoHeroProps> = ({ 
+const VideoHero: React.FC<VideoHeroProps> = memo(({ 
   onVideoEnd, 
   onFadeStart,
   playbackRate = 2,
@@ -20,14 +20,15 @@ const VideoHero: React.FC<VideoHeroProps> = ({
   const currentRateRef = useRef<number>(playbackRate);
   const targetRateRef = useRef<number>(playbackRate);
   const animationRef = useRef<number | null>(null);
-
-  // Easing function for smooth transitions (ease-in-ease-out)
-  const easeInOutQuad = (t: number): number => {
+  const isEndingRef = useRef(false);
+  
+  // Optimized easing function
+  const easeInOutQuad = useCallback((t: number): number => {
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  };
+  }, []);
 
-  // Function to smoothly transition between playback rates
-  const animatePlaybackRate = (timestamp: number, startTime: number, startRate: number, endRate: number, duration: number) => {
+  // Memoized animation function to prevent recreation on each render
+  const animatePlaybackRate = useCallback((timestamp: number, startTime: number, startRate: number, endRate: number, duration: number) => {
     const elapsed = timestamp - startTime;
     const progress = Math.min(elapsed / duration, 1);
     const easedProgress = easeInOutQuad(progress);
@@ -46,10 +47,10 @@ const VideoHero: React.FC<VideoHeroProps> = ({
     } else {
       animationRef.current = null;
     }
-  };
+  }, [easeInOutQuad]);
 
-  // Function to start a new rate transition
-  const changePlaybackRate = (newRate: number) => {
+  // Optimized playback rate change function
+  const changePlaybackRate = useCallback((newRate: number) => {
     if (currentRateRef.current === newRate) return;
     
     targetRateRef.current = newRate;
@@ -57,63 +58,84 @@ const VideoHero: React.FC<VideoHeroProps> = ({
     // Cancel any ongoing animation
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
     }
     
     const startRate = currentRateRef.current;
-    const transitionDuration = 1000; // 1 second transition
+    const transitionDuration = 800; // Slightly faster transition for better performance
     
     animationRef.current = requestAnimationFrame((timestamp) => 
       animatePlaybackRate(timestamp, timestamp, startRate, newRate, transitionDuration)
     );
-  };
+  }, [animatePlaybackRate]);
 
-  // Function to handle skip button click
-  const handleSkip = () => {
+  // Optimized skip handler
+  const handleSkip = useCallback(() => {
     setIsEnding(true);
+    isEndingRef.current = true;
     onFadeStart();
     
     setTimeout(() => {
       document.body.classList.remove('no-scroll');
       onVideoEnd();
-    }, 1000);
-  };
+    }, 800); // Shorter timeout for better responsiveness
+  }, [onFadeStart, onVideoEnd]);
 
+  // Initial setup - add no-scroll class
   useEffect(() => {
-    // Add no-scroll class to body when component mounts
     document.body.classList.add('no-scroll');
     
     return () => {
       document.body.classList.remove('no-scroll');
+      // Clean up any animations on unmount
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
     };
   }, []);
 
+  // Show skip button after short delay and setup video event handlers
   useEffect(() => {
-    // Show skip button after 2 seconds
+    // Show skip button after a short delay
     const skipButtonTimer = setTimeout(() => {
       setShowSkipButton(true);
-    }, 2000);
+    }, 1500); // Show skip button earlier
 
     const videoElement = videoRef.current;
     if (videoElement) {
-      // Set initial playback rate when video is loaded
+      // Cache DOM element reference for performance
+      
+      // Set video properties for better performance
       videoElement.playbackRate = playbackRate;
+      videoElement.muted = true; // Ensure video is muted
+      videoElement.setAttribute('playsinline', ''); // Ensure inline playback
+      videoElement.setAttribute('disablePictureInPicture', ''); // Disable PiP
       currentRateRef.current = playbackRate;
       
+      // Optimize timeupdate frequency for smoother playback
+      let lastProgressCheck = 0;
+      const timeUpdateInterval = 80; // ms - balance between smoothness and performance
+      
       const handleTimeUpdate = () => {
+        const now = performance.now();
+        if (now - lastProgressCheck < timeUpdateInterval) return;
+        lastProgressCheck = now;
+        
         const currentProgress = videoElement.currentTime / videoElement.duration;
         
-        // Dynamic playback rate based on video progress with smooth transitions
-        if (currentProgress < 0.08) {
-          changePlaybackRate(3);
-        } else if (currentProgress < 0.77) {
-          changePlaybackRate(4);
+        // Simplified dynamic playback rate to improve performance
+        if (currentProgress < 0.1) {
+          changePlaybackRate(2.5);
+        } else if (currentProgress < 0.75) {
+          changePlaybackRate(3.5);
         } else {
           changePlaybackRate(2);
         }
         
-        // Trigger fade out when video is almost complete (last 2 seconds)
-        if (videoElement.duration - videoElement.currentTime < 2 && !isEnding) {
+        // Trigger fade out when video is almost complete
+        if (videoElement.duration - videoElement.currentTime < 2 && !isEndingRef.current) {
           setIsEnding(true);
+          isEndingRef.current = true;
           onFadeStart();
         }
       };
@@ -126,27 +148,23 @@ const VideoHero: React.FC<VideoHeroProps> = ({
       videoElement.addEventListener('timeupdate', handleTimeUpdate);
       videoElement.addEventListener('ended', handleEnded);
       
+      // Optimize loadeddata handler
       videoElement.addEventListener('loadeddata', () => {
         videoElement.playbackRate = playbackRate;
         currentRateRef.current = playbackRate;
-      });
+      }, { once: true }); // Only needs to run once
 
       return () => {
         clearTimeout(skipButtonTimer);
         videoElement.removeEventListener('timeupdate', handleTimeUpdate);
         videoElement.removeEventListener('ended', handleEnded);
-        videoElement.removeEventListener('loadeddata', () => {});
-        
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-        }
       };
     }
 
     return () => {
       clearTimeout(skipButtonTimer);
     };
-  }, [onVideoEnd, onFadeStart, isEnding, playbackRate]);
+  }, [onVideoEnd, onFadeStart, playbackRate, changePlaybackRate]);
 
   return (
     <div className={`video-hero-container ${isEnding ? 'fade-out' : ''}`}>
@@ -157,6 +175,8 @@ const VideoHero: React.FC<VideoHeroProps> = ({
         muted
         playsInline
         preload="auto"
+        disablePictureInPicture
+        style={{ willChange: 'transform' }} // Performance hint for GPU acceleration
       >
         <source src={videoSrc} type="video/mp4" />
       </video>
@@ -188,6 +208,6 @@ const VideoHero: React.FC<VideoHeroProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default VideoHero;
