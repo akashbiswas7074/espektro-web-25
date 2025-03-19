@@ -35,7 +35,7 @@ const VideoHero: React.FC<VideoHeroProps> = memo(({
   onVideoEnd, 
   onFadeStart,
   playbackRate = 4, // Changed from 1.8 to 4 for faster playback
-  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/q_auto:low,f_auto/v1742204358/04_Final_Render_1_1_fyrxbv.mp4" // Added quality parameters
+  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742353617/04_Final_Render_1_1_fyrxbv_prpfjo.mp4" // Added quality parameters
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
