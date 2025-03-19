@@ -358,7 +358,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
             </svg>
           </button>
         )}
-        
+        <div className="hidden">
         <button 
           className={`audio-toggle ${showSkipButton ? 'visible' : ''} ${audioPlaying ? 'audio-playing' : ''}`}
           onClick={toggleAudio}
@@ -399,11 +399,11 @@ const VideoHero: React.FC<VideoHeroProps> = ({
               <line x1="17" y1="9" x2="23" y2="15"></line>
             </svg>
           )}
-        </button>
+        </button></div>
       </div>
       
       {/* Hidden audio player */}
-      <div className="audio-player-container">
+      <div className="audio-player-container hidden">
         <AudioPlayer
           ref={audioPlayerRef}
           autoPlay={false} // We'll handle this manually for better control

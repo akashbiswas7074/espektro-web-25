@@ -31,7 +31,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <><div className="font-medieval">
       <Navbar />
       {/* <AudioControl showDelay={1000} /> */}
       <Routes>
@@ -41,7 +41,7 @@ const App: React.FC = () => {
         <Route path="/accomodation" element={<AccomodationScreen/>} /> 
         {/* <Route path="/espektro-merchandise" element={<MerchandiseScreen />} /> */}
         <Route path="*" element={<ErrorPage />} />
-      </Routes></>
+      </Routes></div></>
     
   );
 };

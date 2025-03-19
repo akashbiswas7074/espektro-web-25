@@ -1,6 +1,6 @@
 import "./Hero.css";
 import "./AudioControls.css";
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import SectionWrapper from "@/components-global/section-divider";
 

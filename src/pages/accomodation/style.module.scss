@@ -1,6 +1,17 @@
 @import '../../styles/fonts';
 @import '../../styles/colors';
 
+/* Import MedievalSharp font */
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('../../assets/fonts/MedievalSharp-Regular.woff2') format('woff2'),
+       url('../../assets/fonts/MedievalSharp-Regular.woff') format('woff'),
+       url('../../assets/fonts/MedievalSharp-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .accomodation__page {
     padding-top: 5rem;
     background-color: $primary;
@@ -22,7 +33,7 @@
 
 body {
     margin: 0;
-    font-family: $medieval-sharp;
+    font-family: 'MedievalSharp', $medieval-sharp, serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -73,7 +84,7 @@ body {
 
         .heading {
             color: #cb8805;
-            font-family: $medieval-sharp;
+            font-family: 'MedievalSharp', $medieval-sharp, serif;
             font-size: 32px;
             font-weight: 700;
 

@@ -243,11 +243,12 @@ function Navigation() {
             toggleMobileNav ? styles.background__transparent : ""
           }`}
         >
-          <a className={styles.logo__container}>
+          <a className={styles.logo__container}  href="/">
             <div>
               <img
                 src="https://res.cloudinary.com/dlrlet9fg/image/upload/v1742209222/especktro_25_sz9geh.png"
                 alt="logo"
+               
               />
             </div>
           </a>
@@ -290,13 +291,13 @@ function Navigation() {
           >
             <div className={styles.mobile__navigation__links}>
               <div>
-                <h1 className="mobile-navigation-heading">espektro</h1>
+                <h1 className="mobile-navigation-heading ">espektro</h1>
               </div>
               <ul>
                 {links.map((link) => (
                   <li
                     key={link.id}
-                    className="link"
+                    className="link font-medieval"
                     onClick={() => {
                       if (toggleMobileNav) {
                         setToggleMobileNav((prev) => !prev);
