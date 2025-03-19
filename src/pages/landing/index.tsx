@@ -129,7 +129,7 @@ const HomeScreen: React.FC = () => {
                     onError={handleImageError}
                   />
                 </div>
-                <div className="tagline-container">
+                <div className="tagline-container flex justify-center items-center">
                   <MainTextAnimation
                     text="THE WONDERS WEAVE"
                     className="tagline text-[1rem] md:text-[1.4rem] lg:text-[1.8rem] font-light tracking-wider text-gray-200"
