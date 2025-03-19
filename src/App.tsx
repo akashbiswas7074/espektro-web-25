@@ -1,5 +1,5 @@
 import "./App.css";
-import "./styles/cloudBackground.css";
+// import "./styles/cloudBackground.css";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components-global/navbar/navbar";
