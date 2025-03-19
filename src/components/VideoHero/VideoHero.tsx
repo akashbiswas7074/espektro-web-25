@@ -5,12 +5,14 @@ interface VideoHeroProps {
   onVideoEnd: () => void;
   onFadeStart: () => void;
   playbackRate?: number;
+  videoSrc?: string;
 }
 
 const VideoHero: React.FC<VideoHeroProps> = ({ 
   onVideoEnd, 
   onFadeStart,
   playbackRate = 2,
+  videoSrc = "https://res.cloudinary.com/dlrlet9fg/video/upload/v1742204358/04_Final_Render_1_1_fyrxbv.mp4"
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isEnding, setIsEnding] = useState(false);
@@ -156,10 +158,7 @@ const VideoHero: React.FC<VideoHeroProps> = ({
         playsInline
         preload="auto"
       >
-        <source 
-          src="https://res.cloudinary.com/dlrlet9fg/video/upload/v1742204358/04_Final_Render_1_1_fyrxbv.mp4" 
-          type="video/mp4"
-        />
+        <source src={videoSrc} type="video/mp4" />
       </video>
       
       <div className="hero-controls">

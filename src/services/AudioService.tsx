@@ -12,10 +12,8 @@ const AudioContext = createContext<AudioContextType>({
   setAudioSource: () => {},
 });
 
-// This should be a named export
 export const useAudio = () => useContext(AudioContext);
 
-// This should be a named export
 export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioInitialized, setAudioInitialized] = useState(false);

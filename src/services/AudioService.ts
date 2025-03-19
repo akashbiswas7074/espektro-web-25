@@ -5,7 +5,6 @@ class AudioService {
   private audio: HTMLAudioElement | null = null;
   private isInitialized: boolean = false;
   private attemptInterval: NodeJS.Timeout | null = null;
-  // private _audioSrc: string = '';
   
   /**
    * Initialize the audio service with a source
