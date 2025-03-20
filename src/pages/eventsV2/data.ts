@@ -68,12 +68,12 @@ const rawEventData = [
     rules: "Each team must bring one robot. Only one participant controls the robot during a match. Robots cannot grab or withhold the ball. Judges' decisions are final.",
     prizes: "Total Prize Pool: ₹20,000 (subject to change based on participation).",
     tagLine: "Build. Compete. Dominate.",
-    startTime: "2025-03-21T10:00:00Z",
-    endTime: "2025-03-21T12:00:00Z",
+    startTime: "2025-03-21T18:00:00Z",
+    endTime: "2025-03-21T22:00:00Z",
     eventVenue: "Online",
     eventImages: [
         {
-            url: "https://res.cloudinary.com/dlxpcyiin/image/upload/v1741859268/CAD_competition_xrazm1.png",
+            url: "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742491479/img_file_bbtmam.jpg",
             _id: "img003"
         }
     ],
@@ -933,7 +933,7 @@ const rawEventData = [
     otherPlatformUrl: "https://techtix2025.robosoccer.com",
     eventPrize: 6000,
     brochureLink : "https://res.cloudinary.com/dlxpcyiin/image/upload/v1742404915/INQUIZZMANIA_nvlp0t.pdf",
-    // registrationLink:"https://unstop.com/quiz/mathematicos-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428361"
+    registrationLink:"https://docs.google.com/forms/d/e/1FAIpQLSfzeItAZA2FI8BsXbSQ8cGEuaIVH5i3XtSnTyreZ_CQZ7rDHg/viewform?usp=header"
   },
 ];
 
