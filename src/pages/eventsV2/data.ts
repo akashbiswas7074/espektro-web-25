@@ -826,7 +826,7 @@ const rawEventData = [
   updatedAt: "2025-03-01T15:45:00Z",
   __v: 0,
   otherPlatformUrl: "https://techtix2025.robosoccer.com",
-  eventPrize: 1000,
+  eventPrize: 3000,
   brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741878549/FINAL_COPY_Rule_Book_for_SMAW_Welding_Competetion_a2e7s9.pdf",
   registrationLink:"https://unstop.com/p/goblet-of-sparks-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1429747"
 },
