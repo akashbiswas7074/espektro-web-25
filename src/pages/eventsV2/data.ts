@@ -123,8 +123,8 @@ const rawEventData = [
     rules: "Each team must bring one robot. Only one participant controls the robot during a match. Robots cannot grab or withhold the ball. Judges' decisions are final.",
     prizes: "Total Prize Pool: ₹20,000 (subject to change based on participation).",
     tagLine: "Build. Compete. Dominate.",
-    startTime: "2025-03-24T12:00:00Z",
-    endTime: "2025-03-24T14:00:00Z",
+    startTime: "2025-04-03T12:00:00Z",
+    endTime: "2025-04-03T14:00:00Z",
     eventVenue: "MSB-109",
     eventImages: [
         {
@@ -433,8 +433,8 @@ const rawEventData = [
   rules: "The bot can be wired or wireless and must not exceed 8 kg. Dimensions must be within 30cm x 40cm x 30cm (5% tolerance). Voltage between any two points must not exceed 24V. Ready-made logo kits are not allowed. IC engines are not permitted. Teams must use their own power supply. Bots may have weapons or moving parts, but must stay within the size limit. The arena consists of starting points, pits, and throw-away zones. If a bot fails to move, the opponent wins. Points are awarded for successful attacks. The team with the highest points at the end wins. Judges' decisions are final.",
   prizes: "Total Prize Pool: ₹35,000 (subject to change based on participation).",
   tagLine: "Battle. Dominate. Conquer.",
-  startTime: "2025-03-26T10:00:00Z",
-  endTime: "2025-03-26T14:00:00Z",
+  startTime: "2025-04-03T10:00:00Z",
+  endTime: "2025-04-03T14:00:00Z",
   eventVenue: "Admin Building",
   eventImages: [
       {
@@ -637,8 +637,8 @@ const rawEventData = [
   rules: "Each team must bring one robot. Only one participant controls the robot during a match. Robots cannot grab or withhold the ball. Judges' decisions are final.",
   prizes: "Total Prize Pool: ₹20,000 (subject to change based on participation).",
   tagLine: "Build. Compete. Dominate.",
-  startTime: "2025-03-26T11:00:00Z",
-  endTime: "2025-03-26T13:00:00Z",
+  startTime: "2025-04-04T11:00:00Z",
+  endTime: "2025-04-04T13:00:00Z",
   eventVenue: "/msb-109",
   eventImages: [
       {
