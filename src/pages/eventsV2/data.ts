@@ -164,7 +164,7 @@ const rawEventData = [
     otherPlatformUrl: "https://techtix2025.robosoccer.com",
     eventPrize: 5000,
     brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741893923/Code_Dictator_1_sgh9x5.pdf",
-    registrationLink:"https://unstop.com/p/code-dictator-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428417"
+    registrationLink:"https://practice.geeksforgeeks.org/contest/code-dictator"
   },
   {
     _id: "evt015",
@@ -639,7 +639,7 @@ const rawEventData = [
   tagLine: "Build. Compete. Dominate.",
   startTime: "2025-04-04T11:00:00Z",
   endTime: "2025-04-04T13:00:00Z",
-  eventVenue: "/msb-109",
+  eventVenue: "MSB-109",
   eventImages: [
       {
           url: "https://res.cloudinary.com/dm1uflelj/image/upload/v1741809393/code_the_canvas_vy0rxt.png",
@@ -678,7 +678,7 @@ const rawEventData = [
   otherPlatformUrl: "https://techtix2025.robosoccer.com",
   eventPrize: 6000,
   brochureLink : "https://res.cloudinary.com/di4qqgdw2/image/upload/v1741884047/Code_The_Canvas_iba1ql.pdf",
-  registrationLink:"https://unstop.com/p/code-the-canvas-x-espektro25-kgec-techtix-kgec-kalyani-government-engineering-college-kgec-west-bengal-1428406"
+  registrationLink:"https://practice.geeksforgeeks.org/contest/code-the-canvas"
 },
 {
   _id: "evt005",
